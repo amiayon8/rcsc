@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Rajuk College Science Club - Explore Innovation & Creativity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Rajuk College Science Club (RCSC) is the largest science club in Bangladesh, fostering innovation and creativity among students.">
+    <meta name="keywords"
+        content="Rajuk College Science Club, RCSC, science club Bangladesh, innovation, SciSpark, student science club">
+    <meta name="author" content="Rajuk College Science Club">
+
+    <!-- Open Graph Meta Tags (For Social Media) -->
+    <meta property="og:title" content="Rajuk College Science Club - Explore Innovation & Creativity">
+    <meta property="og:description"
+        content="Join RCSC, Bangladesh’s largest science club, and be part of a journey of innovation, exploration, and limitless possibilities.">
+    <meta property="og:image" content="https://yourdomain.com/rcsc-banner.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="styles.css">
+    <script src="main.js" defer></script>
+    <script src="tailwind.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wdth,wght@50..200,200..900&family=Lexend:wght@100..900&family=Nunito+Sans:ital,opsz,wdth,wght,YTLC@0,6..12,75..125,200..1000,440..540;1,6..12,75..125,200..1000,440..540&display=swap"
+        rel="stylesheet">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        .nunito {
+            font-family: 'Nunito Sans', sans-serif;
+        }
+
+        .inconsolata {
+            font-family: 'Inconsolata', monospace;
+        }
+
+        .lexend {
+            font-family: 'Lexend', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-gray-300">
+    <button id="scrollToTop" onclick="scrollFunction()"
+        class="fixed hidden bottom-5 right-5 shadow-lg bg-black rounded-lg px-3 py-3 z-40">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="up-2" data-name="Flat Color"
+            class="fill-white h-4 w-4">
+            <path id="primary"
+                d="M21,19a1,1,0,0,1-.8-.4L12,7.67,3.8,18.6a1,1,0,1,1-1.6-1.2l9-12a1,1,0,0,1,1.6,0l9,12a1,1,0,0,1-.2,1.4A1,1,0,0,1,21,19Z"
+                class="fill-white" />
+        </svg>
+    </button>
+    <nav class="w-full min-h-[100px] flex items-center justify-center relative">
+        <div class="max-w-[1200px] flex flex-row justify-between items-center w-full mx-4 sm:my-4">
+            <a class="flex flex-row items-center gap-2" href="/">
+                <img src="logo.webp" class="h-16 sm:h-24" alt="">
+                <span class="font-extrabold tracking-tight nunito">RAJUK COLLEGE<br>SCIENCE CLUB</span>
+            </a>
+
+            <div
+                class="rounded-3xl text-sm hover:scale-105 transition-all duration-150 bg-black shadow-sm shadow-gray-800 md:flex flex-row hidden px-12 py-3">
+                <a href="/" class="flex-grow transition-all duration-150 hover:scale-105 pr-5">Home</a>
+                <a href="/achievements"
+                    class="flex-grow text-gray-300 transition-all duration-150 hover:scale-105 px-5">Achievements</a>
+                <a href="/content"
+                    class="flex-grow text-gray-300 transition-all duration-150 hover:scale-105 pl-5">Content</a>
+            </div>
+            <div class="flex flex-row items-center gap-2 lg:gap-8">
+                <div class="sm:block hidden">
+                    <button
+                        class="bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 text-white px-3 py-2 rounded-lg text-md font-semibold lexend tracking-wide max-w-[8rem]">
+                        Register Now
+                    </button>
+                </div>
+
+                <button onclick="toggleNav()" class="p-0 m-0">
+                    <svg id="hamburger" class="h-6" viewbox="0 0 60 40">
+                        <g stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                            <path id="top-line" d="M10,10 L50,10 Z"></path>
+                            <path id="middle-line" d="M10,20 L50,20 Z"></path>
+                            <path id="bottom-line" d="M10,30 L50,30 Z"></path>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="nav-overlay" style="transform: translateX(100%); cursor: pointer;"
+            class="fixed z-80 inset-0 w-screen h-screen bg-black/50"></div>
+        <div id="nav-menu" style="transform: translateX(100%);"
+            class="sidebar cursor-default transition-transform h-[calc(100vh-80px)] sm:h-[calc(100vh-120px)] w-[70vw] max-w-[350px] fixed z-90 top-[80px] sm:top-[120px] right-0 shadow-sm shadow-gray-700">
+            <div class="relative h-full w-full">
+                <div class="absolute inset-0 backdrop-blur-[10px] backdrop-brightness-90">
+                </div>
+                <div class="flex flex-col justify-between absolute inset-0 z-30 w-full h-full">
+                    <ul class="text-gray-300 w-full divide-y divide-y-1 divide-solid divide-gray-500">
+                        <li
+                            class="text-white pl-5 sm:pl-7 pr-5 py-5 flex flex-row items-center justify-start gap-3 hover:text-gray-200 transition-all cursor-pointer">
+                            <svg class="h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M12.2796 3.71579C12.097 3.66261 11.903 3.66261 11.7203 3.71579C11.6678 3.7311 11.5754 3.7694 11.3789 3.91817C11.1723 4.07463 10.9193 4.29855 10.5251 4.64896L5.28544 9.3064C4.64309 9.87739 4.46099 10.0496 4.33439 10.24C4.21261 10.4232 4.12189 10.6252 4.06588 10.8379C4.00765 11.0591 3.99995 11.3095 3.99995 12.169V17.17C3.99995 18.041 4.00076 18.6331 4.03874 19.0905C4.07573 19.536 4.14275 19.7634 4.22513 19.9219C4.41488 20.2872 4.71272 20.5851 5.07801 20.7748C5.23658 20.8572 5.46397 20.9242 5.90941 20.9612C6.36681 20.9992 6.95893 21 7.82995 21H7.99995V18C7.99995 15.7909 9.79081 14 12 14C14.2091 14 16 15.7909 16 18V21H16.17C17.041 21 17.6331 20.9992 18.0905 20.9612C18.5359 20.9242 18.7633 20.8572 18.9219 20.7748C19.2872 20.5851 19.585 20.2872 19.7748 19.9219C19.8572 19.7634 19.9242 19.536 19.9612 19.0905C19.9991 18.6331 20 18.041 20 17.17V12.169C20 11.3095 19.9923 11.0591 19.934 10.8379C19.878 10.6252 19.7873 10.4232 19.6655 10.24C19.5389 10.0496 19.3568 9.87739 18.7145 9.3064L13.4748 4.64896C13.0806 4.29855 12.8276 4.07463 12.621 3.91817C12.4245 3.7694 12.3321 3.7311 12.2796 3.71579ZM11.1611 1.79556C11.709 1.63602 12.2909 1.63602 12.8388 1.79556C13.2189 1.90627 13.5341 2.10095 13.8282 2.32363C14.1052 2.53335 14.4172 2.81064 14.7764 3.12995L20.0432 7.81159C20.0716 7.83679 20.0995 7.86165 20.1272 7.88619C20.6489 8.34941 21.0429 8.69935 21.3311 9.13277C21.5746 9.49916 21.7561 9.90321 21.8681 10.3287C22.0006 10.832 22.0004 11.359 22 12.0566C22 12.0936 22 12.131 22 12.169V17.212C22 18.0305 22 18.7061 21.9543 19.2561C21.9069 19.8274 21.805 20.3523 21.5496 20.8439C21.1701 21.5745 20.5744 22.1701 19.8439 22.5496C19.3522 22.805 18.8274 22.9069 18.256 22.9543C17.706 23 17.0305 23 16.2119 23H15.805C15.7972 23 15.7894 23 15.7814 23C15.6603 23 15.5157 23.0001 15.3883 22.9895C15.2406 22.9773 15.0292 22.9458 14.8085 22.8311C14.5345 22.6888 14.3111 22.4654 14.1688 22.1915C14.0542 21.9707 14.0227 21.7593 14.0104 21.6116C13.9998 21.4843 13.9999 21.3396 13.9999 21.2185L14 18C14 16.8954 13.1045 16 12 16C10.8954 16 9.99995 16.8954 9.99995 18L9.99996 21.2185C10 21.3396 10.0001 21.4843 9.98949 21.6116C9.97722 21.7593 9.94572 21.9707 9.83107 22.1915C9.68876 22.4654 9.46538 22.6888 9.19142 22.8311C8.9707 22.9458 8.75929 22.9773 8.6116 22.9895C8.48423 23.0001 8.33959 23 8.21847 23C8.21053 23 8.20268 23 8.19495 23H7.78798C6.96944 23 6.29389 23 5.74388 22.9543C5.17253 22.9069 4.64769 22.805 4.15605 22.5496C3.42548 22.1701 2.8298 21.5745 2.4503 20.8439C2.19492 20.3523 2.09305 19.8274 2.0456 19.2561C1.99993 18.7061 1.99994 18.0305 1.99995 17.212L1.99995 12.169C1.99995 12.131 1.99993 12.0936 1.99992 12.0566C1.99955 11.359 1.99928 10.832 2.1318 10.3287C2.24383 9.90321 2.42528 9.49916 2.66884 9.13277C2.95696 8.69935 3.35105 8.34941 3.87272 7.8862C3.90036 7.86165 3.92835 7.83679 3.95671 7.81159L9.22354 3.12996C9.58274 2.81064 9.89467 2.53335 10.1717 2.32363C10.4658 2.10095 10.781 1.90627 11.1611 1.79556Z"
+                                    class="fill-current" />
+                            </svg>
+                            <span>Home</span>
+                        </li>
+                        <li
+                            class="pl-5 sm:pl-7 pr-5 py-5 flex flex-row items-center justify-start gap-3 hover:text-gray-200 transition-all cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                class="h-6 w-6 fill-white" version="1.1" viewBox="0 0 24 24" xml:space="preserve">
+                                <g id="group">
+                                    <path
+                                        d="M24,15.9c0-2.8-1.5-5-3.7-6.1C21.3,8.8,22,7.5,22,6c0-2.8-2.2-5-5-5c-2.1,0-3.8,1.2-4.6,3c0,0,0,0,0,0c-0.1,0-0.3,0-0.4,0   c-0.1,0-0.3,0-0.4,0c0,0,0,0,0,0C10.8,2.2,9.1,1,7,1C4.2,1,2,3.2,2,6c0,1.5,0.7,2.8,1.7,3.8C1.5,10.9,0,13.2,0,15.9V20h5v3h14v-3h5   V15.9z M17,3c1.7,0,3,1.3,3,3c0,1.6-1.3,3-3,3c0-1.9-1.1-3.5-2.7-4.4c0,0,0,0,0,0C14.8,3.6,15.8,3,17,3z M13.4,4.2   C13.4,4.2,13.4,4.2,13.4,4.2C13.4,4.2,13.4,4.2,13.4,4.2z M15,9c0,1.7-1.3,3-3,3s-3-1.3-3-3s1.3-3,3-3S15,7.3,15,9z M10.6,4.2   C10.6,4.2,10.6,4.2,10.6,4.2C10.6,4.2,10.6,4.2,10.6,4.2z M7,3c1.2,0,2.2,0.6,2.7,1.6C8.1,5.5,7,7.1,7,9C5.3,9,4,7.7,4,6S5.3,3,7,3   z M5.1,18H2v-2.1C2,13.1,4.1,11,7,11v0c0,0,0,0,0,0c0.1,0,0.2,0,0.3,0c0,0,0,0,0,0c0.3,0.7,0.8,1.3,1.3,1.8   C6.7,13.8,5.4,15.7,5.1,18z M17,21H7v-2.1c0-2.8,2.2-4.9,5-4.9c2.9,0,5,2.1,5,4.9V21z M22,18h-3.1c-0.3-2.3-1.7-4.2-3.7-5.2   c0.6-0.5,1-1.1,1.3-1.8c0.1,0,0.2,0,0.4,0v0c2.9,0,5,2.1,5,4.9V18z" />
+                                </g>
+                            </svg>
+                            <span>Panel</span>
+                        </li>
+                        <li
+                            class="pl-5 sm:pl-7 pr-5 py-5 flex flex-row items-center justify-start gap-3 hover:text-gray-200 transition-all cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-white" viewBox="0 0 24 24">
+                                <path
+                                    d="M22,3H19V2a1,1,0,0,0-1-1H6A1,1,0,0,0,5,2V3H2A1,1,0,0,0,1,4V6a4.994,4.994,0,0,0,4.276,4.927A7.009,7.009,0,0,0,11,15.92V18H7a1,1,0,0,0-.949.684l-1,3A1,1,0,0,0,6,23H18a1,1,0,0,0,.948-1.316l-1-3A1,1,0,0,0,17,18H13V15.92a7.009,7.009,0,0,0,5.724-4.993A4.994,4.994,0,0,0,23,6V4A1,1,0,0,0,22,3ZM5,8.829A3.006,3.006,0,0,1,3,6V5H5ZM16.279,20l.333,1H7.387l.334-1ZM17,9A5,5,0,0,1,7,9V3H17Zm4-3a3.006,3.006,0,0,1-2,2.829V5h2ZM10.667,8.667,9,7.292,11,7l1-2,1,2,2,.292L13.333,8.667,13.854,11,12,9.667,10.146,11Z" />
+                            </svg>
+                            <span>Achievements</span>
+                        </li>
+                        <li
+                            class="pl-5 sm:pl-7 pr-5 py-5 flex flex-row items-center justify-start gap-3 hover:text-gray-200 transition-all cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" viewBox="0 0 24 24"
+                                fill="none">
+                                <path
+                                    d="M3 9H21M7 3V5M17 3V5M6 12H8M11 12H13M16 12H18M6 15H8M11 15H13M16 15H18M6 18H8M11 18H13M16 18H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z"
+                                    class="stroke-current" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            <span>Activities</span>
+                        </li>
+                        <li
+                            class="pl-5 sm:pl-7 pr-5 py-5 flex flex-row items-center justify-start gap-3 hover:text-gray-200 transition-all cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                version="1.1" id="Layer_1" class="h-5 w-5 text-white" viewBox="0 0 32 32"
+                                enable-background="new 0 0 32 32" xml:space="preserve">
+                                <g stroke="white" stroke-width="2">
+                                    <path class="fill-current"
+                                        d="M30.5,0h-29C0.673,0,0,0.673,0,1.5v8C0,10.327,0.673,11,1.5,11h29c0.827,0,1.5-0.673,1.5-1.5v-8   C32,0.673,31.327,0,30.5,0z M31,9.5c0,0.275-0.225,0.5-0.5,0.5h-29C1.225,10,1,9.775,1,9.5v-8C1,1.225,1.225,1,1.5,1h29   C30.775,1,31,1.225,31,1.5V9.5z" />
+                                    <path class="fill-current"
+                                        d="M31.5,12.5c-0.276,0-0.5,0.224-0.5,0.5v17.5c0,0.275-0.225,0.5-0.5,0.5h-29C1.225,31,1,30.775,1,30.5V13   c0-0.276-0.224-0.5-0.5-0.5S0,12.724,0,13v17.5C0,31.327,0.673,32,1.5,32h29c0.827,0,1.5-0.673,1.5-1.5V13   C32,12.724,31.776,12.5,31.5,12.5z" />
+                                    <path class="fill-current"
+                                        d="M13.5,27c0.827,0,1.5-0.673,1.5-1.5v-8c0-0.827-0.673-1.5-1.5-1.5h-8C4.673,16,4,16.673,4,17.5v8   C4,26.327,4.673,27,5.5,27H13.5z M5,25.5v-8C5,17.225,5.225,17,5.5,17h8c0.275,0,0.5,0.225,0.5,0.5v8c0,0.275-0.225,0.5-0.5,0.5h-8   C5.225,26,5,25.775,5,25.5z" />
+                                    <path class="fill-current"
+                                        d="M18,18h9c0.276,0,0.5-0.224,0.5-0.5S27.276,17,27,17h-9c-0.276,0-0.5,0.224-0.5,0.5S17.724,18,18,18z" />
+                                    <path class="fill-current"
+                                        d="M18,22h9c0.276,0,0.5-0.224,0.5-0.5S27.276,21,27,21h-9c-0.276,0-0.5,0.224-0.5,0.5S17.724,22,18,22z" />
+                                    <path class="fill-current"
+                                        d="M18,26h9c0.276,0,0.5-0.224,0.5-0.5S27.276,25,27,25h-9c-0.276,0-0.5,0.224-0.5,0.5S17.724,26,18,26z" />
+                                </g>
+                            </svg>
+
+                            <span>Content</span>
+                        </li>
+                    </ul>
+                    <div class="flex items-center justify-center mb-5 w-full">
+
+                        <a href="/register">
+                            <button class="group relative w-[50vw] max-w-[300px] px-6 py-3">
+                                <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-500 rounded-lg">
+                                </div>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-500 rounded-lg blur-lg group-hover:opacity-60 transition-opacity duration-500">
+                                </div>
+                                <div class="relative flex items-center justify-center gap-2">
+                                    <span class="text-white text-sm font-medium">Register Now</span>
+                                    <svg class="w-7 h-7 text-white transform group-hover:translate-x-1 transition-transform"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 7l5 5m0 0l-5 5m5-5H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    </nav>
+
+
+
+    <div class="hero-bg-mesh absolute z-[-10] inset-0 w-full h-screen block"></div>
+    <section id="main"
+        class="text-center px-6 sm:px-14 break-words flex items-center flex-col relative min-h-screen pt-10">
+        <div class="max-w-[1200px] pb-14 sm:pb-5">
+            <header class="text-center mb-4 sm:mb-8 nunito">
+                <h1
+                    class="text-lg font-bold tracking-widest bg-gradient-to-tl from-slate-400 via-violet-500 to-zinc-400 bg-clip-text text-transparent uppercase mb-2 md:mb-4">
+                    Welcome to</h1>
+                <p class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-black uppercase tracking-wider">
+                    Rajuk College
+                    Science Club</p>
+            </header>
+            <h2 class="text-lg font-semibold leading-7 inconsolata text-gray-400 mb-10 tracking-widest hidden md:block">
+                Rajuk College
+                Science Club (RCSC), based at <strong>Rajuk Uttara Model College</strong> in
+                Bangladesh, is the country’s largest and most renowned science club. It fosters a culture of innovation
+                and creativity, offering students opportunities to explore and develop their scientific talents. RCSC
+                recently hosted the nation’s largest science festival, <strong>RCSC National SciSpark 3.0</strong>,
+                with the slogan <em>“Grab beyond the infinity,”</em> inspiring young minds to push boundaries in science
+                and technology. The club serves as a hub for nurturing the next generation of inventors and innovators.
+            </h2>
+
+            <p class="text-lg font-semibold leading-7 inconsolata text-gray-400 tracking-widest">Become a part of
+                the most exceptional journey with RCSC &
+                exceed even the impossible expectations.</p>
+
+            <div class="flex items-center justify-center sm:hidden mt-5">
+                <img src="feehee.svg" class="w-[75vw] max-w-[250px]">
+            </div>
+            <div class="mt-10 text-center flex justify-center items-center flex-col">
+
+                <div class="flex items-center justify-center mt-4 sm:mt-24 md:mt-8 lg:mt-10 md:hidden lg:flex">
+                    <a class="text-black bg-white shadow-[0px_0px_10px_0px_black] p-2 rounded-full mt-4 aspect-square"
+                        href="#feehee">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 fill-current">>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M12 3C12.5523 3 13 3.44772 13 4V17.5858L18.2929 12.2929C18.6834 11.9024 19.3166 11.9024 19.7071 12.2929C20.0976 12.6834 20.0976 13.3166 19.7071 13.7071L12.7071 20.7071C12.3166 21.0976 11.6834 21.0976 11.2929 20.7071L4.29289 13.7071C3.90237 13.3166 3.90237 12.6834 4.29289 12.2929C4.68342 11.9024 5.31658 11.9024 5.70711 12.2929L11 17.5858V4C11 3.44772 11.4477 3 12 3Z"
+                                class="fill-current" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="feehee"
+        class="relative mt-10 text-center px-6 sm:px-14 break-words flex justify-center items-center flex-col min-h-screen">
+        <div
+            class="absolute -z-20 -top-[50vw] -right-[50vw] sm:-top-[30vw] sm:-right-[30vw] h-[100vw] w-[100vw] sm:h-[50vw] sm:w-[50vw] bg-gradient-to-br from-cyan-600/50 to-blue-600/50 rounded-full blur-3xl animate-float [animation-delay:-6s]">
+        </div>
+        <div class="max-w-[1200px] py-[80px]">
+            <h4
+                class="lexend bg-gradient-to-r from-violet-300 via-cyan-300 to-violet-300 bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent mb-10">
+                Ignite the flames of curiosity and nurture the spirit of inquiry with RCSC.</h4>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full justify-center items-center">
+                <div class="flex flex-col items-center justify-center text-center gap-8">
+
+                    <h5
+                        class="inconsolata bg-gradient-to-r from-violet-300 via-cyan-300 to-violet-300 bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent text-lg uppercase">
+                        Our Motto</h5>
+                    <p
+                        class="text-xl sm:text-3xl/[40px] md:text-4xl/[45px] lg:text-5xl/[65px] text-white font-bold uppercase tracking-normal">
+                        Grab Beyond The Infinity</p>
+                    <p class="text-lg font-semibold leading-7 inconsolata text-gray-400 mb-10 tracking-widest">
+                        We believe science should serve the better cause of humanity and beyond.</p>
+                </div>
+                <style>
+                    @keyframes updown {
+
+                        0%,
+                        100% {
+                            transform: translateY(0px);
+                        }
+
+                        50% {
+                            transform: translateY(-10px);
+                        }
+                    }
+
+                    .animate-updown {
+                        animation: updown 2s ease-in-out infinite;
+                    }
+                </style>
+
+                <div
+                    class="px-6 motion-safe:animate-[updown_2s_ease-in-out_infinite] w-full flex items-center justify-center">
+                    <div class="max-w-[200px] sm:max-w-[350px]">
+                        <img class="h-full w-full" src="feehee.svg" alt="">
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center text-center gap-8">
+
+                    <h5
+                        class="inconsolata bg-gradient-to-r from-cyan-300 via-violet-300 to-cyan-300 bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent text-lg uppercase">
+                        Our Goal</h5>
+                    <p
+                        class="text-xl sm:text-3xl/[40px] md:text-4xl/[45px] lg:text-5xl/[65px] text-white font-bold uppercase tracking-normal">
+                        A Better Scientific Society</p>
+                    <p class="text-lg font-semibold leading-7 inconsolata text-gray-400 mb-10 tracking-widest">
+                        We look forward to creating a better scientific society far from any prejudice.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="relative overflow-hidden bg-transparent pt-10">
+
+        <div class="absolute -z-20 inset-0 w-screen h-full bg-gray-900"></div>
+        <div
+            class="absolute -z-20 top-0 -right-1/4 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 w-[20rem] sm:w-[30rem] lg:w-[40rem] h-[20rem] sm:h-[30rem] lg:h-[40rem] bg-gradient-to-br from-violet-600/30 to-fuchsia-600/30 rounded-full blur-3xl animate-float">
+        </div>
+        <div
+            class="absolute -z-20 top-1/4 sm:bottom-1/4 -left-20 w-[20rem] sm:w-[30rem] lg:w-[40rem] h-[20rem] sm:h-[30rem] lg:h-[40rem] bg-gradient-to-br from-blue-400/50 to-violet-500/40 rounded-full blur-3xl animate-float">
+        </div>
+        <div
+            class="absolute -z-20 bottom-0 sm:-bottom-1/4 -right-20 w-[20rem] sm:w-[30rem] lg:w-[40rem] h-[20rem] sm:h-[30rem] lg:h-[40rem] bg-gradient-to-br from-cyan-600/50 to-blue-600/50 rounded-full blur-3xl animate-float [animation-delay:-6s]">
+        </div>
+        <div class="absolute -z-10 inset-0 backdrop-blur-[40px] sm:backdrop-blur-[80px] backdrop-brightness-90">
+        </div>
+        <div class="flex items-center justify-center m-0">
+            <div
+                class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 sm:grid-rows-1 sm:pb-5 px-2 sm:grid-flow-dense max-w-[1200px] w-full">
+                <a href="https://rajukcollege.edu.bd"
+                    class="sm:order-2 p-4 text-white flex flex-col items-center justify-start gap-2">
+                    <p class="text-lg font-semibold uppercase">A Club Of</p>
+                    <img src="/rumc.webp" class="h-[150px] rounded-full aspect-square" alt="">
+                </a>
+
+                <div class="sm:order-1 p-4 text-white flex flex-col items-start justify-start gap-2">
+                    <p class="text-lg font-semibold uppercase text-center md:text-start w-full">Quick Navigation</p>
+                    <ul
+                        class="grid text-center md:text-start grid-cols-1 md:grid-cols-2 justify-between w-full text-gray-300">
+                        <li><a href="" target="_blank">Home</a></li>
+                        <li><a href="" target="_blank">Achievements</a></li>
+                        <li><a href="" target="_blank">Announcements</a></li>
+                        <li><a href="" target="_blank">Upcoming Events</a></li>
+                        <li><a href="" target="_blank">Blog</a></li>
+                        <li><a href="" target="_blank">Executives</a></li>
+                        <li><a href="" target="_blank">Past Events</a></li>
+                        <li><a href="" target="_blank">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="sm:order-3 p-4 text-white flex flex-col items-start gap-2">
+                    <p class="text-lg font-semibold uppercase text-center md:text-start w-full">Contact Us</p>
+                    <div class="flex flex-col gap-1 text-gray-300">
+                        <a href="mailto:rcsc.rumc@gmail.com" target="_blank"
+                            class="flex flex-row items-center justify-start gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current h-5 w-5 flex-none"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M22,5V9L12,13,2,9V5A1,1,0,0,1,3,4H21A1,1,0,0,1,22,5ZM2,11.154V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V11.154l-10,4Z" />
+                            </svg>
+                            <span class="align-middle">rcsc.rumc@gmail.com</span>
+                        </a>
+                        <a href="https://maps.app.goo.gl/gZiMYaDY2XUTsfno7" target="_blank"
+                            class="flex flex-row items-center justify-start gap-2">
+                            <svg class="h-5 w-5 flex-none" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21.3046 4.69335C21.908 3.41959 20.5806 2.09225 19.3069 2.69561L2.83473 10.4982C1.56185 11.1011 1.74664 12.9674 3.11305 13.309L9.17556 14.8247L10.6912 20.8872C11.0328 22.2536 12.8991 22.4384 13.502 21.1655L21.3046 4.69335Z"
+                                    class="fill-current" />
+                            </svg>
+                            <span class="align-middle">Rajuk Uttara Model College, Sector 06, Uttara, Dhaka - 1230,
+                                Bangladesh</span>
+                        </a>
+                    </div>
+                    <div
+                        class="flex flex-row gap-2 justify-center items-center sm:justify-start sm:items-start w-full mt-2">
+                        <a href="http://www.facebook.com/science.rumc" target="_blank"
+                            class="bg-[#3b5998] rounded-full p-2 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current h-5 w-5" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.03998C6.5 2.03998 2 6.52998 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.84998C10.44 7.33998 11.93 5.95998 14.22 5.95998C15.31 5.95998 16.45 6.14998 16.45 6.14998V8.61998H15.19C13.95 8.61998 13.56 9.38998 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C15.9164 21.5878 18.0622 20.3855 19.6099 18.57C21.1576 16.7546 22.0054 14.4456 22 12.06C22 6.52998 17.5 2.03998 12 2.03998Z" />
+                            </svg>
+                        </a>
+                        <a href="http://www.instagram.com/science.rumc" target="_blank"
+                            class="bg-gradient-to-br from-[#833ab4] via-[#fd1d1d] to-[#fcb045] rounded-full p-2 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                                    class="fill-current" />
+                                <path
+                                    d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                                    class="fill-current" />
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                                    class="fill-current" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center text-center justify-center px-5 py-4 bg-blue-950/50">© 2025 Rajuk College Science
+            Club | RCSC. All rights reserved.</div>
+    </footer>
+
+</body>
+
+</html>
