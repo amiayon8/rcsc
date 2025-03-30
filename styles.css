@@ -697,7 +697,10 @@
     --color-2: hsla(264, 73%, 3%, 1);
     --pos-x-2: 23%;
     background-color: hsla(272, 86%, 9%, 1);
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1288 1288' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"), radial-gradient(circle at var(--pos-x-0) var(--pos-y-0), var(--color-0) var(--start-0), transparent var(--end-0)), radial-gradient(circle at var(--pos-x-1) var(--pos-y-1), var(--color-1) var(--start-1), transparent var(--end-1)), radial-gradient(circle at var(--pos-x-2) var(--pos-y-2), var(--color-2) var(--start-2), transparent var(--end-2));
+    background-image: 
+    radial-gradient(circle at var(--pos-x-0) var(--pos-y-0), var(--color-0) var(--start-0), transparent var(--end-0)), 
+    radial-gradient(circle at var(--pos-x-1) var(--pos-y-1), var(--color-1) var(--start-1), transparent var(--end-1)), 
+    radial-gradient(circle at var(--pos-x-2) var(--pos-y-2), var(--color-2) var(--start-2), transparent var(--end-2));
     animation: gradient-animation 5s linear infinite alternate;
     background-blend-mode: overlay, overlay, normal, normal;
 }
