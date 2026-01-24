@@ -252,19 +252,15 @@ const MemberCard = ({ member, isSpecial = false, isImportant = false, className 
             relative flex flex-col items-center text-center p-[25px_15px] rounded-2xl transition duration-300 w-full
             ${isImportant ? 'md:-mt-8' : ''}
             ${className}
-            
+            group bg-white/5 backdrop-blur-[15px] border border-white/10 hover:-translate-y-1.25 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]
             ${isSpecial
-                ? `bg-white/5 backdrop-blur-5 border border-white/10 rounded-2xl shadow-lg
+                ? `
                    after:content-[''] after:absolute after:top-0 after:right-0 after:-z-10 after:w-full after:h-full 
-                   after:bg-linear-to-br after:from-white/5 after:via-transparent after:to-[#3a7bd5]/10 after:rounded-[30px]`
-                : `group bg-white/5 backdrop-blur-[15px] border border-white/10 
-                   hover:-translate-y-1.25 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]`
+                   after:bg-linear-to-br after:from-white/5 after:via-transparent after:to-[#3a7bd5]/10 after:rounded-2xl`
+                : ``
             }
         `}>
-            <div className={`
-                relative mb-4 rounded-full overflow-hidden transition duration-300 border-[3px] bg-[#111]
-                ${isSpecial ? 'w-30 h-30 border-white/20' : 'w-25 h-25 border-white/10 group-hover:border-primary'}
-            `}>
+            <div className="relative bg-[#111] mb-4 border-[3px] border-white/10 group-hover:border-primary rounded-full size-28 overflow-hidden transition duration-300">
                 <img src={member.image} alt={member.role} className="w-full h-full object-cover" />
             </div>
 
