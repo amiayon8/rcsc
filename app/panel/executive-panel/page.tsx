@@ -1,139 +1,140 @@
 import React from 'react';
 import { Facebook, Instagram, Linkedin, Github, Globe } from 'lucide-react';
+import Image from 'next/image';
 
 const panelMembers = [
     {
         name: 'Sheikh Farhan',
         role: 'President',
-        image: 'https://placehold.co/400x400/111/fff?text=Farhan',
+        image: 'https://placehold.co/400x400/png?text=Farhan',
         socials: { instagram: 'https://www.instagram.com/farhan_bored' }
     },
     {
         name: 'Fairuj Faija Dhara',
         role: 'General Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Dhara',
+        image: 'https://placehold.co/400x400/png?text=Dhara',
         socials: { instagram: 'https://www.instagram.com/faija.dhara_' }
     },
     {
         name: 'Rushafi Islam Rushan',
         role: 'Vice President',
-        image: 'https://placehold.co/400x400/111/fff?text=Rushan',
+        image: 'https://placehold.co/400x400/png?text=Rushan',
         socials: { instagram: 'https://www.instagram.com/oofrushan' }
     },
     {
         name: 'Muammar Daiyan Aritro',
         role: 'Vice President',
-        image: 'https://placehold.co/400x400/111/fff?text=Aritro',
+        image: 'https://placehold.co/400x400/png?text=Aritro',
         socials: { instagram: 'https://www.instagram.com/daiyan_aritro/' }
     },
     {
         name: 'Kamran Saif',
         role: 'Treasurer',
         department: 'Organizing',
-        image: 'https://placehold.co/400x400/111/fff?text=Saif',
+        image: 'https://placehold.co/400x400/png?text=Saif',
         socials: { facebook: '#' }
     },
     {
         name: 'Nafisa Nawal Prionty',
         role: 'Asst. General Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Prionty',
+        image: 'https://placehold.co/400x400/png?text=Prionty',
         socials: { facebook: '#' }
     },
     {
         name: 'Atia Afsara Arshi',
         role: 'Asst. General Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Arshi',
+        image: 'https://placehold.co/400x400/png?text=Arshi',
         socials: { facebook: '#' }
     },
     {
         name: 'Mehrin Khondoker',
         role: 'Sr. Organizing Secretary',
         department: 'Organizing',
-        image: 'https://placehold.co/400x400/111/fff?text=Mehrin',
+        image: 'https://placehold.co/400x400/png?text=Mehrin',
         socials: { facebook: '#' }
     },
     {
         name: 'Abeera Ahsan',
         role: 'Organizing Secretary | Public Relations',
         department: 'Organizing',
-        image: 'https://placehold.co/400x400/111/fff?text=Abeera',
+        image: 'https://placehold.co/400x400/png?text=Abeera',
         socials: { facebook: '#' }
     },
     {
         name: 'Alim Nur Rahman Rakan',
         role: 'Organizing Secretary | Graphics',
         department: 'Organizing',
-        image: 'https://placehold.co/400x400/111/fff?text=Rakan',
+        image: 'https://placehold.co/400x400/png?text=Rakan',
         socials: { facebook: '#' }
     },
     {
         name: 'Rafif Abrar',
         role: 'Organizing Secretary | Olympiad',
         department: 'Organizing',
-        image: 'https://placehold.co/400x400/111/fff?text=Rafif',
+        image: 'https://placehold.co/400x400/png?text=Rafif',
         socials: { facebook: '#' }
     },
     {
         name: 'Awwab Bin Omar',
         role: 'Asst. Organizing Secretary',
         department: 'Organizing',
-        image: 'https://placehold.co/400x400/111/fff?text=Awwab',
+        image: 'https://placehold.co/400x400/png?text=Awwab',
         socials: { facebook: '#' }
     },
     {
         name: 'Ridita Reja',
         role: 'Asst. Organizing Secretary',
         department: 'Organizing',
-        image: 'https://placehold.co/400x400/111/fff?text=Ridita',
+        image: 'https://placehold.co/400x400/png?text=Ridita',
         socials: { facebook: '#' }
     },
     {
         name: 'Sharika Tasnim',
         role: 'Asst. Organizing Secretary',
         department: 'Organizing',
-        image: 'https://placehold.co/400x400/111/fff?text=Sharika',
+        image: 'https://placehold.co/400x400/png?text=Sharika',
         socials: { facebook: '#' }
     },
     {
         name: 'Saaji Sehnai',
         role: 'Joint Secretary | Math',
         department: 'Olympiads',
-        image: 'https://placehold.co/400x400/111/fff?text=Saaji',
+        image: 'https://placehold.co/400x400/png?text=Saaji',
         socials: { facebook: '#' }
     },
     {
         name: 'Nahian Parin Ifa',
         role: 'Joint Secretary | Math',
         department: 'Olympiads',
-        image: 'https://placehold.co/400x400/111/fff?text=Ifa',
+        image: 'https://placehold.co/400x400/png?text=Ifa',
         socials: { facebook: '#' }
     },
     {
         name: 'Abdul Majid',
         role: 'Joint Secretary | Physics',
         department: 'Olympiads',
-        image: 'https://placehold.co/400x400/111/fff?text=Majid',
+        image: 'https://placehold.co/400x400/png?text=Majid',
         socials: { facebook: '#' }
     },
     {
         name: 'Iyas Mahrus Khan',
         role: 'Joint Secretary | Biology',
         department: 'Olympiads',
-        image: 'https://placehold.co/400x400/111/fff?text=Iyas',
+        image: 'https://placehold.co/400x400/png?text=Iyas',
         socials: { facebook: '#' }
     },
     {
         name: 'Dibyendhu Talukder',
         role: 'Joint Secretary | IT and Tech',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Dibyendhu',
+        image: 'https://placehold.co/400x400/png?text=Dibyendhu',
         socials: { facebook: '#' }
     },
     {
         name: 'Ayon Sarker',
         role: 'Joint Secretary | IT and Tech',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Ayon',
+        image: 'https://placehold.co/400x400/png?text=Ayon',
         socials: {
             github: 'https://www.github.com/amiayon8/',
             instagram: 'https://www.instagram.com/amiayon8/',
@@ -144,84 +145,84 @@ const panelMembers = [
         name: 'Samin Yasar Siddiqui',
         role: 'Joint Secretary | IT and Tech',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Samin',
+        image: 'https://placehold.co/400x400/png?text=Samin',
         socials: { facebook: '#' }
     },
     {
         name: 'Akib Hasan Dhrubo',
         role: 'Joint Secretary | Photography',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Dhrubo',
+        image: 'https://placehold.co/400x400/png?text=Dhrubo',
         socials: { facebook: '#' }
     },
     {
         name: 'Tasmid Islam',
         role: 'Joint Secretary | Photography',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Tasmid',
+        image: 'https://placehold.co/400x400/png?text=Tasmid',
         socials: { facebook: '#' }
     },
     {
         name: 'Tasfia Rahman Labiba',
         role: 'Joint Secretary | Public Relations',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Labiba',
+        image: 'https://placehold.co/400x400/png?text=Labiba',
         socials: { facebook: '#' }
     },
     {
         name: 'Md. Montahinul Haque Bhuiyan',
         role: 'Joint Secretary | Content Management',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Montahinul',
+        image: 'https://placehold.co/400x400/png?text=Montahinul',
         socials: { facebook: '#' }
     },
     {
         name: 'Zunairah Zaid',
         role: 'Joint Secretary | Content Management',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Zunairah',
+        image: 'https://placehold.co/400x400/png?text=Zunairah',
         socials: { facebook: '#' }
     },
     {
         name: 'Arib Muhtasim',
         role: 'Joint Secretary | Graphics',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Arib',
+        image: 'https://placehold.co/400x400/png?text=Arib',
         socials: { facebook: '#' }
     },
     {
         name: 'Sazzadul Fatin',
         role: 'Joint Secretary | Logistics',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Fatin',
+        image: 'https://placehold.co/400x400/png?text=Fatin',
         socials: { facebook: '#' }
     },
     {
         name: 'Mehrab Ahmed',
         role: 'Joint Secretary | Logistics',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Mehrab',
+        image: 'https://placehold.co/400x400/png?text=Mehrab',
         socials: { facebook: '#' }
     },
     {
         name: 'Syed Muhammad Adib',
         role: 'Co-executive',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Adib',
+        image: 'https://placehold.co/400x400/png?text=Adib',
         socials: { facebook: '#' }
     },
     {
         name: 'Misbahul Hasan',
         role: 'Co-executive',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Misbah',
+        image: 'https://placehold.co/400x400/png?text=Misbah',
         socials: { facebook: '#' }
     },
     {
         name: 'Nazifa Zaman',
         role: 'Co-executive',
         department: 'Joint Secretary',
-        image: 'https://placehold.co/400x400/111/fff?text=Nazifa',
+        image: 'https://placehold.co/400x400/png?text=Nazifa',
         socials: { facebook: '#' }
     }
 ];
@@ -260,9 +261,20 @@ const MemberCard = ({ member, isSpecial = false, isImportant = false, className 
                 : ``
             }
         `}>
-            <div className="relative bg-[#111] mb-4 border-[3px] border-white/10 group-hover:border-grad rounded-full size-28 overflow-hidden transition duration-300">
-                <img src={member.image} alt={member.role} className="w-full h-full object-cover" />
+            <div
+                className="relative bg-white/10 group-hover:bg-linear-to-tr group-hover:from-primary group-hover:to-secondary mb-4 p-1 rounded-full size-28 aspect-square transition duration-300"
+            >
+                <div className="bg-[#111] rounded-full size-26! aspect-square overflow-hidden">
+                    <Image
+                        width={104}
+                        height={104}
+                        src={member.image}
+                        alt={member.role}
+                        className="m-0 rounded-full size-26 object-cover aspect-square"
+                    />
+                </div>
             </div>
+
 
             <h3 className="mb-2 font-bold text-[1.1rem] text-white uppercase leading-tight tracking-wide">
                 {member.name}

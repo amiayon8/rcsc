@@ -1,5 +1,6 @@
 import React from 'react';
 import { Facebook, Instagram, Linkedin, Github, Globe } from 'lucide-react';
+import Image from 'next/image';
 
 const panelMembers = [
     {
@@ -83,8 +84,18 @@ const MemberCard = ({ member, className = '' }: { member: any, className?: strin
             ${className}
             group bg-white/5 backdrop-blur-[15px] border border-white/10 hover:-translate-y-1.25 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]
         `}>
-            <div className="relative bg-[#111] mb-4 border-[3px] border-white/10 group-hover:border-primary rounded-full size-28 overflow-hidden transition duration-300">
-                <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+            <div
+                className="relative bg-white/10 group-hover:bg-linear-to-tr group-hover:from-primary group-hover:to-secondary mb-4 p-1 rounded-full size-28 aspect-square transition duration-300"
+            >
+                <div className="bg-[#111] rounded-full size-26! aspect-square overflow-hidden">
+                    <Image
+                        width={104}
+                        height={104}
+                        src={member.image}
+                        alt={member.role}
+                        className="m-0 rounded-full size-26 object-cover aspect-square"
+                    />
+                </div>
             </div>
 
             <h3 className="mb-2 font-bold text-[1.1rem] text-white uppercase leading-tight tracking-wide">
