@@ -19,7 +19,7 @@ export default function Footer() {
                     {/* Brand Section */}
                     <div className="mb-8 lg:mb-0">
                         <Link href="/" className="flex items-center gap-2 mb-4">
-                            <Image src="/logo256x256.png" alt="Logo" width={48} height={48} />
+                            <Image loading="lazy" src="/logo256x256.png" alt="Logo" width={48} height={48} />
                             <div className="flex flex-col gap-1 uppercase leading-none">
                                 <span className="font-bold text-lg leading-none tracking-wider">Rajuk College</span>
                                 <span className="font-bold text-lg leading-none tracking-wider">Science Club</span>

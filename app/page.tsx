@@ -177,7 +177,7 @@ export default function Home() {
 
             <div
               className="relative p-2.5 border-4 border-white/10 rounded-full w-70 max-sm:w-50 h-70 max-sm:h-50 shrink-0">
-              <Image fill src="/Media/principal.jpeg" alt="Principal"
+              <Image loading="lazy" fill src="/Media/principal.jpeg" alt="Principal"
                 className="grayscale-20 group-hover:grayscale-0 rounded-full w-full h-full object-cover transition duration-300" />
             </div>
 
