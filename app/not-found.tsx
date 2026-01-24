@@ -12,7 +12,7 @@ export default function NotFound() {
 
                 {/* Glitchy 404 Header */}
                 <div className="relative">
-                    <h1 className="z-10 relative bg-clip-text bg-gradient-to-b from-white to-slate-800 font-black text-[9rem] text-transparent md:text-[12rem] leading-none tracking-tighter select-none">
+                    <h1 className="z-10 relative bg-clip-text bg-linear-to-b from-white to-slate-800 font-black text-[9rem] text-transparent md:text-[12rem] leading-none tracking-tighter select-none">
                         404
                     </h1>
                     {/* Decorative blurred glow behind the number */}
