@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-// --- Types ---
 interface Achievement {
     id: string;
     title: string;
@@ -18,7 +17,6 @@ interface YearGroup {
     achievements: Achievement[];
 }
 
-// --- Data Object ---
 const achievementsData: YearGroup[] = [
     {
         year: '2025',
@@ -30,7 +28,7 @@ const achievementsData: YearGroup[] = [
                 role: 'XI-EMMS, Joint Secretary (IT)',
                 description:
                     'Achieved distinguished recognition at the Asia Pacific ICT Alliance Awards for innovative technological solutions.',
-                image: '/images/apicta.jpg', // Replace with your actual image path
+                image: '/images/apicta.jpg',
             },
             {
                 id: 'wro-bronze-2025',
@@ -94,8 +92,6 @@ const achievementsData: YearGroup[] = [
     },
 ];
 
-// --- Components ---
-
 const AchievementCard = ({ data }: { data: Achievement }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -103,7 +99,7 @@ const AchievementCard = ({ data }: { data: Achievement }) => {
         <div
             onClick={() => setIsExpanded(!isExpanded)}
             className={`
-        group relative flex flex-col overflow-hidden rounded-[20px] border border-white/10 
+        group relative flex flex-col overflow-hidden rounded-4xl border border-white/10 
         bg-white/5 backdrop-blur-md transition-all duration-400 ease-[cubic-bezier(0.25,0.8,0.25,1)] cursor-pointer
         ${isExpanded
                     ? 'z-10 border-cyan-400 bg-[#0f1932]/95 shadow-[0_0_40px_rgba(0,210,255,0.25)]'
@@ -111,13 +107,8 @@ const AchievementCard = ({ data }: { data: Achievement }) => {
                 }
       `}
         >
-            {/* Image Section */}
-            <div className="relative bg-[#1a1a2e] border-white/10 border-b w-full h-[200px] overflow-hidden">
-                {/* Placeholder for Next/Image - remove bg-gray-700 when real images are added */}
+            <div className="relative bg-[#1a1a2e] border-white/10 border-b w-full h-50 overflow-hidden">
                 <div className="absolute inset-0 bg-gray-800">
-                    {/* In a real app, use <Image /> here. 
-              Using a standard img tag for immediate preview compatibility if you copy-paste without configuring next.config.js domains 
-           */}
                     <img
                         src={data.image || "https://placehold.co/600x400/1a1a2e/00d2ff?text=Achievement"}
                         alt={data.title}
@@ -126,28 +117,21 @@ const AchievementCard = ({ data }: { data: Achievement }) => {
                 </div>
             </div>
 
-            {/* Content Section */}
-            <div className="z-[2] relative p-6 text-center">
+            <div className="z-2 relative p-6 text-center">
                 <h3 className="mb-1 font-extrabold text-[1.3rem] text-white leading-tight">
                     {data.title}
                 </h3>
 
-                {/* Click Hint (Hidden when expanded) */}
-                <div
-                    className={`mt-2 text-xs font-bold uppercase tracking-widest text-cyan-400 opacity-70 transition-all duration-300 ${isExpanded ? 'h-0 opacity-0 m-0 overflow-hidden' : 'h-auto'
-                        }`}
-                >
+                <div className={`mt-2 text-xs font-bold uppercase tracking-widest text-cyan-400 opacity-70 transition-all duration-300 ${isExpanded ? 'h-0 opacity-0 m-0 overflow-hidden' : 'h-auto'}`}>
                     View Details
                 </div>
 
-                {/* Expandable Description */}
-                <div
-                    className={`transition-[max-height,opacity,margin] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden text-left
-            ${isExpanded
-                            ? 'max-h-[500px] opacity-100 mt-5 pt-5 border-t border-white/10'
-                            : 'max-h-0 opacity-0 mt-0 pt-0 border-transparent'
-                        }
-          `}
+                <div className={`transition-[max-height,opacity,margin] duration-500 ease-in-out overflow-hidden text-left
+                             ${isExpanded
+                        ? 'max-h-125 opacity-100 mt-5 pt-5 border-t border-white/10'
+                        : 'max-h-0 opacity-0 mt-0 pt-0 border-transparent'
+                    }
+                `}
                 >
                     <h4 className="mb-2 font-bold text-[1.1rem] text-cyan-400">
                         Winner: {data.winner}
@@ -166,37 +150,38 @@ const AchievementCard = ({ data }: { data: Achievement }) => {
 
 export default function HallOfFame() {
     return (
-        <div className="bg-[#0b1121] px-4 pb-20 min-h-screen text-slate-200">
+        <div className="flex justify-center items-center bg-[#0b1121] p-4 pt-30 pb-10 w-full min-h-screen text-slate-200">
 
-            {/* Page Header */}
-            <header className="pt-[150px] pb-[50px] text-center">
-                <h1 className="drop-shadow-[0_0_20px_rgba(0,210,255,0.4)] mb-3 font-black text-white text-4xl md:text-6xl uppercase">
-                    Hall of Fame
-                </h1>
-                <p className="text-[#8899ac] text-xl">
-                    Celebrating Excellence Beyond Infinity
-                </p>
-            </header>
+            <div className="top-[-10%] left-[-10%] z-0 fixed bg-cyan-500/10 blur-[100px] rounded-full w-125 h-125" />
+            <div className="right-[-10%] bottom-[-10%] z-0 fixed bg-blue-600/10 blur-[100px] rounded-full w-125 h-125" />
 
-            {/* Main Container */}
-            <main className="mx-auto max-w-7xl">
-                {achievementsData.map((section) => (
-                    <section key={section.year} className="mb-20 animate-fade-in-up">
+            <div className="z-10 relative w-full max-w-7xl">
+                <div className="mb-16 text-center animate-[slideUp_0.8s_ease_forwards]">
+                    <h1 className="drop-shadow-[0_0_15px_rgba(0,210,255,0.6)] font-black text-[clamp(2rem,5vw,3.5rem)] text-white text-center uppercase tracking-tighter">
+                        Hall of Fame
+                    </h1>
+                    <p className="text-[#8899ac] text-xl text-center">
+                        Celebrating Excellence Beyond Infinity
+                    </p>
+                </div>
 
-                        {/* Year Title */}
-                        <h2 className="inline-block mb-8 pb-2 border-cyan-400/20 border-b-2 font-extrabold text-cyan-400 text-3xl">
-                            {section.year}
-                        </h2>
+                <main className="mx-auto max-w-7xl">
+                    {achievementsData.map((section) => (
+                        <section key={section.year} className="mb-20 animate-fade-in-up">
 
-                        {/* Grid */}
-                        <div className="gap-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                            {section.achievements.map((item) => (
-                                <AchievementCard key={item.id} data={item} />
-                            ))}
-                        </div>
-                    </section>
-                ))}
-            </main>
+                            <h2 className="inline-block mb-8 pb-2 border-cyan-400/20 border-b-2 font-extrabold text-cyan-400 text-3xl">
+                                {section.year}
+                            </h2>
+
+                            <div className="gap-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                                {section.achievements.map((item) => (
+                                    <AchievementCard key={item.id} data={item} />
+                                ))}
+                            </div>
+                        </section>
+                    ))}
+                </main>
+            </div>
         </div>
     );
 }

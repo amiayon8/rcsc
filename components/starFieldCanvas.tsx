@@ -12,7 +12,6 @@ const StarfieldCanvas = () => {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        // --- State Variables (Scoped within Effect) ---
         let width: number, height: number;
         let entities: Entity[] = [];
         let comets: Comet[] = [];
@@ -24,7 +23,6 @@ const StarfieldCanvas = () => {
         let mouseY = 0;
         let animationFrameId: number;
 
-        // --- Helpers ---
         function createOffscreenCanvas(w: number, h: number) {
             const c = document.createElement('canvas');
             c.width = w;
@@ -32,7 +30,6 @@ const StarfieldCanvas = () => {
             return { c, ctx: c.getContext('2d')! };
         }
 
-        // --- SPRITE GENERATORS ---
         function createBlackHoleSprite(size: number) {
             const res = size * 25;
             const { c, ctx } = createOffscreenCanvas(res, res);
@@ -135,14 +132,12 @@ const StarfieldCanvas = () => {
             ctx.lineJoin = 'round';
             ctx.lineCap = 'round';
 
-            // --- TRIPOD ---
             ctx.strokeStyle = outlineWhite;
             ctx.lineWidth = outlineWidth;
             ctx.fillStyle = darkMetal;
 
             const legBaseY = res * 0.85;
 
-            // Left Leg
             ctx.beginPath();
             ctx.moveTo(cx - size * 0.4, legBaseY);
             ctx.lineTo(cx, cy + size * 0.2);
@@ -152,7 +147,6 @@ const StarfieldCanvas = () => {
             ctx.fill();
             ctx.stroke();
 
-            // Right Leg
             ctx.beginPath();
             ctx.moveTo(cx + size * 0.4, legBaseY);
             ctx.lineTo(cx, cy + size * 0.2);
@@ -162,14 +156,12 @@ const StarfieldCanvas = () => {
             ctx.fill();
             ctx.stroke();
 
-            // Mount Pivot
             ctx.beginPath();
             ctx.arc(cx, cy + size * 0.2, size * 0.15, 0, Math.PI * 2);
             ctx.fillStyle = "#95a5a6";
             ctx.fill();
             ctx.stroke();
 
-            // --- TELESCOPE TUBE ---
             ctx.save();
             ctx.translate(cx, cy + size * 0.15);
             ctx.rotate(-Math.PI / 4);
@@ -177,7 +169,6 @@ const StarfieldCanvas = () => {
             const tubeLen = size * 1.8;
             const tubeW = size * 0.6;
 
-            // Shadow
             ctx.fillStyle = "rgba(0,0,0,0.2)";
             ctx.beginPath();
             // @ts-ignore - roundRect is modern but TS might complain depending on version
@@ -185,7 +176,6 @@ const StarfieldCanvas = () => {
             else ctx.rect(-tubeLen * 0.45, -tubeW * 0.35 + 10, tubeLen, tubeW);
             ctx.fill();
 
-            // Main Tube
             ctx.fillStyle = lightBody;
             ctx.beginPath();
             if (ctx.roundRect) ctx.roundRect(-tubeLen * 0.5, -tubeW * 0.5, tubeLen, tubeW, 15);
@@ -193,7 +183,6 @@ const StarfieldCanvas = () => {
             ctx.fill();
             ctx.stroke();
 
-            // Cyan Accent
             ctx.fillStyle = accentCyan;
             ctx.beginPath();
             ctx.rect(-tubeLen * 0.2, -tubeW * 0.5, tubeLen * 0.15, tubeW);
@@ -208,27 +197,23 @@ const StarfieldCanvas = () => {
             ctx.lineTo(-tubeLen * 0.05, tubeW * 0.5);
             ctx.stroke();
 
-            // Eyepiece
             ctx.fillStyle = darkMetal;
             ctx.beginPath();
             ctx.rect(-tubeLen * 0.65, -tubeW * 0.2, tubeLen * 0.15, tubeW * 0.4);
             ctx.fill();
             ctx.stroke();
 
-            // Lens Cap
             ctx.fillStyle = darkMetal;
             ctx.beginPath();
             ctx.rect(tubeLen * 0.48, -tubeW * 0.55, tubeLen * 0.1, tubeW * 1.1);
             ctx.fill();
             ctx.stroke();
 
-            // Lens
             ctx.fillStyle = lensBlue;
             ctx.beginPath();
             ctx.ellipse(tubeLen * 0.52, 0, tubeLen * 0.02, tubeW * 0.4, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Reflection
             ctx.fillStyle = "#85c1e9";
             ctx.beginPath();
             ctx.ellipse(tubeLen * 0.52, -tubeW * 0.15, tubeLen * 0.015, tubeW * 0.1, 0, 0, Math.PI * 2);
@@ -239,7 +224,6 @@ const StarfieldCanvas = () => {
             return c;
         }
 
-        // --- CLASSES ---
         class Comet {
             x: number = 0;
             y: number = 0;
@@ -361,7 +345,6 @@ const StarfieldCanvas = () => {
             }
         }
 
-        // --- MAIN FUNCTIONS ---
         function init() {
             entities = [];
             stars = [];
@@ -383,11 +366,9 @@ const StarfieldCanvas = () => {
             height = window.innerHeight;
 
             if (canvas) {
-                // Update canvas CSS style
                 canvas.style.width = width + 'px';
                 canvas.style.height = height + 'px';
 
-                // Update canvas internal dimensions
                 canvas.width = Math.floor(width * dpr);
                 canvas.height = Math.floor(height * dpr);
 
@@ -401,7 +382,6 @@ const StarfieldCanvas = () => {
         function animate() {
             ctx!.clearRect(0, 0, width, height);
 
-            // 1. Stars and Background
             ctx!.strokeStyle = `rgba(0, 210, 255, 0.15)`;
             ctx!.lineWidth = 1;
             ctx!.beginPath();
@@ -435,7 +415,6 @@ const StarfieldCanvas = () => {
                 c.draw();
             });
 
-            // 3. Telescope
             if (telescopeSprite) {
                 const tWidth = telescopeSprite.width / (window.devicePixelRatio > 1 ? 2 : 1) / 2.2;
                 const tHeight = telescopeSprite.height / (window.devicePixelRatio > 1 ? 2 : 1) / 2.2;
@@ -451,7 +430,6 @@ const StarfieldCanvas = () => {
             animationFrameId = requestAnimationFrame(animate);
         }
 
-        // --- EVENT LISTENERS ---
         const handleMouseMove = (e: MouseEvent) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -472,12 +450,10 @@ const StarfieldCanvas = () => {
         window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('touchmove', handleTouchMove);
 
-        // Initial Trigger
         resize();
         init();
         animate();
 
-        // Cleanup
         return () => {
             window.removeEventListener('resize', handleResize);
             window.removeEventListener('mousemove', handleMouseMove);

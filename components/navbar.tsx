@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation"; // 1. Import this
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconTriangleFilled, IconTriangleInvertedFilled } from "@tabler/icons-react";
 
@@ -12,7 +12,6 @@ const nav = [
     { label: "ACHIEVEMENTS", url: "/achievements" },
     {
         label: "PANEL",
-        // No single URL for the parent, detection logic will check children
         dropdown: [
             { label: "Executive Panel", url: "/panel/executive-panel" },
             { label: "Teachers’ Panel", url: "/panel/teachers-panel" },
@@ -25,9 +24,8 @@ const nav = [
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState<boolean>(false);
     const [mobilePanel, setMobilePanel] = useState<number | null>(null);
-    const pathname = usePathname(); // 2. Get current path
+    const pathname = usePathname();
 
-    // Helper to check if a dropdown parent should be active
     const isDropdownActive = (dropdownItems: { url: string }[]) => {
         return dropdownItems.some((item) => pathname === item.url);
     };
@@ -45,10 +43,8 @@ export default function Navbar() {
                             </div>
                         </Link>
 
-                        {/* Desktop */}
                         <ul className="hidden md:flex items-center gap-6 font-black tracking-wider">
                             {nav.map((item, i) => {
-                                // Calculate active state for this item
                                 const isActive = item.dropdown
                                     ? isDropdownActive(item.dropdown)
                                     : pathname === item.url;
@@ -105,7 +101,6 @@ export default function Navbar() {
                             })}
                         </ul>
 
-                        {/* Hamburger */}
                         <button onClick={() => setMenuOpen(true)} className="md:hidden flex flex-col gap-1">
                             <span className="bg-primary rounded w-7 h-0.75" />
                             <span className="bg-primary rounded w-7 h-0.75" />
@@ -115,7 +110,6 @@ export default function Navbar() {
                 </div>
             </header>
 
-            {/* Mobile Menu */}
             <AnimatePresence>
                 {menuOpen && (
                     <motion.div

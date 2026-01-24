@@ -16,7 +16,6 @@ export default function Footer() {
         <footer className="z-10 relative bg-black border-t">
             <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12 container">
                 <div className="gap-8 grid grid-cols-1 md:grid-cols-3">
-                    {/* Brand Section */}
                     <div className="mb-8 lg:mb-0">
                         <Link href="/" className="flex items-center gap-2 mb-4">
                             <Image loading="lazy" src="/logo256x256.png" alt="Logo" width={48} height={48} />
@@ -44,9 +43,9 @@ export default function Footer() {
                         <h3 className="mb-4 font-semibold">Links</h3>
                         <ul className="space-y-3 text-muted-foreground text-sm">
                             <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
-                            <li><Link href="/executive-panel" className="hover:text-primary transition-colors">Executive Panel</Link></li>
-                            <li><Link href="/teachers-panel" className="hover:text-primary transition-colors">Teachers' Panel</Link></li>
-                            <li><Link href="/advisor-panel" className="hover:text-primary transition-colors">Advisor Panel</Link></li>
+                            <li><Link href="/panel/executive-panel" className="hover:text-primary transition-colors">Executive Panel</Link></li>
+                            <li><Link href="/panel/teachers-panel" className="hover:text-primary transition-colors">Teachers' Panel</Link></li>
+                            <li><Link href="/panel/advisor-panel" className="hover:text-primary transition-colors">Advisor Panel</Link></li>
                         </ul>
                     </div>
 

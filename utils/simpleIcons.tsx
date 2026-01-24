@@ -1,4 +1,3 @@
-// components/icons/SimpleIcon.tsx
 import * as icons from "simple-icons";
 
 type SimpleIconProps = {

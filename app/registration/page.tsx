@@ -142,12 +142,15 @@ export default function RegistrationPage() {
 
             <div className="z-10 relative w-full max-w-7xl">
 
-                <div className="mb-8 text-center">
-                    <h1 className="drop-shadow-[0_0_15px_rgba(0,210,255,0.3)] font-black text-white text-3xl md:text-5xl uppercase tracking-tight">
+                <div className="mb-16 text-center animate-[slideUp_0.8s_ease_forwards]">
+                    <h1 className="drop-shadow-[0_0_15px_rgba(0,210,255,0.6)] font-black text-[clamp(2rem,5vw,3.5rem)] text-white text-center uppercase tracking-tighter">
                         Join <span className="text-primary">RCSC</span>
                     </h1>
-                    <p className="mt-2 text-[#8899ac]">Member Registration</p>
+                    <p className="text-[#8899ac] text-xl text-center">
+                        Member Registration
+                    </p>
                 </div>
+
                 <div className="gap-6 grid grid-cols-1 lg:grid-cols-2 w-full">
                     <div className="bg-white/5 shadow-2xl backdrop-blur-xl p-8 border border-white/10 rounded-3xl w-full">
 

@@ -6,25 +6,25 @@ const panelMembers = [
         name: 'Sheikh Farhan',
         role: 'President',
         image: 'https://placehold.co/400x400/111/fff?text=Farhan',
-        socials: { facebook: '#' }
+        socials: { instagram: 'https://www.instagram.com/farhan_bored' }
     },
     {
         name: 'Fairuj Faija Dhara',
         role: 'General Secretary',
         image: 'https://placehold.co/400x400/111/fff?text=Dhara',
-        socials: { facebook: '#' }
+        socials: { instagram: 'https://www.instagram.com/faija.dhara_' }
     },
     {
         name: 'Rushafi Islam Rushan',
         role: 'Vice President',
         image: 'https://placehold.co/400x400/111/fff?text=Rushan',
-        socials: { facebook: '#' }
+        socials: { instagram: 'https://www.instagram.com/oofrushan' }
     },
     {
         name: 'Muammar Daiyan Aritro',
         role: 'Vice President',
         image: 'https://placehold.co/400x400/111/fff?text=Aritro',
-        socials: { facebook: '#' }
+        socials: { instagram: 'https://www.instagram.com/daiyan_aritro/' }
     },
     {
         name: 'Kamran Saif',
@@ -250,7 +250,7 @@ const MemberCard = ({ member, isSpecial = false, isImportant = false, className 
     return (
         <div className={`
             relative flex flex-col items-center text-center p-[25px_15px] rounded-2xl transition duration-300 w-full
-            ${isImportant ? 'md:-mt-8' : ''}
+            ${isImportant ? 'md:-mt-8 order-1 md:order-2' : 'order-2 md:order-[auto]'}
             ${className}
             group bg-white/5 backdrop-blur-[15px] border border-white/10 hover:-translate-y-1.25 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]
             ${isSpecial

@@ -13,7 +13,7 @@ export function parseUserAgent(userAgent: string | null) {
     const result = parser.getResult()
 
     return {
-        deviceType: result.device.type || 'desktop', // mobile | tablet | desktop
+        deviceType: result.device.type || 'desktop',
         browser: result.browser.name || 'Unknown',
         os: result.os.name || 'Unknown',
     }

@@ -4,7 +4,6 @@ import { lookupIpsBatch } from '@/utils/ipLookup';
 export async function enrichUserSessions(userId: string) {
     const supabase = await createClient();
 
-    // 1. Get sessions missing location
     const { data: sessions, error: fetchError } = await supabase
         .from('user_sessions')
         .select('id, ip')
@@ -13,18 +12,11 @@ export async function enrichUserSessions(userId: string) {
         .not('ip', 'is', null);
 
     if (fetchError || !sessions || sessions.length === 0) return;
-
-    // 2. Unique IPs only, remove /CIDR
     const uniqueIps = [...new Set(sessions.map(s => s.ip.replace(/\/\d+$/, '')))];
-
-    // 3. Resolve IPs
     const locations = await lookupIpsBatch(uniqueIps);
-
     if (!locations || locations.length === 0) return;
-
     const locationMap = new Map(locations.map(l => [l.ip.replace(/\/\d+$/, ''), l]));
 
-    // 4. Update sessions
     const updates = sessions
         .map(s => {
             const cleanIp = s.ip.replace(/\/\d+$/, '');
@@ -45,6 +37,5 @@ export async function enrichUserSessions(userId: string) {
 
     if (updates.length === 0) return;
 
-    // 5. Execute updates
     await Promise.all(updates);
 }
