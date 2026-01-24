@@ -1,5 +1,7 @@
 import { IconAccessPoint, IconAwardFilled, IconDna2, IconFlaskFilled, IconMath, IconMedal, IconRulerMeasure2, IconTelescope, IconTrophyFilled } from "@tabler/icons-react";
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -11,17 +13,17 @@ export default function Home() {
         className="-right-75 -bottom-75 -z-10 fixed bg-[radial-gradient(circle,var(--tw-colors-accent),transparent)] opacity-60 blur-[100px] rounded-full w-125 h-125 animate-float-reverse pointer-events-none">
       </div>
 
-      <section id="home" className="min-h-dvh hero">
+      <section id="home" className="min-h-dvh">
         <div className="max-w-[90vw] container">
-          <h1 className="flex flex-col justify-center items-center gap-4 font-black text-white text-center uppercase">
+          <h1 className="flex flex-col justify-center items-center gap-4 mb-4 font-black text-white text-center uppercase">
             <span className="lg:text-[5.25rem] text-3xl md:text-5xl">Rajuk College</span>
             <span className="text-6xl md:text-8xl">Science Club</span>
           </h1>
-          <p className="subtitle">Grab Beyond The Infinity</p>
+          <p className="opacity-0 mb-12 font-bold text-[#8899ac] text-[1.5rem] text-center tracking-[4px] animate-[slideUp_0.8s_ease_0.4s_forwards,shimmer_3s_infinite_alternate]">Grab Beyond The Infinity</p>
 
-          <div className="hero-btn-group">
-            <button className="main-btn btn-join">Join Now</button>
-            <button className="main-btn btn-blogs">Read Blogs</button>
+          <div className="flex flex-wrap justify-center gap-7.5 opacity-0 animate-[slideUp_0.8s_ease_0.8s_forwards]">
+            <Button className="bg-primary hover:bg-transparent shadow-[0_0_20px_rgba(0,210,255,0.4)] hover:shadow-[0_0_30px_rgba(0,210,255,0.6)] px-11.25 py-7 border-[3px] border-primary rounded-[50px] min-w-45 font-black text-[#050510]text-[1.1rem] hover:text-primary uppercase tracking-[1px] transition-all hover:-translate-y-1.25 duration-300 cursor-pointer" asChild><Link href="/registration">Join Now</Link></Button>
+            <Button className="bg-transparent hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] px-11.25 py-7 border-[3px] border-white rounded-[50px] min-w-45 font-black text-[1.1rem] text-white hover:text-black uppercase tracking-[1px] transition-all hover:-translate-y-1.25 duration-300 cursor-pointer" asChild><Link href="/blogs">Read Blogs</Link></Button>
           </div>
         </div>
       </section>

@@ -260,7 +260,7 @@ const MemberCard = ({ member, isSpecial = false, isImportant = false, className 
                 : ``
             }
         `}>
-            <div className="relative bg-[#111] mb-4 border-[3px] border-white/10 group-hover:border-primary rounded-full size-28 overflow-hidden transition duration-300">
+            <div className="relative bg-[#111] mb-4 border-[3px] border-white/10 group-hover:border-grad rounded-full size-28 overflow-hidden transition duration-300">
                 <img src={member.image} alt={member.role} className="w-full h-full object-cover" />
             </div>
 
@@ -268,7 +268,7 @@ const MemberCard = ({ member, isSpecial = false, isImportant = false, className 
                 {member.name}
             </h3>
 
-            <div className="inline-block bg-[rgba(0,210,255,0.08)] mb-4 px-3 py-1 rounded-[10px] font-semibold text-[0.75rem] text-cyan-300 uppercase tracking-wider">
+            <div className="inline-block bg-[rgba(0,210,255,0.08)] mb-4 px-3 py-1 rounded-[10px] font-semibold text-[0.75rem] text-primary uppercase tracking-wider">
                 {getRoleDisplay(member)}
             </div>
 
@@ -291,7 +291,7 @@ const SectionHeader = ({ title }: { title: string }) => (
         <h2 className="bg-clip-text bg-linear-to-r from-primary/80 to-primary drop-shadow-[0_0_10px_rgba(0,210,255,0.3)] font-handwriting font-black text-transparent text-3xl md:text-4xl uppercase tracking-widest">
             {title}
         </h2>
-        <div className="bg-linear-to-r from-primary to-violet-500 mx-auto mt-4 w-24 h-1"></div>
+        <div className="bg-linear-to-r from-primary to-secondary mx-auto mt-4 rounded-full w-24 h-1"></div>
     </div>
 );
 

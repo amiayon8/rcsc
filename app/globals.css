@@ -174,6 +174,10 @@
   }
 }
 
+.border-grad {
+  border-image: linear-gradient(45deg, var(--color-primary), var(--color-secondary)) 1;
+}
+
 [aria-live] {
   position: fixed;
   width: 1px;
@@ -252,53 +256,4 @@ section {
   opacity: 0;
   animation: slideUp 0.8s ease forwards 0.4s, shimmer 3s infinite alternate;
   text-align: center;
-}
-
-.hero-btn-group {
-  display: flex;
-  gap: 30px;
-  justify-content: center;
-  opacity: 0;
-  animation: slideUp 0.8s ease forwards 0.8s;
-  flex-wrap: wrap;
-}
-
-.main-btn {
-  padding: 18px 45px;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  border: 3px solid;
-  transition: 0.3s;
-  min-width: 180px;
-}
-
-.btn-join {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: #050510;
-  box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-}
-
-.btn-join:hover {
-  background: transparent;
-  color: var(--primary);
-  box-shadow: 0 0 30px rgba(0, 210, 255, 0.6);
-  transform: translateY(-5px);
-}
-
-.btn-blogs {
-  background: transparent;
-  border-color: #fff;
-  color: #fff;
-}
-
-.btn-blogs:hover {
-  background: #fff;
-  color: #000;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-  transform: translateY(-5px);
 }
