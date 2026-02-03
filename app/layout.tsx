@@ -4,7 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import StarfieldCanvas from "@/components/starFieldCanvas";
 import Footer from "@/components/footer";
-import ProgressLoader from "./fucking-client"
+import ProgressLoader, { ClientWorks } from "./fucking-client"
 import { Toaster } from 'sonner';
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -96,6 +96,7 @@ export default function RootLayout({
         className={`${OutfitFont.variable} antialiased dark`}
       >
         <ProgressLoader color="#ffffff" showSpinner={false} />
+        <ClientWorks />
         <Preloader />
         <Toaster richColors position="top-center" />
         <Navbar />

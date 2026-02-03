@@ -28,50 +28,10 @@ const panelMembers = [
         socials: { instagram: 'https://www.instagram.com/daiyan_aritro/' }
     },
     {
-        name: 'Kamran Saif',
-        role: 'Treasurer',
-        department: 'Organizing',
-        image: 'https://placehold.co/400x400/png?text=Saif',
-        socials: { facebook: '#' }
-    },
-    {
-        name: 'Nafisa Nawal Prionty',
-        role: 'Asst. General Secretary',
-        image: 'https://placehold.co/400x400/png?text=Prionty',
-        socials: { facebook: '#' }
-    },
-    {
-        name: 'Atia Afsara Arshi',
-        role: 'Asst. General Secretary',
-        image: 'https://placehold.co/400x400/png?text=Arshi',
-        socials: { facebook: '#' }
-    },
-    {
         name: 'Mehrin Khondoker',
         role: 'Sr. Organizing Secretary',
         department: 'Organizing',
         image: 'https://placehold.co/400x400/png?text=Mehrin',
-        socials: { facebook: '#' }
-    },
-    {
-        name: 'Abeera Ahsan',
-        role: 'Organizing Secretary | Public Relations',
-        department: 'Organizing',
-        image: 'https://placehold.co/400x400/png?text=Abeera',
-        socials: { facebook: '#' }
-    },
-    {
-        name: 'Alim Nur Rahman Rakan',
-        role: 'Organizing Secretary | Graphics',
-        department: 'Organizing',
-        image: 'https://placehold.co/400x400/png?text=Rakan',
-        socials: { facebook: '#' }
-    },
-    {
-        name: 'Rafif Abrar',
-        role: 'Organizing Secretary | Olympiad',
-        department: 'Organizing',
-        image: 'https://placehold.co/400x400/png?text=Rafif',
         socials: { facebook: '#' }
     },
     {
@@ -96,30 +56,70 @@ const panelMembers = [
         socials: { facebook: '#' }
     },
     {
+        name: 'Kamran Saif',
+        role: 'Treasurer',
+        department: 'Organizing',
+        image: 'https://placehold.co/400x400/png?text=Saif',
+        socials: { facebook: '#' }
+    },
+    {
+        name: 'Nafisa Nawal Prionty',
+        role: 'Asst. General Secretary',
+        image: 'https://placehold.co/400x400/png?text=Prionty',
+        socials: { facebook: '#' }
+    },
+    {
+        name: 'Atia Afsara Arshi',
+        role: 'Asst. General Secretary',
+        image: 'https://placehold.co/400x400/png?text=Arshi',
+        socials: { facebook: '#' }
+    },
+    {
+        name: 'Abeera Ahsan',
+        role: 'Organizing Secretary | Public Relations',
+        department: 'Organizing',
+        image: 'https://placehold.co/400x400/png?text=Abeera',
+        socials: { facebook: '#' }
+    },
+    {
+        name: 'Alim Nur Rahman Rakan',
+        role: 'Organizing Secretary | Graphics',
+        department: 'Organizing',
+        image: 'https://placehold.co/400x400/png?text=Rakan',
+        socials: { facebook: '#' }
+    },
+    {
+        name: 'Rafif Abrar',
+        role: 'Organizing Secretary | Olympiad',
+        department: 'Organizing',
+        image: 'https://placehold.co/400x400/png?text=Rafif',
+        socials: { facebook: '#' }
+    },
+    {
         name: 'Saaji Sehnai',
-        role: 'Joint Secretary | Math',
-        department: 'Olympiads',
+        role: 'Olympiads | Math',
+        department: 'Joint Secretary',
         image: 'https://placehold.co/400x400/png?text=Saaji',
         socials: { facebook: '#' }
     },
     {
         name: 'Nahian Parin Ifa',
-        role: 'Joint Secretary | Math',
-        department: 'Olympiads',
+        role: 'Olympiads | Math',
+        department: 'Joint Secretary',
         image: 'https://placehold.co/400x400/png?text=Ifa',
         socials: { facebook: '#' }
     },
     {
         name: 'Abdul Majid',
-        role: 'Joint Secretary | Physics',
-        department: 'Olympiads',
+        role: 'Olympiads | Physics',
+        department: 'Joint Secretary',
         image: 'https://placehold.co/400x400/png?text=Majid',
         socials: { facebook: '#' }
     },
     {
         name: 'Iyas Mahrus Khan',
-        role: 'Joint Secretary | Biology',
-        department: 'Olympiads',
+        role: 'Olympiads | Biology',
+        department: 'Joint Secretary',
         image: 'https://placehold.co/400x400/png?text=Iyas',
         socials: { facebook: '#' }
     },
@@ -253,7 +253,7 @@ const MemberCard = ({ member, isSpecial = false, isImportant = false, className 
             relative flex flex-col items-center text-center p-[25px_15px] rounded-2xl transition duration-300 w-full
             ${isImportant ? 'md:-mt-8 order-1 md:order-2' : 'order-2 md:order-[auto]'}
             ${className}
-            group bg-white/5 backdrop-blur-[15px] border border-white/10 hover:-translate-y-1.25 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]
+            group bg-white/5 backdrop-blur-[15px] border-2 border-white/10 hover:-translate-y-1.25 hover:border-primary hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]
             ${isSpecial
                 ? `
                    after:content-[''] after:absolute after:top-0 after:right-0 after:-z-10 after:w-full after:h-full 
@@ -262,7 +262,7 @@ const MemberCard = ({ member, isSpecial = false, isImportant = false, className 
             }
         `}>
             <div
-                className="relative bg-white/10 group-hover:bg-linear-to-tr group-hover:from-primary group-hover:to-secondary mb-4 p-1 rounded-full size-28 aspect-square transition duration-300"
+                className="relative bg-white/10 group-hover:bg-linear-to-tr group-hover:from-primary group-hover:to-secondary mb-4 p-0.5 rounded-full size-27 aspect-square transition duration-300"
             >
                 <div className="bg-[#111] rounded-full size-26! aspect-square overflow-hidden">
                     <Image
@@ -356,20 +356,27 @@ export default function ExecutivePanel() {
                         />
                     ))}
                 </div>
+                {organizing.length > 0 && (
+                    <>
+                        <SectionHeader title="Organizing Dept." />
+                        <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full animate-[fadeIn_0.5s_ease-out_forwards]">
+                            {organizing.map((member, idx) => (
+                                <MemberCard key={idx} member={member} />
+                            ))}
+                        </div>
+                    </>
+                )}
 
-                <SectionHeader title="Organizing Dept." />
-                <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full animate-[fadeIn_0.5s_ease-out_forwards]">
-                    {organizing.map((member, idx) => (
-                        <MemberCard key={idx} member={member} />
-                    ))}
-                </div>
-
-                <SectionHeader title="Olympiad Dept." />
-                <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full animate-[fadeIn_0.5s_ease-out_forwards_0.2s]">
-                    {olympiad.map((member, idx) => (
-                        <MemberCard key={idx} member={member} />
-                    ))}
-                </div>
+                {olympiad.length > 0 && (
+                    <>
+                        <SectionHeader title="Olympiad Dept." />
+                        <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full animate-[fadeIn_0.5s_ease-out_forwards_0.2s]">
+                            {olympiad.map((member, idx) => (
+                                <MemberCard key={idx} member={member} />
+                            ))}
+                        </div>
+                    </>
+                )}
 
                 <SectionHeader title="Joint Secretary" />
                 <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full animate-[fadeIn_0.5s_ease-out_forwards_0.4s]">

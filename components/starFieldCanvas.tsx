@@ -171,6 +171,7 @@ const StarfieldCanvas = () => {
 
             ctx.fillStyle = "rgba(0,0,0,0.2)";
             ctx.beginPath();
+
             // @ts-ignore - roundRect is modern but TS might complain depending on version
             if (ctx.roundRect) ctx.roundRect(-tubeLen * 0.45, -tubeW * 0.35 + 10, tubeLen, tubeW, 20);
             else ctx.rect(-tubeLen * 0.45, -tubeW * 0.35 + 10, tubeLen, tubeW);

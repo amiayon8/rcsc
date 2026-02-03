@@ -18,6 +18,8 @@ const nav = [
             { label: "Advisor Panel", url: "/panel/advisor-panel" },
         ],
     },
+    { label: "EVENTS", url: "/events" },
+    { label: "ABOUT", url: "/about" },
     { label: "JOIN NOW", url: "/registration", className: "nav-btn" },
 ];
 
