@@ -355,10 +355,10 @@ const StarfieldCanvas = () => {
                 stars.push(s);
                 entities.push(s);
             }
-            entities.push(new Entity('blackhole'));
+            // entities.push(new Entity('blackhole'));
             for (let i = 0; i < 4; i++) comets.push(new Comet());
 
-            telescopeSprite = createTelescopeSprite(isMobile ? 120 : 200);
+            // telescopeSprite = createTelescopeSprite(isMobile ? 120 : 200);
         }
 
         function resize() {

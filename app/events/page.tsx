@@ -4,7 +4,7 @@ import { Calendar, MapPin, Clock, ArrowUpRight, ChevronRight } from 'lucide-reac
 const events = [
     {
         id: 1,
-        title: "National Science Carnival 2026",
+        title: "Rajuk National SciSpark 3.0",
         status: "upcoming",
         date: "15-17 Mar '26",
         time: "08:00 AM",
