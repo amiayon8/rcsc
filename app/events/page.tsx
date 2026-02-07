@@ -5,44 +5,32 @@ const events = [
     {
         id: 1,
         title: "Rajuk National SciSpark 3.0",
-        status: "upcoming",
-        date: "15-17 Mar '26",
-        time: "08:00 AM",
+        status: "past-special",
+        date: "02-03 Oct, 2024",
         location: "RUMC Campus",
-        description: "The biggest science gathering of the year. Project displays, robotics, and the mega quiz.",
+        description: "A premier national science and innovation festival that brings together young minds from across Bangladesh to explore, create, and compete. The event features science exhibitions, project showcases, robotics, coding challenges, and interactive workshops designed to inspire curiosity, critical thinking, and real-world problem solving. SciSpark 3.0 serves as a platform where students turn ideas into impact, celebrating the future of science and technology through collaboration, creativity, and excellence.",
         image: "https://placehold.co/800x600/00d2ff/050510?text=Science+Carnival",
-        tag: "Flagship"
+        tag: "National"
     },
     {
         id: 2,
-        title: "Astro-Physics Workshop",
-        status: "upcoming",
-        date: "28 Feb '26",
-        time: "02:00 PM",
-        location: "Physics Lab",
-        description: "Deep dive into black holes and relativity.",
-        image: "https://placehold.co/600x400/0055ff/white?text=Workshop",
-        tag: "Workshop"
+        title: "RCSC Present 1st Content Writing",
+        status: "past",
+        date: "Apr 30, 2023",
+        location: "Online",
+        description: "Screening test for the regional team.",
+        image: "https://placehold.co/600x400/111/white?text=Math+Olympiad",
+        tag: "Competition"
     },
     {
         id: 3,
-        title: "Math Olympiad Selection",
+        title: "Rajuk Intra Innovative Idea Hunt 2.0",
         status: "past",
-        date: "10 Jan '26",
-        location: "Auditorium",
-        description: "Screening test for the regional team.",
-        image: "https://placehold.co/600x400/111/white?text=Math+Olympiad",
-        tag: "Selection"
-    },
-    {
-        id: 4,
-        title: "Bio-Genetics Seminar",
-        status: "past",
-        date: "05 Dec '25",
-        location: "Bio Lab",
+        date: "Oct 06, 2024",
+        location: "RUMC Premises",
         description: "Understanding CRISPR and gene editing.",
         image: "https://placehold.co/600x400/111/white?text=Bio+Seminar",
-        tag: "Seminar"
+        tag: "Competition"
     }
 ];
 
