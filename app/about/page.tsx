@@ -7,12 +7,8 @@ export default function Page() {
 
             <div className="mb-16 text-center animate-[slideUp_0.8s_ease_forwards] reveal">
                 <h1 className="drop-shadow-[0_0_15px_rgba(0,210,255,0.6)] font-black text-[clamp(2rem,5vw,3.5rem)] text-white uppercase tracking-tighter">
-                    <span className="text-primary">Advisor</span> Panel
+                    <span className="text-primary">About</span> Us
                 </h1>
-
-                <p className="text-[#8899ac] text-[1.2rem]">
-                    Exploring Science Beyond Textbooks
-                </p>
             </div>
 
             {/* Content Box: What is RCSC? */}

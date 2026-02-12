@@ -32,7 +32,7 @@ const events: Event[] = [
         status: "past-special",
         date: "02-03 Oct, 2024",
         location: "RUMC Campus",
-        description: "A premier national science and innovation festival that brings together young minds from across Bangladesh to explore, create, and compete. SciSpark 3.0 serves as a platform where students turn ideas into impact, celebrating the future of science and technology through collaboration, creativity, and excellence.",
+        description: "Where minds met, ideas sparked, and discoveries flourished—an unforgettable science fest held on 2nd and 3rd October “ Rajuk Nationals SciSpark 3.0” organised by Rajuk College Science Club! After a pause for years ,science takes center stage again with a spark in Rajuk in the heart of Uttara. Rajuk National SciSpark 3.0 is back to exploring the wonders of the universe with over 100 Institutions and more than 4000 students where each and everyone has shown their creativity and Innovations!",
         image: "https://placehold.co/800x600/00d2ff/050510?text=Science+Carnival",
         tag: "National",
         time: "08:00 AM - 05:00 PM"
@@ -65,10 +65,10 @@ const EventDetailModal = ({ event, children }: { event: Event; children: React.R
         <DialogTrigger asChild>
             {children}
         </DialogTrigger>
-        <DialogContent className="z-1001 bg-[#050510]/95 backdrop-blur-2xl p-0 border-white/10 rounded-[2rem] sm:max-w-[700px] overflow-hidden text-white">
+        <DialogContent className="z-1001 bg-[#050510]/95 backdrop-blur-2xl p-0 border-white/10 rounded-[2rem] sm:max-w-175 overflow-hidden text-white">
             <div className="relative w-full h-64">
                 <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050510] to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-[#050510] to-transparent" />
             </div>
             <div className="relative p-8 pt-0 max-h-[calc(90dvh-16rem)] overflow-y-auto">
                 <div className="flex items-center gap-3 mb-4 font-mono text-cyan-400 text-sm">
