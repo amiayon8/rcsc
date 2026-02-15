@@ -37,7 +37,10 @@ export const memberSchema = z.object({
 
     phone: z
         .string()
-        .regex(bdPhoneRegex, "Invalid Bangladeshi phone number"),
+        .regex(bdPhoneRegex, "Invalid phone number"),
+    whatsapp: z
+        .string()
+        .regex(bdPhoneRegex, "Invalid phone number"),
 
     membershipType: z.enum(["with-tshirt", "without-tshirt"])
         .refine(v => v !== undefined, {
@@ -75,6 +78,7 @@ interface MemberFormData {
     wing: string;
     email: string;
     phone: string;
+    whatsapp: string;
     membershipType: string;
     tshirtSize: string;
     bkashNumber: string;
@@ -84,7 +88,7 @@ interface MemberFormData {
 export default function RegistrationPage() {
 
     const [copied, setCopied] = useState(false);
-    const phoneNumber = "01834690105";
+    const phoneNumber = "01715012619";
 
     const [formData, setFormData] = useState<MemberFormData>({
         fullName: '',
@@ -94,6 +98,7 @@ export default function RegistrationPage() {
         wing: '',
         email: '',
         phone: '',
+        whatsapp: '',
         membershipType: 'without-tshirt',
         tshirtSize: '',
         bkashNumber: '',
@@ -105,16 +110,35 @@ export default function RegistrationPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [errors, setErrors] = useState<Partial<Record<MemberFormKeys, string>>>({});
+    const [sameAsPhone, setSameAsPhone] = useState(false);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-
         const finalValue = name === 'transactionId' ? value.toUpperCase() : value;
 
-        setFormData((prev) => ({
-            ...prev,
-            [name]: finalValue,
-        }));
+        setFormData((prev) => {
+            const updates = { ...prev, [name]: finalValue };
+
+            if (name === 'phone' && sameAsPhone) {
+                updates.whatsapp = finalValue;
+            }
+
+            return updates;
+        });
+
+        if (name === 'whatsapp' && sameAsPhone) {
+            setSameAsPhone(false);
+        }
+    };
+
+    const handleSameAsPhone = (e: ChangeEvent<HTMLInputElement>) => {
+        const isChecked = e.target.checked;
+        setSameAsPhone(isChecked);
+
+        if (isChecked) {
+            setFormData(prev => ({ ...prev, whatsapp: prev.phone }));
+            setErrors(prev => ({ ...prev, whatsapp: undefined }));
+        }
     };
 
     const handleCopy = () => {
@@ -369,6 +393,40 @@ export default function RegistrationPage() {
                                             />
                                             {errors.phone && <p className="text-destructive text-sm">{errors.phone}</p>}
                                         </div>
+                                    </div>
+                                    <div>
+                                        <div className="flex justify-between items-center mb-2">
+                                            <label className="font-semibold text-primary/80 text-sm uppercase tracking-wider">
+                                                WhatsApp No.
+                                            </label>
+
+                                            {/* Checkbox Toggle */}
+                                            <label className="group flex items-center gap-2 cursor-pointer select-none">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={sameAsPhone}
+                                                    onChange={handleSameAsPhone}
+                                                    className="bg-white/5 border-white/20 rounded focus:ring-cyan-500 w-4 h-4 text-cyan-500 accent-cyan-500"
+                                                />
+                                                <span className="text-gray-400 group-hover:text-white text-xs uppercase tracking-wider transition-colors">
+                                                    Same as Phone
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <input
+                                            type="tel"
+                                            name="whatsapp"
+                                            required
+                                            value={formData.whatsapp}
+                                            onChange={handleChange}
+                                            placeholder="01xxxxxxxxx"
+                                            className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white transition-all placeholder-gray-500 ${errors.whatsapp
+                                                ? 'border-destructive ring-1 ring-destructive bg-destructive/20'
+                                                : 'border-white/10 focus:border-primary focus:ring-primary bg-[#0f1932]/80'
+                                                }`}
+                                        />
+                                        {errors.whatsapp && <p className="text-destructive text-sm">{errors.whatsapp}</p>}
                                     </div>
 
                                     <div className="gap-6 grid grid-cols-1 md:grid-cols-2">
