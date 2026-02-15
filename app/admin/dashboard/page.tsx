@@ -3,8 +3,8 @@
 import { useEffect, useState, useMemo } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import {
-    Search, RefreshCcw, Trash2, Edit, Check, X,
-    MoreHorizontal, Download, Smartphone, Monitor, Globe
+    Search, RefreshCcw, Check,
+    MoreHorizontal, Download, Smartphone, Monitor, Globe, Save
 } from 'lucide-react';
 import {
     BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell, PieChart, Pie
@@ -23,14 +23,31 @@ import {
 import {
     DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
-// --- Supabase Client ---
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-// --- Types ---
+async function checkUser() {
+    const {
+        data: { session },
+        error,
+    } = await supabase.auth.getSession()
+
+    if (error) {
+        return null
+    }
+
+    if (session) {
+        return session.user
+    } else {
+        return null
+    }
+}
+
 interface Registration {
     id: number;
     created_at: string;
@@ -51,7 +68,6 @@ interface Registration {
     ip_address?: string;
 }
 
-// --- Helper: Simple UA Parser ---
 const parseUA = (ua: string) => {
     if (!ua) return { os: 'Unknown', browser: 'Unknown', device: 'Unknown' };
     const isMobile = /Mobile|Android|iPhone/i.test(ua);
@@ -76,17 +92,28 @@ export default function AdminDashboard() {
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
-    // Dialog States
     const [selectedReg, setSelectedReg] = useState<Registration | null>(null);
+    const [formData, setFormData] = useState<Registration | null>(null);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [deleteId, setDeleteId] = useState<number | null>(null);
+    const [isSaving, setIsSaving] = useState(false);
 
-    // --- 1. Fetch & Realtime Subscription ---
+    const router = useRouter();
+
+    useEffect(() => {
+        const job = async () => {
+            if (!(await checkUser())) {
+                router.push('/');
+            }
+        }
+
+        job();
+    }, []);
+
     useEffect(() => {
         fetchData();
 
-        // Realtime Subscription
         const channel = supabase
             .channel('registrations_realtime')
             .on(
@@ -111,6 +138,12 @@ export default function AdminDashboard() {
         };
     }, []);
 
+    useEffect(() => {
+        if (selectedReg) {
+            setFormData({ ...selectedReg });
+        }
+    }, [selectedReg]);
+
     const fetchData = async () => {
         setIsLoading(true);
         const { data: regs, error } = await supabase
@@ -122,11 +155,10 @@ export default function AdminDashboard() {
         setIsLoading(false);
     };
 
-    // --- 2. Actions (Delete & Validate) ---
     const handleDelete = async () => {
         if (!deleteId) return;
         const { error } = await supabase.from('registrations').delete().eq('id', deleteId);
-        if (error) console.error("Delete failed", error);
+        if (error) toast.error("Delete failed");
         setIsDeleteDialogOpen(false);
         setDeleteId(null);
     };
@@ -136,21 +168,53 @@ export default function AdminDashboard() {
             .from('registrations')
             .update({ is_validated: !currentStatus })
             .eq('id', id);
-        if (error) console.error("Update failed", error);
+        if (error) toast.error("Update failed");
     };
 
-    // --- 3. Derived Stats ---
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        if (!formData) return;
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSave = async () => {
+        if (!formData) return;
+        setIsSaving(true);
+        const { error } = await supabase
+            .from('registrations')
+            .update({
+                full_name: formData.full_name,
+                class_grade: formData.class_grade,
+                section: formData.section,
+                c_no: formData.c_no,
+                wing: formData.wing,
+                email: formData.email,
+                phone: formData.phone,
+                whatsapp: formData.whatsapp,
+                membership_type: formData.membership_type,
+                tshirt_size: formData.tshirt_size,
+                bkash_number: formData.bkash_number,
+                transaction_id: formData.transaction_id
+            })
+            .eq('id', formData.id);
+
+        setIsSaving(false);
+        if (!error) {
+            setIsDetailsOpen(false);
+        } else {
+            toast.error("Save failed");
+        }
+    };
+
     const stats = useMemo(() => {
         const total = data.length;
         const verified = data.filter(d => d.is_validated).length;
         const revenue = data.reduce((acc, curr) => acc + (curr.membership_type === 'with-tshirt' ? 250 : 150), 0);
 
-        // Wing Distribution for Pie Chart
         const wings: Record<string, number> = {};
         data.forEach(d => { wings[d.wing] = (wings[d.wing] || 0) + 1 });
         const wingData = Object.entries(wings).map(([name, value]) => ({ name, value }));
 
-        // Class Distribution for Bar Chart
         const classes: Record<string, number> = {};
         data.forEach(d => { classes[d.class_grade] = (classes[d.class_grade] || 0) + 1 });
         const classData = Object.entries(classes).map(([name, value]) => ({ name, value }));
@@ -158,7 +222,6 @@ export default function AdminDashboard() {
         return { total, verified, revenue, wingData, classData };
     }, [data]);
 
-    // --- 4. Filtering ---
     const filteredData = useMemo(() => {
         return data.filter(item =>
             item.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -188,7 +251,7 @@ export default function AdminDashboard() {
             {/* Header Section */}
             <div className="flex md:flex-row flex-col justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="font-bold text-gray-900 dark:text-white text-3xl tracking-tight">RCSC Dashboard</h1>
+                    <h1 className="font-bold text-gray-900 dark:text-white text-3xl tracking-tight">Dashboard</h1>
                     <p className="text-gray-500 dark:text-gray-400">Manage member registrations and payments.</p>
                 </div>
                 <div className="flex gap-2">
@@ -385,53 +448,127 @@ export default function AdminDashboard() {
                 </AlertDialogContent>
             </AlertDialog>
 
-            {/* View Details Dialog */}
+            {/* View/Edit Details Dialog */}
             <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
-                <DialogContent className="z-1001 max-w-2xl">
+                <DialogContent className="z-1001 max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle>Registration Details</DialogTitle>
                         <DialogDescription>
-                            Detailed view of the submission.
+                            Edit and view submission details.
                         </DialogDescription>
                     </DialogHeader>
-                    {selectedReg && (
-                        <div className="gap-4 grid grid-cols-2 mt-4 text-sm">
+                    {formData && (
+                        <div className="gap-6 grid grid-cols-1 md:grid-cols-2 mt-4 text-sm">
+                            {/* Personal Info - Editable */}
                             <div className="space-y-4">
-                                <div>
-                                    <h4 className="font-semibold text-gray-500 text-base uppercase">Personal Info</h4>
-                                    <p className="font-medium text-lg">{selectedReg.full_name}</p>
-                                    <p>{selectedReg.email}</p>
-                                    <p>{selectedReg.phone}</p>
+                                <h4 className="pb-1 border-b font-semibold text-gray-500 text-xs uppercase tracking-wider">Personal Info</h4>
+                                <div className="space-y-2">
+                                    <label className="text-gray-500 text-xs">Full Name</label>
+                                    <Input name="full_name" value={formData.full_name} onChange={handleInputChange} className="h-8" />
                                 </div>
-                                <div>
-                                    <h4 className="font-semibold text-gray-500 text-base uppercase">Academic</h4>
-                                    <p>Class: {selectedReg.class_grade} | Section: {selectedReg.section}</p>
-                                    <p>Wing: {selectedReg.wing} | ID: {selectedReg.c_no}</p>
+                                <div className="space-y-2">
+                                    <label className="text-gray-500 text-xs">Email</label>
+                                    <Input name="email" value={formData.email} onChange={handleInputChange} className="h-8" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-gray-500 text-xs">Phone</label>
+                                    <Input name="phone" value={formData.phone} onChange={handleInputChange} className="h-8" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-gray-500 text-xs">WhatsApp</label>
+                                    <Input name="whatsapp" value={formData.whatsapp || ''} onChange={handleInputChange} className="h-8" />
                                 </div>
                             </div>
+
+                            {/* Academic - Editable */}
                             <div className="space-y-4">
-                                <div>
-                                    <h4 className="font-semibold text-gray-500 text-base uppercase">Payment Info</h4>
-                                    <p>bKash: {selectedReg.bkash_number}</p>
-                                    <p className="inline-block bg-zinc-100 mt-1 p-1 rounded font-mono">
-                                        TrxID: {selectedReg.transaction_id}
-                                    </p>
-                                    <p className="mt-1 text-gray-400 text-base">
-                                        Time: {new Date(selectedReg.created_at).toLocaleString()}
-                                    </p>
+                                <h4 className="pb-1 border-b font-semibold text-gray-500 text-xs uppercase tracking-wider">Academic</h4>
+                                <div className="gap-2 grid grid-cols-2">
+                                    <div className="space-y-2">
+                                        <label className="text-gray-500 text-xs">Class</label>
+                                        <Input name="class_grade" value={formData.class_grade} onChange={handleInputChange} className="h-8" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-gray-500 text-xs">Section</label>
+                                        <Input name="section" value={formData.section} onChange={handleInputChange} className="h-8" />
+                                    </div>
                                 </div>
+                                <div className="gap-2 grid grid-cols-2">
+                                    <div className="space-y-2">
+                                        <label className="text-gray-500 text-xs">Wing</label>
+                                        <Input name="wing" value={formData.wing} onChange={handleInputChange} className="h-8" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-gray-500 text-xs">ID (C/No)</label>
+                                        <Input name="c_no" value={formData.c_no} onChange={handleInputChange} className="h-8" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Payment Info - Editable */}
+                            <div className="space-y-4">
+                                <h4 className="pb-1 border-b font-semibold text-gray-500 text-xs uppercase tracking-wider">Payment Info</h4>
+                                <div className="space-y-2">
+                                    <label className="text-gray-500 text-xs">bKash Number</label>
+                                    <Input name="bkash_number" value={formData.bkash_number} onChange={handleInputChange} className="h-8" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-gray-500 text-xs">Transaction ID</label>
+                                    <Input name="transaction_id" value={formData.transaction_id} onChange={handleInputChange} className="h-8 font-mono uppercase" />
+                                </div>
+                                <div className="gap-2 grid grid-cols-2">
+                                    <div className="space-y-2">
+                                        <label className="text-gray-500 text-xs">Type</label>
+                                        <select
+                                            name="membership_type"
+                                            value={formData.membership_type}
+                                            onChange={handleInputChange}
+                                            className="flex bg-transparent file:bg-transparent disabled:opacity-50 shadow-sm px-3 py-1 border border-input file:border-0 rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full h-8 file:font-medium placeholder:text-muted-foreground text-sm file:text-sm transition-colors disabled:cursor-not-allowed"
+                                        >
+                                            <option value="without-tshirt">Without T-Shirt</option>
+                                            <option value="with-tshirt">With T-Shirt</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-gray-500 text-xs">Size</label>
+                                        <select
+                                            name="tshirt_size"
+                                            value={formData.tshirt_size || ''}
+                                            onChange={handleInputChange}
+                                            className="flex bg-transparent file:bg-transparent disabled:opacity-50 shadow-sm px-3 py-1 border border-input file:border-0 rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full h-8 file:font-medium placeholder:text-muted-foreground text-sm file:text-sm transition-colors disabled:cursor-not-allowed"
+                                        >
+                                            <option value="">N/A</option>
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                            <option value="XL">XL</option>
+                                            <option value="XXL">XXL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Technical - Read Only / Uneditable */}
+                            <div className="space-y-4">
+                                <h4 className="pb-1 border-b font-semibold text-gray-500 text-xs uppercase tracking-wider">Technical (Read Only)</h4>
                                 <div>
-                                    <h4 className="font-semibold text-gray-500 text-base uppercase">Technical</h4>
-                                    <p className="bg-zinc-50 mt-1 p-2 border rounded font-mono text-gray-500 text-base wrap-break-word">
-                                        {selectedReg.user_agent}
+                                    <p className="bg-zinc-50 dark:bg-zinc-900 mt-1 p-2 border rounded font-mono text-gray-500 text-xs break-all">
+                                        {formData.user_agent}
                                     </p>
-                                    <p className="mt-1 text-base">IP: {selectedReg.ip_address}</p>
+                                    <div className="flex justify-between items-center mt-2 text-gray-400 text-xs">
+                                        <span>IP: {formData.ip_address}</span>
+                                        <span>Created: {new Date(formData.created_at).toLocaleString()}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     )}
-                    <DialogFooter>
-                        <Button onClick={() => setIsDetailsOpen(false)}>Close</Button>
+                    <DialogFooter className="gap-2 sm:gap-0">
+                        <Button variant="outline" onClick={() => setIsDetailsOpen(false)}>Cancel</Button>
+                        <Button onClick={handleSave} disabled={isSaving}>
+                            {isSaving ? <RefreshCcw className="mr-2 w-4 h-4 animate-spin" /> : <Save className="mr-2 w-4 h-4" />}
+                            Save Changes
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
@@ -440,7 +577,6 @@ export default function AdminDashboard() {
     );
 }
 
-// --- Subcomponent: Stats Card ---
 function StatsCard({ title, value, icon, sub }: { title: string, value: string | number, icon: any, sub?: string }) {
     return (
         <Card >

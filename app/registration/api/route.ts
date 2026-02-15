@@ -103,7 +103,6 @@ export async function POST(req: NextRequest) {
         });
 
         if (error) {
-            console.error("Supabase Error:", error);
             if (error.code === "23505") {
                 return NextResponse.json({ message: "This Transaction ID has already been used." }, { status: 409 });
             }
@@ -113,7 +112,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ success: true, message: "Registration successful" });
 
     } catch (err) {
-        console.error("Server Error:", err);
         return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
     }
 }

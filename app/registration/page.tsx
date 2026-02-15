@@ -3,6 +3,7 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { z } from "zod";
 import { Send, FileText, Hash, CheckCircle, Check, Copy } from "lucide-react";
+import { toast } from 'sonner';
 
 const commonEmailRegex =
     /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com|hotmail\.com)$/;
@@ -19,7 +20,6 @@ export const memberSchema = z.object({
     class: z.enum(["VI", "VII", "VIII", "IX", "X", "XI"])
         .refine(Boolean, { message: "Class is required" }),
 
-    // FIXED: Removed strict errorMap object to resolve TS overload mismatch
     section: z.enum(["A", "B", "C", "D", "E", "B. Std"]),
 
     cNo: z
@@ -46,7 +46,6 @@ export const memberSchema = z.object({
             message: "Please select a membership type"
         }),
 
-    // UPDATED: Now an enum (S-XXL) instead of generic string
     tshirtSize: z.enum(["S", "M", "L", "XL", "XXL"]).optional(),
 
     bkashNumber: z
@@ -249,10 +248,9 @@ export default function RegistrationPage() {
                 throw new Error(data?.message || "Submission failed");
             }
 
-            console.log("Validated Submission:", data.data);
             setSubmitted(true);
         } catch (err) {
-            console.error("Registration error:", err);
+            toast.error("Registration failed");
         } finally {
             setIsSubmitting(false);
         }
