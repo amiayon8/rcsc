@@ -4,37 +4,49 @@ import Image from 'next/image';
 
 const teachersPanel = [
     {
-        name: 'Shahajalal Sir',
-        role: 'OIC',
-        image: 'https://placehold.co/400x400/png?text=Shahajalal',
-        socials: {}
-    },
-    {
         name: 'Akhter Sir',
         role: 'FOUNDER',
-        image: 'https://placehold.co/400x400/png?text=Akhter',
+        image: 'https://placehold.co/400x400/png?text=Shahajalal',
+        dept: 'Assoc. Prof. of Physics',
         socials: {}
     },
     {
-        name: 'Assistant OIC',
+        name: 'Mr. Md. Shahjalal',
         role: 'OIC',
-        image: 'https://placehold.co/400x400/png?text=Asst+OIC',
+        image: 'https://placehold.co/400x400/png?text=Akhter',
+        dept: 'Assoc. Prof. of Zoology',
         socials: {}
     },
-
     {
-        name: 'Sohel Rana',
+        name: 'Mr. Md. Shahjahan',
         role: 'Moderator',
         department: 'Moderators',
         image: 'https://placehold.co/400x400/png?text=Sohel',
+        dept: 'Asst. Prof. of Chemistry',
         socials: {}
     },
-
     {
-        name: 'Sohel Rana',
-        role: 'Assistant Moderator',
-        department: 'Assistant Moderators',
+        name: 'Dr. Lovely Aktar',
+        role: 'Moderator',
+        department: 'Moderators',
         image: 'https://placehold.co/400x400/png?text=Sohel',
+        dept: 'Asst. Prof. of Botany',
+        socials: {}
+    },
+    {
+        name: 'Mr.Narayan Chanra Mazumdar',
+        role: 'Moderator',
+        department: 'Moderators',
+        image: 'https://placehold.co/400x400/png?text=Sohel',
+        dept: 'Asst. Prof. of Physics',
+        socials: {}
+    },
+    {
+        name: 'Mr. Shohel Rana',
+        role: 'Moderator',
+        department: 'Moderators',
+        image: 'https://placehold.co/400x400/png?text=Sohel',
+        dept: 'Lecturer in Physics',
         socials: {}
     },
 ];
@@ -58,7 +70,7 @@ const getRoleDisplay = (member: any) => {
     return member.role.replace('Joint Secretary | ', '').replace('Organizing Secretary | ', '');
 };
 
-const MemberCard = ({ member, isSpecial = false, isImportant = false, className = '' }: { member: any, isSpecial?: boolean, isImportant?: boolean, className?: string }) => {
+const MemberCard = ({ member, isSpecial = false, isImportant = false, className = '', isLarge = false }: { member: any, isSpecial?: boolean, isImportant?: boolean, className?: string, isLarge?: boolean }) => {
     return (
         <div className={`
             relative flex flex-col items-center text-center p-[25px_15px] rounded-2xl transition duration-300 w-full
@@ -71,26 +83,27 @@ const MemberCard = ({ member, isSpecial = false, isImportant = false, className 
                    after:bg-linear-to-br after:from-white/5 after:via-transparent after:to-[#3a7bd5]/10 after:rounded-2xl`
                 : ``
             }
+            ${isLarge ? 'py-12' : ''}
         `}>
             <div
-                className="relative bg-white/10 group-hover:bg-linear-to-tr group-hover:from-primary group-hover:to-secondary mb-4 p-0.5 rounded-full size-27 aspect-square transition duration-300"
+                className={`relative bg-white/10 group-hover:bg-linear-to-tr group-hover:from-primary group-hover:to-secondary p-0.5 rounded-full ${isLarge ? 'mb-8 size-33' : 'mb-4 size-27'} aspect-square transition duration-300`}
             >
-                <div className="bg-[#111] rounded-full size-26! aspect-square overflow-hidden">
+                <div className={`bg-[#111] rounded-full ${isLarge ? 'size-32' : 'size-26'}! aspect-square overflow-hidden`}>
                     <Image
                         width={104}
                         height={104}
                         src={member.image}
                         alt={member.role}
-                        className="m-0 rounded-full size-26 object-cover aspect-square"
+                        className={`m-0 rounded-full ${isLarge ? 'size-32' : 'size-26'} object-cover aspect-square`}
                     />
                 </div>
             </div>
 
 
-            <h3 className="mb-2 font-bold text-white text-2xl uppercase leading-tight">
+            <h3 className={`${isLarge ? 'text-2xl' : 'text-xl'} mb-3 font-bold text-white uppercase leading-tight`}>
                 {member.name}
             </h3>
-
+            <h4 className={`text-sm mb-4 text-white leading-tight`}>{member.dept}</h4>
             <div className="inline-block bg-[rgba(0,210,255,0.1)] mb-4 px-4 py-1.25 rounded-full font-semibold text-[1rem] text-primary uppercase tracking-wider">
                 {getRoleDisplay(member)}
             </div>
@@ -120,8 +133,9 @@ const SectionHeader = ({ title }: { title: string }) => (
 
 export default function TeachersPanel() {
     const founder = teachersPanel.find(m => m.role === 'FOUNDER');
-    const oics = teachersPanel.filter(m => m.role === 'OIC');
-    const topTier = [oics[0], founder, oics[1]];
+    const oic = teachersPanel.find(m => m.role === 'OIC' && !m.name.includes('Assistant'));
+
+    const topTier = [founder, oic].filter(Boolean);
 
     const moderators = teachersPanel.filter(m => m.department === 'Moderators');
     const assistantModerators = teachersPanel.filter(m => m.department === 'Assistant Moderators');
@@ -136,13 +150,14 @@ export default function TeachersPanel() {
                     </h1>
                 </div>
 
-                <div className="gap-8 grid grid-cols-1 md:grid-cols-3 mb-16 w-full max-w-5xl">
+                <div className="gap-8 grid grid-cols-1 md:grid-cols-2 mb-16 w-full max-w-2xl">
                     {topTier.map((member, idx) => (
                         <MemberCard
                             key={idx}
                             member={member}
+                            isLarge={true}
                             isSpecial={true}
-                            isImportant={member?.role === 'FOUNDER'}
+                            isImportant={true}
                         />
                     ))}
                 </div>
@@ -150,7 +165,7 @@ export default function TeachersPanel() {
                 {moderators.length > 0 && (
                     <>
                         <SectionHeader title="Moderators" />
-                        <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full">
+                        <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full">
                             {moderators.map((member, idx) => (
                                 <MemberCard key={idx} member={member} />
                             ))}
@@ -158,7 +173,6 @@ export default function TeachersPanel() {
                     </>
                 )}
 
-                {/* ASSISTANT MODERATORS DEPT */}
                 {assistantModerators.length > 0 && (
                     <>
                         <SectionHeader title="Assistant Moderators" />

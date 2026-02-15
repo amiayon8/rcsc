@@ -1,7 +1,6 @@
 export default function Page() {
 
     return (
-        /* Container */
         <div className="relative mx-auto px-5 pt-24 max-w-300">
 
 
@@ -11,7 +10,6 @@ export default function Page() {
                 </h1>
             </div>
 
-            {/* Content Box: What is RCSC? */}
             <div className="bg-[rgba(10,20,40,0.7)] shadow-[0_10px_30px_rgba(0,0,0,0.3)] backdrop-blur-[15px] mb-10 p-6.25 md:p-10 border border-[rgba(0,210,255,0.2)] rounded-4xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] reveal">
                 <h2 className="mb-5 font-black text-[#00d2ff] text-2xl uppercase tracking-wider">
                     What is RCSC?
@@ -29,7 +27,6 @@ export default function Page() {
                 </div>
             </div>
 
-            {/* Content Box: Why Join RCSC? */}
             <div className="bg-[rgba(10,20,40,0.7)] shadow-[0_10px_30px_rgba(0,0,0,0.3)] backdrop-blur-[15px] mb-10 p-6.25 md:p-10 border border-[rgba(0,210,255,0.2)] rounded-4xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] reveal">
                 <h2 className="mb-5 font-black text-[#00d2ff] text-2xl uppercase tracking-wider">
                     Why Join RCSC?
@@ -37,8 +34,6 @@ export default function Page() {
                 <p className="mb-5 text-[#ccc] text-[1rem] md:text-[1.1rem] leading-[1.8]">
                     Joining RCSC means becoming part of a community that believes learning doesn't stop in the classroom. Through its regular activities and events, RCSC helps students build confidence, academic excellence, and a strong foundation in scientific fields.
                 </p>
-
-                {/* Features Grid */}
                 <div className="gap-7.5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5">
                     <FeatureCard
                         title="Olympiad Training"
@@ -63,8 +58,7 @@ export default function Page() {
                 </div>
             </div>
 
-            {/* Footer Quote Section */}
-            <div className="mb-20 text-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] reveal">
+            <div className="mb-20 text-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hiidden //reveal">
                 <p className="font-light text-[1.5rem] text-white italic">
                     "At RCSC, students don't just learn science, they experience it."
                 </p>
@@ -76,7 +70,6 @@ export default function Page() {
     );
 }
 
-/* Helper Component for the Feature Cards */
 function FeatureCard({ title, desc }: { title: string; desc: string }) {
     return (
         <div className="group bg-[rgba(20,30,50,0.5)] hover:bg-[rgba(20,30,50,0.8)] p-7.5 border border-white/10 hover:border-[#00d2ff] rounded-3xl transition-all hover:-translate-y-1.25 duration-300">

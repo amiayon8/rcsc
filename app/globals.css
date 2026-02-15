@@ -147,13 +147,6 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
-/* Firefox (uncomment to work in Firefox) */
-/* * {
-  scrollbar-width: thin;
-  scrollbar-color: #00D2FF #030712;
-} */
-
-/* Chrome, Edge and Safari */
 *::-webkit-scrollbar {
   height: 10px;
   width: 10px;
@@ -207,8 +200,9 @@
   }
 
   button,
-  a {
-    @apply cursor-pointer;
+  a,
+  select {
+    @apply !cursor-pointer;
   }
 }
 

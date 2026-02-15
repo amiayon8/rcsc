@@ -6,9 +6,8 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"; // Ensure path matches your shadcn setup
+} from "@/components/ui/dialog";
 
-/** --- TYPES --- **/
 type EventStatus = 'upcoming' | 'past' | 'past-special';
 
 interface Event {
@@ -24,7 +23,6 @@ interface Event {
     link?: string;
 }
 
-/** --- DATA --- **/
 const events: Event[] = [
     {
         id: 1,
@@ -59,7 +57,6 @@ const events: Event[] = [
     }
 ];
 
-/** --- MODAL COMPONENT --- **/
 const EventDetailModal = ({ event, children }: { event: Event; children: React.ReactNode }) => (
     <Dialog>
         <DialogTrigger asChild>
@@ -102,7 +99,6 @@ const EventDetailModal = ({ event, children }: { event: Event; children: React.R
     </Dialog>
 );
 
-/** --- SUB-COMPONENTS --- **/
 const FeaturedEventCard = ({ event }: { event: Event }) => (
     <div className="group relative bg-white/5 hover:bg-white/10 hover:shadow-[0_0_40px_rgba(0,210,255,0.15)] backdrop-blur-xl mb-12 border border-white/10 rounded-[2rem] w-full overflow-hidden transition-all duration-500">
         <div className="gap-0 grid md:grid-cols-2">
@@ -138,7 +134,6 @@ const FeaturedEventCard = ({ event }: { event: Event }) => (
     </div>
 );
 
-/** --- MAIN COMPONENT --- **/
 export default function EventsPage() {
     const featured = events.filter(e => e.status === 'past-special');
     const upcoming = events.filter(e => e.status === 'upcoming');
@@ -157,7 +152,6 @@ export default function EventsPage() {
                     <div className="bg-cyan-500 rounded-full w-20 h-1" />
                 </div>
 
-                {/* FEATURED */}
                 {featured.length > 0 && (
                     <div className="mb-20">
                         <h2 className="flex items-center gap-2 mb-8 font-bold text-cyan-400 text-sm uppercase tracking-widest">
@@ -168,7 +162,6 @@ export default function EventsPage() {
                     </div>
                 )}
 
-                {/* UPCOMING */}
                 {upcoming.length > 0 && (
                     <div className="z-10 relative gap-12 grid md:grid-cols-12 mb-20">
                         <div className="md:col-span-4">
@@ -197,7 +190,6 @@ export default function EventsPage() {
                     </div>
                 )}
 
-                {/* PAST */}
                 {past.length > 0 && (
                     <div className="z-10 relative pt-10 border-white/10 border-t">
                         <div className="flex justify-between items-center mb-10">

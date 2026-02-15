@@ -16,6 +16,7 @@ const nav = [
             { label: "Executive Panel", url: "/panel/executive-panel" },
             { label: "Teachers’ Panel", url: "/panel/teachers-panel" },
             { label: "Advisor Panel", url: "/panel/advisor-panel" },
+            { label: "Founder Panel", url: "/panel/founder-panel" },
         ],
     },
     { label: "EVENTS", url: "/events" },
