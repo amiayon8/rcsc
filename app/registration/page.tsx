@@ -19,9 +19,8 @@ export const memberSchema = z.object({
     class: z.enum(["VI", "VII", "VIII", "IX", "X", "XI"])
         .refine(Boolean, { message: "Class is required" }),
 
-    section: z
-        .string()
-        .min(1, "Section is required"),
+    // FIXED: Removed strict errorMap object to resolve TS overload mismatch
+    section: z.enum(["A", "B", "C", "D", "E", "B. Std"]),
 
     cNo: z
         .string()
@@ -47,7 +46,8 @@ export const memberSchema = z.object({
             message: "Please select a membership type"
         }),
 
-    tshirtSize: z.string().optional(),
+    // UPDATED: Now an enum (S-XXL) instead of generic string
+    tshirtSize: z.enum(["S", "M", "L", "XL", "XXL"]).optional(),
 
     bkashNumber: z
         .string()
@@ -318,17 +318,25 @@ export default function RegistrationPage() {
                                             </select>
                                             {errors.class && <p className="text-destructive text-sm">{errors.class}</p>}
                                         </div>
+
+                                        {/* UPDATED: Section Dropdown */}
                                         <div>
                                             <label className="block mb-2 font-semibold text-primary/80 text-sm uppercase tracking-wider">Section</label>
-                                            <input
-                                                type="text"
+                                            <select
                                                 name="section"
                                                 required
                                                 value={formData.section}
                                                 onChange={handleChange}
-                                                placeholder="e.g. Science-A"
-                                                className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white transition-all placeholder-gray-500 ${errors.section ? 'border-destructive ring-1 ring-destructive bg-destructive/20' : 'border-white/10 focus:border-primary focus:ring-primary bg-[#0f1932]/80'}`}
-                                            />
+                                                className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white bg-[#0f1932]/80 ${errors.section ? 'border-destructive ring-1 ring-destructive' : 'border-white/10 focus:border-primary focus:ring-primary'}`}
+                                            >
+                                                <option value="" disabled>Select Section</option>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                                <option value="E">E</option>
+                                                <option value="B. Std">B. Std</option>
+                                            </select>
                                             {errors.section && <p className="text-destructive text-sm">{errors.section}</p>}
                                         </div>
                                     </div>

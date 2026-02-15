@@ -5,20 +5,20 @@ import Image from 'next/image';
 const teachersPanel = [
     {
         name: 'Akhter Sir',
-        role: 'FOUNDER',
+        role: 'FOUNDER OIC',
         image: 'https://placehold.co/400x400/png?text=Shahajalal',
         dept: 'Assoc. Prof. of Physics',
         socials: {}
     },
     {
-        name: 'Mr. Md. Shahjalal',
+        name: 'Md. Shahjalal',
         role: 'OIC',
         image: 'https://placehold.co/400x400/png?text=Akhter',
         dept: 'Assoc. Prof. of Zoology',
         socials: {}
     },
     {
-        name: 'Mr. Md. Shahjahan',
+        name: 'Md. Shahjahan',
         role: 'Moderator',
         department: 'Moderators',
         image: 'https://placehold.co/400x400/png?text=Sohel',
@@ -42,7 +42,7 @@ const teachersPanel = [
         socials: {}
     },
     {
-        name: 'Mr. Shohel Rana',
+        name: 'Shohel Rana',
         role: 'Moderator',
         department: 'Moderators',
         image: 'https://placehold.co/400x400/png?text=Sohel',

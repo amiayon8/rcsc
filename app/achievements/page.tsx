@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 interface Achievement {
-    id: string;
     title: string;
     winner: string;
     role?: string;
@@ -22,74 +21,155 @@ const achievementsData: YearGroup[] = [
         year: '2025',
         achievements: [
             {
-                id: 'apicta-2025',
-                title: 'APICTA Awards 2nd Runner Up',
-                winner: 'Ayon Sarker',
-                role: 'XI-EMMS, Joint Secretary (IT)',
-                description:
-                    'Achieved distinguished recognition at the Asia Pacific ICT Alliance Awards for innovative technological solutions.',
-                image: '/images/apicta.jpg',
+                title: "WRO Best Design Innovation",
+                winner: "Winner: Syed Mohammad Mohiuddin Sami",
+                description: "Earned the Best Design Innovation Award in the Future Engineers category at the World Robot Olympiad 2025 held in Manila, Philippines.",
+                image: ""
             },
             {
-                id: 'wro-bronze-2025',
-                title: 'WRO Bronze Medal',
-                winner: 'Muammar Daiyan Aritro',
-                role: 'XI-EMDS, Vice President',
-                description:
-                    'Secured the Bronze Medal at the World Robot Olympiad, demonstrating exceptional engineering skills on the global stage.',
-                image: '/images/wro-bronze.jpg',
+                title: "IOAI Bronze Medals",
+                winner: "Achiever: Md. Riasat Islam",
+                description: "Secured two Bronze Medals at the International Olympiad in Artificial Intelligence 2025 in Beijing, China, representing Bangladesh.",
+                image: ""
             },
             {
-                id: 'wro-silver-2025',
-                title: 'WRO Asia Pacific Silver',
-                winner: 'S M Mohiuddin Sami',
-                role: '',
-                description:
-                    'Achieved the Silver Medal at the World Robot Olympiad Asia Pacific Open Championship, excelling in autonomous robotics challenges.',
-                image: '/images/wro-silver.jpg',
+                title: "IPa – IUMF 2025",
+                winner: "Achiever: Nahian Parin Ifa",
+                description: "Achieved an outstanding tally of 4 Gold, 6 Silver, and 8 Bronze medals at the IUMF 2025 held in Bangkok City, Thailand.",
+                image: ""
             },
             {
-                id: 'wmi-bronze-2025',
-                title: 'WMI Bronze Medal',
-                winner: 'Nahian Parin Ifa',
-                role: 'XII-BMMS, Joint Secretary of Maths',
-                description:
-                    'Earned the Bronze Medal at the World Mathematics Invitational through remarkable problem-solving abilities.',
-                image: '/images/wmi.jpg',
+                title: "66th IMO Participation",
+                winner: "Participant: M. Zamiul Hossain",
+                description: "Participated in the 66th International Mathematics Olympiad held in Sunshine Coast, Australia, competing against 600 mathematicians.",
+
+                image: ""
             },
             {
-                id: 'sakura-2025',
-                title: 'Sakura Science Exchange',
-                winner: 'Alim Nur Rahman Rakan & Nafisa Nawal Prionty',
-                role: 'Organizing Secretary & Asst. General Secretary',
-                description:
-                    'Selected for the prestigious Sakura Science Exchange Program in Japan, fostering international scientific collaboration.',
-                image: '/images/sakura.jpg',
+                title: "EGMO 2025 Representation",
+                winner: "Representatives: Nahian Parin Ifa & Saaji Sehnai",
+                description: "Represented RCSC at the European Girls’ Mathematical Olympiad (EGMO) 2025, marking a notable international presence.",
+                image: ""
             },
-        ],
+            {
+                title: "BDAIO National Winner",
+                winner: "Winner: [Student Name]",
+                description: "Became a National Round Winner of BDAIO 2025, showcasing excellence in algorithmic thinking and applied AI skills.",
+                image: ""
+            },
+            {
+                title: "BDMO National Round",
+                winner: "26 Qualifiers",
+                description: "A total of 26 participants from RCSC qualified for the BDMO 2025 National Round, reflecting strong nationwide performance.",
+                image: ""
+            },
+            {
+                title: "APICTA Awards 2nd Runner Up",
+                winner: "Winner: Ayon Sarker (XI-EMMS, Joint Secretary IT)",
+                description: "Achieved distinguished recognition at the Asia Pacific ICT Alliance Awards for innovative technological solutions.",
+                image: "/images/apicta.jpg"
+            },
+            {
+                title: "WRO Bronze Medal",
+                winner: "Winner: Muammar Daiyan Aritro (XI-EMDS, Vice President)",
+                description: "Secured the Bronze Medal at the World Robot Olympiad, demonstrating exceptional engineering skills on the global stage.",
+                image: "/images/wro-bronze.jpg"
+            },
+            {
+                title: "WRO Asia Pacific Silver",
+                winner: "Winner: S M Mohiuddin Sami",
+                description: "Achieved the Silver Medal at the World Robot Olympiad Asia Pacific Open Championship, excelling in autonomous robotics challenges.",
+                image: "/images/wro-silver.jpg"
+            },
+            {
+                title: "WMI Bronze Medal",
+                winner: "Winner: Nahian Parin Ifa (XII-BMMS, Joint Secretary of Maths)",
+                description: "Earned the Bronze Medal at the World Mathematics Invitational through remarkable problem-solving abilities.",
+                image: "/images/wmi.jpg"
+            },
+            {
+                title: "Sakura Science Exchange",
+                winner: "Selected: Alim Nur Rahman Rakan & Nafisa Nawal Prionty",
+                description: "Selected for the prestigious Sakura Science Exchange Program in Japan, fostering international scientific collaboration.",
+                image: "/images/sakura.jpg"
+            }
+        ]
     },
     {
         year: '2024',
         achievements: [
             {
-                id: 'wro-top20-2024',
-                title: 'WRO Top 20 Finalist',
-                winner: 'S M Mohiuddin Sami',
-                description:
-                    "Secured a distinguished spot in the top 20 at the World Robot Olympiad, competing against the world's best robotics teams.",
-                image: '/images/wro-2024.jpg',
+                title: "WRO 2024 Top 20",
+                winner: "Winner: Syed Mohammad Mohiuddin Sami",
+                description: "Secured a spot in the Top 20 teams at the World Robot Olympiad 2024 held in Turkey, a significant international achievement.",
+                image: "/images/wro-2024.jpg"
             },
             {
-                id: 'bdmo-2024',
-                title: 'BDMO National Winners',
-                winner: 'Rafif Abrar (Champion) & Saaji Sehnai (2nd Runner Up)',
-                role: 'Organizing Secretary & Joint Secretary of Math',
-                description:
-                    'Dominated the National Round of the Bangladesh Mathematical Olympiad with exceptional analytical skills.',
-                image: '/images/bdmo.jpg',
+                title: "Space Olympiad Winners",
+                winner: "13 Winners Total",
+                description: "Achieved notable success with 13 winners in total: 1 Junior, 8 Secondary, and 4 Senior category winners.",
+                image: ""
             },
-        ],
+            {
+                title: "DRMC Math Summit",
+                winner: "Participants",
+                description: "Participated in the 1st DRMC Math Summit 2024, engaging in mathematical discussions and problem-solving sessions.",
+                image: ""
+            },
+            {
+                title: "AIUB CS Fest 2024",
+                winner: "Participants",
+                description: "Gained exposure to computer science competitions, workshops, and academic networking opportunities.",
+                image: ""
+            },
+            {
+                title: "BDMO National Winners",
+                winner: "Winners: Rafif Abrar (Champion) & Saaji Sehnai (2nd Runner Up)",
+                description: "Dominated the National Round of the Bangladesh Mathematical Olympiad with exceptional analytical skills.",
+                image: "/images/bdmo.jpg"
+            }
+        ]
     },
+    {
+        year: '2023',
+        achievements: [
+            {
+                title: "BSMO 2023 Participation",
+                winner: "Participants",
+                description: "Participated in the Bangladesh Secondary Mathematical Olympiad 2023, developing experience in structured problem-solving.",
+                image: ""
+            },
+            {
+                title: "Beyond the Metrics",
+                winner: "Participants",
+                description: "Participated in an academic event focused on analytical thinking and non-traditional evaluation approaches.",
+                image: ""
+            },
+            {
+                title: "BCSIR 2023",
+                winner: "Participants",
+                description: "Gained exposure to scientific research environments and applied science initiatives at BCSIR 2023.",
+                image: ""
+            },
+            {
+                title: "HCSC 2023",
+                winner: "Participants",
+                description: "Reflected continued engagement in science-based academic competitions through participation in HCSC 2023.",
+                image: ""
+            }
+        ]
+    },
+    {
+        year: '2022',
+        achievements: [
+            {
+                title: "APMO 2022",
+                winner: "Participants",
+                description: "Participated in APMO 2022, marking early involvement in national and international mathematics Olympiads.",
+                image: ""
+            }
+        ]
+    }
 ];
 
 const AchievementCard = ({ data }: { data: Achievement }) => {
@@ -174,8 +254,8 @@ export default function HallOfFame() {
                             </h2>
 
                             <div className="gap-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                                {section.achievements.map((item) => (
-                                    <AchievementCard key={item.id} data={item} />
+                                {section.achievements.map((item, idx) => (
+                                    <AchievementCard key={idx} data={item} />
                                 ))}
                             </div>
                         </section>

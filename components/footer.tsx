@@ -25,7 +25,7 @@ export default function Footer() {
                             </div>
                         </Link>
                         <p className="mb-6 max-w-xs text-muted-foreground text-sm">
-                            Igniting minds, exploring the cosmos, and grabbing beyond the infinity.
+                            Grab Beyond Infinity
                         </p>
                         <div className="flex space-x-4">
                             <Link target="_blank" href="https://www.facebook.com/science.rumc" className="rounded-full w-9 h-9">
