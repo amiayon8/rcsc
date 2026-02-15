@@ -4,16 +4,16 @@ import Image from 'next/image';
 
 const panelMembers = [
     {
-        name: 'Md. Samin Imran Talukder (Imon)',
-        role: 'BUET [EEE] | HSC 21\'',
-        image: 'https://placehold.co/400x400/111/fff?text=Samin',
-        socials: { facebook: 'https://www.facebook.com/samin.abidullah' }
-    },
-    {
         name: 'MD. Safayat Hossain Jim',
         role: 'RUET [EEE] | HSC 21\'',
         image: 'https://placehold.co/400x400/111/fff?text=Safayat',
         socials: { facebook: 'https://www.facebook.com/safayet.hossainjim.9' }
+    },
+    {
+        name: 'Md. Samin Imran Talukder (Imon)',
+        role: 'BUET [EEE] | HSC 21\'',
+        image: 'https://placehold.co/400x400/111/fff?text=Samin',
+        socials: { facebook: 'https://www.facebook.com/samin.abidullah' }
     },
     {
         name: 'Nafis Imtiaz Imam',
@@ -22,34 +22,10 @@ const panelMembers = [
         socials: { facebook: 'https://www.facebook.com/imami.nafiz.7/' }
     },
     {
-        name: 'Shafin Ahmed',
-        role: 'BUET [CSE] | HSC 22\'',
-        image: 'https://placehold.co/400x400/111/fff?text=Shafin',
-        socials: { facebook: 'https://www.facebook.com/ShafinAhmed666' }
-    },
-    {
-        name: 'Noshin Anzum',
-        role: 'Mymensingh Medical College | MBBS | HSC 22\'',
-        image: 'https://placehold.co/400x400/111/fff?text=Noshin',
-        socials: {}
-    },
-    {
         name: 'Mohammad Saeed',
         role: 'IUT [Software Engineering] | HSC 22\'',
         image: 'https://placehold.co/400x400/111/fff?text=Saeed',
         socials: { facebook: 'https://www.facebook.com/saeflobor' }
-    },
-    {
-        name: 'Al Rafiuzzaman Anonto',
-        role: 'Bangladesh Military Academy | 90 BMA LC | HSC 22\'',
-        image: 'https://placehold.co/400x400/111/fff?text=Anonto',
-        socials: { facebook: 'https://www.facebook.com/anonto.91/' }
-    },
-    {
-        name: 'Mahmudur Rahman Hadi',
-        role: 'DU [Economics] | HSC 23\'',
-        image: 'https://placehold.co/400x400/111/fff?text=Hadi',
-        socials: { facebook: 'https://www.facebook.com/mahmudur.rahman.hadi' }
     },
     {
         name: 'Sazzadur Rahman',
@@ -57,12 +33,6 @@ const panelMembers = [
         image: 'https://placehold.co/400x400/111/fff?text=Sazzadur',
         socials: { facebook: 'https://www.facebook.com/sazzadur71' }
     },
-    {
-        name: 'Rafsan Bin Yasir',
-        role: '93rd BAFA Course | HSC 24\'',
-        image: 'https://placehold.co/400x400/111/fff?text=Rafsan',
-        socials: {}
-    }
 ];
 
 const getSocialStyle = (platform: string) => {
@@ -127,7 +97,7 @@ export default function AdvisorPanel() {
 
                 <div className="mb-16 text-center animate-[slideUp_0.8s_ease_forwards]">
                     <h1 className="drop-shadow-[0_0_15px_rgba(0,210,255,0.6)] font-black text-[clamp(2rem,5vw,3.5rem)] text-white uppercase tracking-tighter">
-                        <span className="text-primary">Advisor</span> Panel
+                        <span className="text-primary">Founder</span> Panel
                     </h1>
                 </div>
 
