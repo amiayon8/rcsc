@@ -180,6 +180,7 @@ export default function AdminDashboard() {
     const handleSave = async () => {
         if (!formData) return;
         setIsSaving(true);
+
         const { error } = await supabase
             .from('registrations')
             .update({
@@ -199,8 +200,14 @@ export default function AdminDashboard() {
             .eq('id', formData.id);
 
         setIsSaving(false);
+
         if (!error) {
+            setData((prev) => prev.map((item) =>
+                item.id === formData.id ? formData : item
+            ));
+
             setIsDetailsOpen(false);
+            toast.success("Registration updated successfully");
         } else {
             toast.error("Save failed");
         }
