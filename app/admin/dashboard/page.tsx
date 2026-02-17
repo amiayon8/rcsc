@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import {
     Search, RefreshCcw, Check,
-    MoreHorizontal, Download, Smartphone, Monitor, Globe, Save
+    MoreHorizontal, Download, Smartphone, Monitor, Globe, Save, Loader2, Shirt, IdCard
 } from 'lucide-react';
 import {
     BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, Cell, PieChart, Pie
@@ -64,6 +64,8 @@ interface Registration {
     bkash_number: string;
     transaction_id: string;
     is_validated: boolean;
+    tshirt_given?: boolean; // New field
+    id_card_given?: boolean; // New field
     user_agent?: string;
     ip_address?: string;
 }
@@ -98,6 +100,7 @@ export default function AdminDashboard() {
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [deleteId, setDeleteId] = useState<number | null>(null);
     const [isSaving, setIsSaving] = useState(false);
+    const [actionLoading, setActionLoading] = useState<number | null>(null); // For row-specific loading
 
     const router = useRouter();
 
@@ -159,22 +162,46 @@ export default function AdminDashboard() {
         if (!deleteId) return;
         const { error } = await supabase.from('registrations').delete().eq('id', deleteId);
         if (error) toast.error("Delete failed");
+        else toast.success("Registration deleted");
         setIsDeleteDialogOpen(false);
         setDeleteId(null);
     };
 
     const toggleValidation = async (id: number, currentStatus: boolean) => {
+        setActionLoading(id);
+
+        // Optimistic update
+        const updatedData = data.map(item =>
+            item.id === id ? { ...item, is_validated: !currentStatus } : item
+        );
+        setData(updatedData);
+
         const { error } = await supabase
             .from('registrations')
             .update({ is_validated: !currentStatus })
             .eq('id', id);
-        if (error) toast.error("Update failed");
+
+        if (error) {
+            // Revert on error
+            toast.error("Update failed");
+            setData(data);
+        } else {
+            toast.success(currentStatus ? "Marked as Pending" : "Marked as Verified");
+        }
+
+        setActionLoading(null);
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         if (!formData) return;
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+    };
+
+    // New handler for boolean toggles in dialog
+    const handleCheckboxChange = (name: string, checked: boolean) => {
+        if (!formData) return;
+        setFormData({ ...formData, [name]: checked });
     };
 
     const handleSave = async () => {
@@ -195,13 +222,16 @@ export default function AdminDashboard() {
                 membership_type: formData.membership_type,
                 tshirt_size: formData.tshirt_size,
                 bkash_number: formData.bkash_number,
-                transaction_id: formData.transaction_id
+                transaction_id: formData.transaction_id,
+                tshirt_given: formData.tshirt_given, // Save new field
+                id_card_given: formData.id_card_given // Save new field
             })
             .eq('id', formData.id);
 
         setIsSaving(false);
 
         if (!error) {
+            // Manually update frontend state immediately
             setData((prev) => prev.map((item) =>
                 item.id === formData.id ? formData : item
             ));
@@ -216,6 +246,10 @@ export default function AdminDashboard() {
     const stats = useMemo(() => {
         const total = data.length;
         const verified = data.filter(d => d.is_validated).length;
+        // Updated logic for stats
+        const idCardGiven = data.filter(d => d.id_card_given).length;
+        const tShirtGiven = data.filter(d => d.membership_type === 'with-tshirt' && d.tshirt_given).length;
+
         const revenue = data.reduce((acc, curr) => acc + (curr.membership_type === 'with-tshirt' ? 250 : 150), 0);
 
         const wings: Record<string, number> = {};
@@ -226,7 +260,7 @@ export default function AdminDashboard() {
         data.forEach(d => { classes[d.class_grade] = (classes[d.class_grade] || 0) + 1 });
         const classData = Object.entries(classes).map(([name, value]) => ({ name, value }));
 
-        return { total, verified, revenue, wingData, classData };
+        return { total, verified, idCardGiven, tShirtGiven, revenue, wingData, classData };
     }, [data]);
 
     const filteredData = useMemo(() => {
@@ -238,9 +272,12 @@ export default function AdminDashboard() {
     }, [data, searchTerm]);
 
     const exportCSV = () => {
-        const headers = ["ID", "Name", "Class", "Wing", "Phone", "TrxID", "Type", "Status"];
+        const headers = ["ID", "Name", "Class", "Wing", "Phone", "TrxID", "Type", "Status", "T-Shirt Given", "ID Given"];
         const rows = data.map(d => [
-            d.id, d.full_name, d.class_grade, d.wing, d.phone, d.transaction_id, d.membership_type, d.is_validated ? "Verified" : "Pending"
+            d.id, d.full_name, d.class_grade, d.wing, d.phone, d.transaction_id, d.membership_type,
+            d.is_validated ? "Verified" : "Pending",
+            d.tshirt_given ? "Yes" : "No",
+            d.id_card_given ? "Yes" : "No"
         ]);
         const csvContent = "data:text/csv;charset=utf-8,"
             + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
@@ -279,6 +316,10 @@ export default function AdminDashboard() {
                 <StatsCard title="Total Revenue" value={`৳ ${stats.revenue}`} icon={<Check className="text-green-500" />} sub="Estimated" />
                 <StatsCard title="Verified" value={stats.verified} icon={<Check className="text-indigo-500" />} />
                 <StatsCard title="Pending" value={stats.total - stats.verified} icon={<RefreshCcw className="text-orange-500" />} />
+
+                {/* New Stats Cards */}
+                <StatsCard title="T-Shirts Given" value={stats.tShirtGiven} icon={<Shirt className="text-purple-500" />} />
+                <StatsCard title="ID Cards Given" value={stats.idCardGiven} icon={<IdCard className="text-cyan-500" />} />
             </div>
 
             {/* Charts Section */}
@@ -363,7 +404,7 @@ export default function AdminDashboard() {
                             {filteredData.length === 0 ? (
                                 <TableRow>
                                     <TableCell colSpan={8} className="h-24 text-gray-500 text-center">
-                                        No results found.
+                                        {isLoading ? "Loading data..." : "No results found."}
                                     </TableCell>
                                 </TableRow>
                             ) : (
@@ -377,8 +418,7 @@ export default function AdminDashboard() {
                                                 <div className="text-gray-500 text-base">C/No. {reg.c_no}</div>
                                             </TableCell>
                                             <TableCell>
-                                                <Badge variant="outline" className="mr-1">{reg.class_grade}</Badge>
-                                                <span className="text-gray-500 text-base">{reg.wing}</span>
+                                                <Badge variant="outline" className="mr-1">{reg.class_grade}-{reg.section}-{reg.wing}</Badge>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="text-sm">{reg.phone}</div>
@@ -402,10 +442,14 @@ export default function AdminDashboard() {
                                             </TableCell>
                                             <TableCell className="text-right">
                                                 <Badge
-                                                    className={`cursor-pointer hover:opacity-80 text-base py-1 px-4 transition-opacity ${reg.is_validated ? 'bg-green-500' : 'bg-yellow-500'}`}
-                                                    onClick={() => toggleValidation(reg.id, reg.is_validated)}
+                                                    className={`cursor-pointer hover:opacity-80 text-base py-1 px-4 transition-opacity ${reg.is_validated ? 'bg-green-500' : 'bg-yellow-500'} ${actionLoading === reg.id ? 'opacity-50 cursor-wait' : ''}`}
+                                                    onClick={() => actionLoading !== reg.id && toggleValidation(reg.id, reg.is_validated)}
                                                 >
-                                                    {reg.is_validated ? 'Verified' : 'Pending'}
+                                                    {actionLoading === reg.id ? (
+                                                        <Loader2 className="w-3 h-3 animate-spin" />
+                                                    ) : (
+                                                        reg.is_validated ? 'Verified' : 'Pending'
+                                                    )}
                                                 </Badge>
                                             </TableCell>
                                             <TableCell>
@@ -418,7 +462,7 @@ export default function AdminDashboard() {
                                                     <DropdownMenuContent align="end">
                                                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                                         <DropdownMenuItem onClick={() => { setSelectedReg(reg); setIsDetailsOpen(true); }}>
-                                                            View Details
+                                                            View & Edit
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => { setDeleteId(reg.id); setIsDeleteDialogOpen(true); }} className="text-red-600 focus:text-red-600">
                                                             Delete Registration
@@ -555,6 +599,39 @@ export default function AdminDashboard() {
                                 </div>
                             </div>
 
+                            {/* Logistics / Admin Check - New Section */}
+                            <div className="space-y-4">
+                                <h4 className="pb-1 border-b font-semibold text-gray-500 text-xs uppercase tracking-wider">Logistics</h4>
+                                <div className="gap-4 grid grid-cols-2">
+                                    <div className="flex items-center space-x-2 p-3 border border-gray-200 dark:border-zinc-800 rounded-md">
+                                        <input
+                                            type="checkbox"
+                                            id="id_card_given"
+                                            checked={formData.id_card_given || false}
+                                            onChange={(e) => handleCheckboxChange('id_card_given', e.target.checked)}
+                                            className="rounded focus:ring-blue-500 w-4 h-4 text-blue-600"
+                                        />
+                                        <label htmlFor="id_card_given" className="peer-disabled:opacity-70 font-medium text-sm leading-none peer-disabled:cursor-not-allowed">
+                                            ID Card Given
+                                        </label>
+                                    </div>
+
+                                    <div className={`flex items-center space-x-2 border p-3 rounded-md ${formData.membership_type !== 'with-tshirt' ? 'opacity-50 cursor-not-allowed bg-gray-50 dark:bg-zinc-900' : 'border-gray-200 dark:border-zinc-800'}`}>
+                                        <input
+                                            type="checkbox"
+                                            id="tshirt_given"
+                                            checked={formData.tshirt_given || false}
+                                            onChange={(e) => handleCheckboxChange('tshirt_given', e.target.checked)}
+                                            disabled={formData.membership_type !== 'with-tshirt'}
+                                            className="rounded focus:ring-blue-500 w-4 h-4 text-blue-600"
+                                        />
+                                        <label htmlFor="tshirt_given" className="peer-disabled:opacity-70 font-medium text-sm leading-none peer-disabled:cursor-not-allowed">
+                                            T-Shirt Given
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
                             {/* Technical - Read Only / Uneditable */}
                             <div className="space-y-4">
                                 <h4 className="pb-1 border-b font-semibold text-gray-500 text-xs uppercase tracking-wider">Technical (Read Only)</h4>
@@ -573,14 +650,14 @@ export default function AdminDashboard() {
                     <DialogFooter className="gap-2 sm:gap-0">
                         <Button variant="outline" onClick={() => setIsDetailsOpen(false)}>Cancel</Button>
                         <Button onClick={handleSave} disabled={isSaving}>
-                            {isSaving ? <RefreshCcw className="mr-2 w-4 h-4 animate-spin" /> : <Save className="mr-2 w-4 h-4" />}
+                            {isSaving ? <Loader2 className="mr-2 w-4 h-4 animate-spin" /> : <Save className="mr-2 w-4 h-4" />}
                             Save Changes
                         </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
-        </div>
+        </div >
     );
 }
 

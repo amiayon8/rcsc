@@ -290,7 +290,7 @@ export default function RegistrationPage() {
                                             required
                                             value={formData.fullName}
                                             onChange={handleChange}
-                                            placeholder="e.g. Ayon Sarker"
+                                            placeholder="Ayon Sarker"
                                             className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white transition-all placeholder-gray-500 ${errors.fullName ? 'border-destructive ring-1 ring-destructive bg-destructive/20' : 'border-white/10 focus:border-primary focus:ring-primary bg-[#0f1932]/80'}`}
                                         />
                                         {errors.fullName && <p className="text-destructive text-sm">{errors.fullName}</p>}
@@ -504,7 +504,7 @@ export default function RegistrationPage() {
                                                     required
                                                     value={formData.transactionId}
                                                     onChange={handleChange}
-                                                    placeholder="e.g. 9H7J6K8L"
+                                                    placeholder="ABCDE12345"
                                                     className={`pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white font-mono uppercase transition-all placeholder-gray-500 bg-[#0f1932]/80 ${errors.transactionId ? 'border-destructive ring-1 ring-destructive bg-destructive/20' : 'border-white/10 focus:border-primary focus:ring-primary'}`}
                                                 />
                                             </div>
