@@ -2,8 +2,9 @@
 
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { z } from "zod";
-import { Send, FileText, Hash, CheckCircle, Check, Copy } from "lucide-react";
+import { Send, FileText, Hash, CheckCircle, Check, Copy, AlertCircle } from "lucide-react";
 import { toast } from 'sonner';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const commonEmailRegex =
     /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com|hotmail\.com)$/;
@@ -14,20 +15,27 @@ const bdPhoneRegex =
 export const memberSchema = z.object({
     fullName: z
         .string()
-        .min(3, "Full name must be at least 3 characters")
+        .min(3, "Full name is too short")
         .max(60, "Full name is too long"),
 
-    class: z.enum(["VI", "VII", "VIII", "IX", "X", "XI"])
-        .refine(Boolean, { message: "Class is required" }),
+    class: z
+        .string()
+        .min(1, "Class is required")
+        .pipe(z.enum(["VI", "VII", "VIII", "IX", "X", "XI"])),
 
-    section: z.enum(["A", "B", "C", "D", "E", "B. Std"]),
+    section: z
+        .string()
+        .min(1, "Section is required")
+        .pipe(z.enum(["A", "B", "C", "D", "E", "B. Std"])),
 
     cNo: z
         .string()
         .regex(/^\d{4,10}$/, "Invalid College number"),
 
-    wing: z.enum(["EMMS", "BMMS", "EMDS", "BMDS"])
-        .refine(Boolean, { message: "Wing is required" }),
+    wing: z
+        .string()
+        .min(1, "Wing is required")
+        .pipe(z.enum(["EMMS", "BMMS", "EMDS", "BMDS"])),
 
     email: z
         .string()
@@ -46,25 +54,29 @@ export const memberSchema = z.object({
             message: "Please select a membership type"
         }),
 
-    tshirtSize: z.enum(["S", "M", "L", "XL", "XXL"]).optional(),
+    tshirtSize: z
+        .string()
+        .optional()
+        .pipe(z.enum(["M", "L", "XL", "XXL"]).optional()),
 
     bkashNumber: z
         .string()
-        .regex(bdPhoneRegex, "Invalid bKash number (e.g., 01xxxxxxxxx)"),
+        .regex(bdPhoneRegex, "Invalid bKash number"),
 
     transactionId: z
         .string()
         .min(5, "Transaction ID is too short")
+        .max(10, "Transaction ID is too long")
         .toUpperCase(),
 
-}).refine((data) => {
+}).superRefine((data, ctx) => {
     if (data.membershipType === "with-tshirt" && !data.tshirtSize) {
-        return false;
+        ctx.addIssue({
+            path: ["tshirtSize"],
+            code: z.ZodIssueCode.custom,
+            message: "T-Shirt size is required for this membership"
+        });
     }
-    return true;
-}, {
-    message: "T-Shirt size is required for this membership",
-    path: ["tshirtSize"],
 });
 
 type MemberFormKeys = keyof MemberFormData;
@@ -111,21 +123,16 @@ export default function RegistrationPage() {
     const [errors, setErrors] = useState<Partial<Record<MemberFormKeys, string>>>({});
     const [sameAsPhone, setSameAsPhone] = useState(false);
 
-    // --- NEW HELPER FUNCTION FOR STYLING ---
     const getInputClasses = (fieldName: MemberFormKeys) => {
         const hasError = !!errors[fieldName];
-        // Common base styles
         const base = "px-4 py-3 border rounded-lg focus:outline-none w-full text-white transition-all placeholder-gray-500";
 
         if (hasError) {
-            // RED RING styles (Active when error exists)
-            return `${base} border-red-500 ring-2 ring-red-500 bg-red-500/10`;
+            return `${base} border-red-500 ring-2 ring-red-500 bg-red-500/5 text-red-500!`;
         }
 
-        // Normal styles
         return `${base} border-white/10 focus:border-primary focus:ring-1 focus:ring-primary bg-[#0f1932]/80`;
     };
-    // ---------------------------------------
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -145,7 +152,6 @@ export default function RegistrationPage() {
             setSameAsPhone(false);
         }
 
-        // Clear error when user starts typing
         if (errors[name as MemberFormKeys]) {
             setErrors(prev => ({ ...prev, [name]: undefined }));
         }
@@ -308,13 +314,20 @@ export default function RegistrationPage() {
                                         <input
                                             type="text"
                                             name="fullName"
-                                            required
+
                                             value={formData.fullName}
                                             onChange={handleChange}
                                             placeholder="Ayon Sarker"
                                             className={getInputClasses('fullName')}
                                         />
-                                        {errors.fullName && <p className="text-destructive text-sm">{errors.fullName}</p>}
+                                        {errors.fullName && (
+                                            <Alert variant="destructive" className="bg-red-500/10 mt-3 border-red-500/50 text-red-200">
+                                                <AlertCircle className="w-4 h-4" />
+                                                <AlertDescription>
+                                                    {errors.fullName}
+                                                </AlertDescription>
+                                            </Alert>
+                                        )}
                                     </div>
 
                                     <div className="gap-6 grid grid-cols-1 md:grid-cols-2">
@@ -322,7 +335,7 @@ export default function RegistrationPage() {
                                             <label className="block mb-2 font-semibold text-primary/80 text-sm uppercase tracking-wider">Class</label>
                                             <select
                                                 name="class"
-                                                required
+
                                                 value={formData.class}
                                                 onChange={handleChange}
                                                 className={getInputClasses('class')}
@@ -335,14 +348,20 @@ export default function RegistrationPage() {
                                                 <option value="X">Class X</option>
                                                 <option value="XI">Class XI</option>
                                             </select>
-                                            {errors.class && <p className="text-destructive text-sm">{errors.class}</p>}
+                                            {errors.class && (
+                                                <Alert variant="destructive" className="bg-red-500/10 mt-3 border-red-500/50 text-red-200">
+                                                    <AlertCircle className="w-4 h-4" />
+                                                    <AlertDescription>
+                                                        {errors.class}
+                                                    </AlertDescription>
+                                                </Alert>
+                                            )}
                                         </div>
 
                                         <div>
                                             <label className="block mb-2 font-semibold text-primary/80 text-sm uppercase tracking-wider">Section</label>
                                             <select
                                                 name="section"
-                                                required
                                                 value={formData.section}
                                                 onChange={handleChange}
                                                 className={getInputClasses('section')}
@@ -355,7 +374,14 @@ export default function RegistrationPage() {
                                                 <option value="E">E</option>
                                                 <option value="B. Std">B. Std</option>
                                             </select>
-                                            {errors.section && <p className="text-destructive text-sm">{errors.section}</p>}
+                                            {errors.section && (
+                                                <Alert variant="destructive" className="bg-red-500/10 mt-3 border-red-500/50 text-red-200">
+                                                    <AlertCircle className="w-4 h-4" />
+                                                    <AlertDescription>
+                                                        {errors.section}
+                                                    </AlertDescription>
+                                                </Alert>
+                                            )}
                                         </div>
                                     </div>
 
@@ -365,19 +391,24 @@ export default function RegistrationPage() {
                                             <input
                                                 type="text"
                                                 name="cNo"
-                                                required
                                                 value={formData.cNo}
                                                 onChange={handleChange}
                                                 placeholder="1234"
                                                 className={getInputClasses('cNo')}
                                             />
-                                            {errors.cNo && <p className="text-destructive text-sm">{errors.cNo}</p>}
+                                            {errors.cNo && (
+                                                <Alert variant="destructive" className="bg-red-500/10 mt-3 border-red-500/50 text-red-200">
+                                                    <AlertCircle className="w-4 h-4" />
+                                                    <AlertDescription>
+                                                        {errors.cNo}
+                                                    </AlertDescription>
+                                                </Alert>
+                                            )}
                                         </div>
                                         <div>
                                             <label className="block mb-2 font-semibold text-primary/80 text-sm uppercase tracking-wider">Wing</label>
                                             <select
                                                 name="wing"
-                                                required
                                                 value={formData.wing}
                                                 onChange={handleChange}
                                                 className={getInputClasses('wing')}
@@ -388,7 +419,14 @@ export default function RegistrationPage() {
                                                 <option value="EMDS">EMDS</option>
                                                 <option value="BMDS">BMDS</option>
                                             </select>
-                                            {errors.wing && <p className="text-destructive text-sm">{errors.wing}</p>}
+                                            {errors.wing && (
+                                                <Alert variant="destructive" className="bg-red-500/10 mt-3 border-red-500/50 text-red-200">
+                                                    <AlertCircle className="w-4 h-4" />
+                                                    <AlertDescription>
+                                                        {errors.wing}
+                                                    </AlertDescription>
+                                                </Alert>
+                                            )}
                                         </div>
                                     </div>
 
@@ -398,26 +436,40 @@ export default function RegistrationPage() {
                                             <input
                                                 type="email"
                                                 name="email"
-                                                required
+
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 placeholder="xxxxxx@gmail.com"
                                                 className={getInputClasses('email')}
                                             />
-                                            {errors.email && <p className="text-destructive text-sm">{errors.email}</p>}
+                                            {errors.email && (
+                                                <Alert variant="destructive" className="bg-red-500/10 mt-3 border-red-500/50 text-red-200">
+                                                    <AlertCircle className="w-4 h-4" />
+                                                    <AlertDescription>
+                                                        {errors.email}
+                                                    </AlertDescription>
+                                                </Alert>
+                                            )}
                                         </div>
                                         <div>
                                             <label className="block mb-2 font-semibold text-primary/80 text-sm uppercase tracking-wider">Phone No.</label>
                                             <input
                                                 type="tel"
                                                 name="phone"
-                                                required
+
                                                 value={formData.phone}
                                                 onChange={handleChange}
                                                 placeholder="01xxxxxxxxx"
                                                 className={getInputClasses('phone')}
                                             />
-                                            {errors.phone && <p className="text-destructive text-sm">{errors.phone}</p>}
+                                            {errors.phone && (
+                                                <Alert variant="destructive" className="bg-red-500/10 mt-3 border-red-500/50 text-red-200">
+                                                    <AlertCircle className="w-4 h-4" />
+                                                    <AlertDescription>
+                                                        {errors.phone}
+                                                    </AlertDescription>
+                                                </Alert>
+                                            )}
                                         </div>
                                     </div>
                                     <div>
@@ -442,13 +494,20 @@ export default function RegistrationPage() {
                                         <input
                                             type="tel"
                                             name="whatsapp"
-                                            required
+
                                             value={formData.whatsapp}
                                             onChange={handleChange}
                                             placeholder="01xxxxxxxxx"
                                             className={getInputClasses('whatsapp')}
                                         />
-                                        {errors.whatsapp && <p className="text-destructive text-sm">{errors.whatsapp}</p>}
+                                        {errors.whatsapp && (
+                                            <Alert variant="destructive" className="bg-red-500/10 mt-3 border-red-500/50 text-red-200">
+                                                <AlertCircle className="w-4 h-4" />
+                                                <AlertDescription>
+                                                    {errors.whatsapp}
+                                                </AlertDescription>
+                                            </Alert>
+                                        )}
                                     </div>
 
                                     <div className="gap-6 grid grid-cols-1 md:grid-cols-2">
@@ -456,7 +515,7 @@ export default function RegistrationPage() {
                                             <label className="block mb-2 font-semibold text-primary/80 text-sm uppercase tracking-wider">Membership Type</label>
                                             <select
                                                 name="membershipType"
-                                                required
+
                                                 value={formData.membershipType}
                                                 onChange={handleChange}
                                                 className={getInputClasses('membershipType')}
@@ -470,19 +529,25 @@ export default function RegistrationPage() {
                                                 <label className="block mb-2 font-semibold text-primary/80 text-sm uppercase tracking-wider">T-Shirt Size</label>
                                                 <select
                                                     name="tshirtSize"
-                                                    required
+
                                                     value={formData.tshirtSize}
                                                     onChange={handleChange}
                                                     className={getInputClasses('tshirtSize')}
                                                 >
                                                     <option value="" disabled>Select Size</option>
-                                                    <option value="S">S</option>
                                                     <option value="M">M</option>
                                                     <option value="L">L</option>
                                                     <option value="XL">XL</option>
                                                     <option value="XXL">XXL</option>
                                                 </select>
-                                                {errors.tshirtSize && <p className="text-destructive text-sm">{errors.tshirtSize}</p>}
+                                                {errors.tshirtSize && (
+                                                    <Alert variant="destructive" className="bg-red-500/10 mt-3 border-red-500/50 text-red-200">
+                                                        <AlertCircle className="w-4 h-4" />
+                                                        <AlertDescription>
+                                                            {errors.tshirtSize}
+                                                        </AlertDescription>
+                                                    </Alert>
+                                                )}
                                             </div>
                                         )}
                                     </div>
@@ -499,13 +564,20 @@ export default function RegistrationPage() {
                                             <input
                                                 type="tel"
                                                 name="bkashNumber"
-                                                required
+
                                                 value={formData.bkashNumber}
                                                 onChange={handleChange}
                                                 placeholder="Number you sent money from (01xxxxxxxxx)"
                                                 className={getInputClasses('bkashNumber')}
                                             />
-                                            {errors.bkashNumber && <p className="text-destructive text-sm">{errors.bkashNumber}</p>}
+                                            {errors.bkashNumber && (
+                                                <Alert variant="destructive" className="bg-red-500/10 mt-3 border-red-500/50 text-red-200">
+                                                    <AlertCircle className="w-4 h-4" />
+                                                    <AlertDescription>
+                                                        {errors.bkashNumber}
+                                                    </AlertDescription>
+                                                </Alert>
+                                            )}
                                         </div>
 
                                         <div>
@@ -517,14 +589,21 @@ export default function RegistrationPage() {
                                                 <input
                                                     type="text"
                                                     name="transactionId"
-                                                    required
+
                                                     value={formData.transactionId}
                                                     onChange={handleChange}
                                                     placeholder="ABCDE12345"
                                                     className={`${getInputClasses('transactionId')} pl-10 font-mono uppercase`}
                                                 />
                                             </div>
-                                            {errors.transactionId && <p className="text-destructive text-sm">{errors.transactionId}</p>}
+                                            {errors.transactionId && (
+                                                <Alert variant="destructive" className="bg-red-500/10 mt-3 border-red-500/50 text-red-200">
+                                                    <AlertCircle className="w-4 h-4" />
+                                                    <AlertDescription>
+                                                        {errors.transactionId}
+                                                    </AlertDescription>
+                                                </Alert>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -602,6 +681,8 @@ export default function RegistrationPage() {
                                     </li>
                                 ))}
                             </ul>
+
+                            <p className="mt-10 text-gray-400 text-sm">** If you face any issue, feel free to contact <a href="tel:+8801870828373" className="text-red-400 hover:text-red-500">+8801870828373</a></p>
                         </div>
                     </div>
                 </div>

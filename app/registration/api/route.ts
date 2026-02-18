@@ -11,25 +11,74 @@ const commonEmailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com
 const bdPhoneRegex = /^(?:\+8801|01)[3-9]\d{8}$/;
 
 const serverMemberSchema = z.object({
-    fullName: z.string().min(3).max(60),
-    class: z.enum(["VI", "VII", "VIII", "IX", "X", "XI"]),
-    section: z.enum(["A", "B", "C", "D", "E", "B. Std"]),
-    cNo: z.string().regex(/^\d{4,10}$/),
-    wing: z.enum(["EMMS", "BMMS", "EMDS", "BMDS"]),
-    email: z.string().email().regex(commonEmailRegex),
-    phone: z.string().regex(bdPhoneRegex),
-    whatsapp: z.string().regex(bdPhoneRegex),
-    membershipType: z.enum(["with-tshirt", "without-tshirt"]),
-    tshirtSize: z.enum(["S", "M", "L", "XL", "XXL"]).optional(),
-    bkashNumber: z.string().regex(bdPhoneRegex),
-    transactionId: z.string().min(5).toUpperCase(),
+    fullName: z
+        .string()
+        .min(3, "Full name is too short")
+        .max(60, "Full name is too long"),
+
+    class: z
+        .string()
+        .min(1, "Class is required")
+        .pipe(z.enum(["VI", "VII", "VIII", "IX", "X", "XI"])),
+
+    section: z
+        .string()
+        .min(1, "Section is required")
+        .pipe(z.enum(["A", "B", "C", "D", "E", "B. Std"])),
+
+    cNo: z
+        .string()
+        .regex(/^\d{4,10}$/, "Invalid College number"),
+
+    wing: z
+        .string()
+        .min(1, "Wing is required")
+        .pipe(z.enum(["EMMS", "BMMS", "EMDS", "BMDS"])),
+
+    email: z
+        .string()
+        .email("Invalid email format")
+        .regex(commonEmailRegex, "Invalid Email"),
+
+    phone: z
+        .string()
+        .regex(bdPhoneRegex, "Invalid phone number"),
+    whatsapp: z
+        .string()
+        .regex(bdPhoneRegex, "Invalid phone number"),
+
+    membershipType: z.enum(["with-tshirt", "without-tshirt"])
+        .refine(v => v !== undefined, {
+            message: "Please select a membership type"
+        }),
+
+    tshirtSize: z
+        .enum(["M", "L", "XL", "XXL"])
+        .optional()
+        .or(z.literal("")),
+
+    bkashNumber: z
+        .string()
+        .regex(bdPhoneRegex, "Invalid bKash number"),
+
+    transactionId: z
+        .string()
+        .min(5, "Transaction ID is too short")
+        .max(10, "Transaction ID is too long")
+        .toUpperCase(),
     browserTime: z.string().optional(),
-}).refine((data) => {
+
+}).superRefine((data, ctx) => {
     if (data.membershipType === "with-tshirt" && !data.tshirtSize) {
-        return false;
+        ctx.addIssue({
+            path: ["tshirtSize"],
+            code: z.ZodIssueCode.custom,
+            message: "T-Shirt size is required for this membership"
+        });
     }
-    return true;
 });
+
+
 
 export async function POST(req: NextRequest) {
     try {
