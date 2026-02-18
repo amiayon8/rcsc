@@ -111,6 +111,22 @@ export default function RegistrationPage() {
     const [errors, setErrors] = useState<Partial<Record<MemberFormKeys, string>>>({});
     const [sameAsPhone, setSameAsPhone] = useState(false);
 
+    // --- NEW HELPER FUNCTION FOR STYLING ---
+    const getInputClasses = (fieldName: MemberFormKeys) => {
+        const hasError = !!errors[fieldName];
+        // Common base styles
+        const base = "px-4 py-3 border rounded-lg focus:outline-none w-full text-white transition-all placeholder-gray-500";
+
+        if (hasError) {
+            // RED RING styles (Active when error exists)
+            return `${base} border-red-500 ring-2 ring-red-500 bg-red-500/10`;
+        }
+
+        // Normal styles
+        return `${base} border-white/10 focus:border-primary focus:ring-1 focus:ring-primary bg-[#0f1932]/80`;
+    };
+    // ---------------------------------------
+
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         const finalValue = name === 'transactionId' ? value.toUpperCase() : value;
@@ -127,6 +143,11 @@ export default function RegistrationPage() {
 
         if (name === 'whatsapp' && sameAsPhone) {
             setSameAsPhone(false);
+        }
+
+        // Clear error when user starts typing
+        if (errors[name as MemberFormKeys]) {
+            setErrors(prev => ({ ...prev, [name]: undefined }));
         }
     };
 
@@ -199,7 +220,7 @@ export default function RegistrationPage() {
 
         const dataToValidate = { ...formData };
         if (dataToValidate.membershipType === 'without-tshirt') {
-            dataToValidate.tshirtSize = '';
+            dataToValidate.tshirtSize = undefined as any;
         }
 
         const result = memberSchema.safeParse(dataToValidate);
@@ -291,7 +312,7 @@ export default function RegistrationPage() {
                                             value={formData.fullName}
                                             onChange={handleChange}
                                             placeholder="Ayon Sarker"
-                                            className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white transition-all placeholder-gray-500 ${errors.fullName ? 'border-destructive ring-1 ring-destructive bg-destructive/20' : 'border-white/10 focus:border-primary focus:ring-primary bg-[#0f1932]/80'}`}
+                                            className={getInputClasses('fullName')}
                                         />
                                         {errors.fullName && <p className="text-destructive text-sm">{errors.fullName}</p>}
                                     </div>
@@ -304,7 +325,7 @@ export default function RegistrationPage() {
                                                 required
                                                 value={formData.class}
                                                 onChange={handleChange}
-                                                className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white bg-[#0f1932]/80 ${errors.class ? 'border-destructive ring-1 ring-destructive' : 'border-white/10 focus:border-primary focus:ring-primary'}`}
+                                                className={getInputClasses('class')}
                                             >
                                                 <option value="" disabled>Select Class</option>
                                                 <option value="VI">Class VI</option>
@@ -317,7 +338,6 @@ export default function RegistrationPage() {
                                             {errors.class && <p className="text-destructive text-sm">{errors.class}</p>}
                                         </div>
 
-                                        {/* UPDATED: Section Dropdown */}
                                         <div>
                                             <label className="block mb-2 font-semibold text-primary/80 text-sm uppercase tracking-wider">Section</label>
                                             <select
@@ -325,7 +345,7 @@ export default function RegistrationPage() {
                                                 required
                                                 value={formData.section}
                                                 onChange={handleChange}
-                                                className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white bg-[#0f1932]/80 ${errors.section ? 'border-destructive ring-1 ring-destructive' : 'border-white/10 focus:border-primary focus:ring-primary'}`}
+                                                className={getInputClasses('section')}
                                             >
                                                 <option value="" disabled>Select Section</option>
                                                 <option value="A">A</option>
@@ -349,7 +369,7 @@ export default function RegistrationPage() {
                                                 value={formData.cNo}
                                                 onChange={handleChange}
                                                 placeholder="1234"
-                                                className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white transition-all placeholder-gray-500 ${errors.cNo ? 'border-destructive ring-1 ring-destructive bg-destructive/20' : 'border-white/10 focus:border-primary focus:ring-primary bg-[#0f1932]/80'}`}
+                                                className={getInputClasses('cNo')}
                                             />
                                             {errors.cNo && <p className="text-destructive text-sm">{errors.cNo}</p>}
                                         </div>
@@ -360,7 +380,7 @@ export default function RegistrationPage() {
                                                 required
                                                 value={formData.wing}
                                                 onChange={handleChange}
-                                                className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white transition-all placeholder-gray-500 bg-[#0f1932]/80 ${errors.wing ? 'border-destructive ring-1 ring-destructive' : 'border-white/10 focus:border-primary focus:ring-primary'}`}
+                                                className={getInputClasses('wing')}
                                             >
                                                 <option value="" disabled>Select Wing</option>
                                                 <option value="EMMS">EMMS</option>
@@ -382,7 +402,7 @@ export default function RegistrationPage() {
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 placeholder="xxxxxx@gmail.com"
-                                                className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white transition-all placeholder-gray-500 ${errors.email ? 'border-destructive ring-1 ring-destructive bg-destructive/20' : 'border-white/10 focus:border-primary focus:ring-primary bg-[#0f1932]/80'}`}
+                                                className={getInputClasses('email')}
                                             />
                                             {errors.email && <p className="text-destructive text-sm">{errors.email}</p>}
                                         </div>
@@ -395,7 +415,7 @@ export default function RegistrationPage() {
                                                 value={formData.phone}
                                                 onChange={handleChange}
                                                 placeholder="01xxxxxxxxx"
-                                                className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white transition-all placeholder-gray-500 ${errors.phone ? 'border-destructive ring-1 ring-destructive bg-destructive/20' : 'border-white/10 focus:border-primary focus:ring-primary bg-[#0f1932]/80'}`}
+                                                className={getInputClasses('phone')}
                                             />
                                             {errors.phone && <p className="text-destructive text-sm">{errors.phone}</p>}
                                         </div>
@@ -406,7 +426,6 @@ export default function RegistrationPage() {
                                                 WhatsApp No.
                                             </label>
 
-                                            {/* Checkbox Toggle */}
                                             <label className="group flex items-center gap-2 cursor-pointer select-none">
                                                 <input
                                                     type="checkbox"
@@ -427,10 +446,7 @@ export default function RegistrationPage() {
                                             value={formData.whatsapp}
                                             onChange={handleChange}
                                             placeholder="01xxxxxxxxx"
-                                            className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white transition-all placeholder-gray-500 ${errors.whatsapp
-                                                ? 'border-destructive ring-1 ring-destructive bg-destructive/20'
-                                                : 'border-white/10 focus:border-primary focus:ring-primary bg-[#0f1932]/80'
-                                                }`}
+                                            className={getInputClasses('whatsapp')}
                                         />
                                         {errors.whatsapp && <p className="text-destructive text-sm">{errors.whatsapp}</p>}
                                     </div>
@@ -443,7 +459,7 @@ export default function RegistrationPage() {
                                                 required
                                                 value={formData.membershipType}
                                                 onChange={handleChange}
-                                                className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white bg-[#0f1932]/80 ${errors.membershipType ? 'border-destructive ring-1 ring-destructive' : 'border-white/10 focus:border-primary focus:ring-primary'}`}
+                                                className={getInputClasses('membershipType')}
                                             >
                                                 <option value="without-tshirt">Without T-Shirt (150 BDT)</option>
                                                 <option value="with-tshirt">With T-Shirt (250 BDT)</option>
@@ -457,7 +473,7 @@ export default function RegistrationPage() {
                                                     required
                                                     value={formData.tshirtSize}
                                                     onChange={handleChange}
-                                                    className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white bg-[#0f1932]/80 ${errors.tshirtSize ? 'border-destructive ring-1 ring-destructive' : 'border-white/10 focus:border-primary focus:ring-primary'}`}
+                                                    className={getInputClasses('tshirtSize')}
                                                 >
                                                     <option value="" disabled>Select Size</option>
                                                     <option value="S">S</option>
@@ -487,7 +503,7 @@ export default function RegistrationPage() {
                                                 value={formData.bkashNumber}
                                                 onChange={handleChange}
                                                 placeholder="Number you sent money from (01xxxxxxxxx)"
-                                                className={`px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white transition-all placeholder-gray-500 bg-[#0f1932]/80 ${errors.bkashNumber ? 'border-destructive ring-1 ring-destructive bg-destructive/20' : 'border-white/10 focus:border-primary focus:ring-primary'}`}
+                                                className={getInputClasses('bkashNumber')}
                                             />
                                             {errors.bkashNumber && <p className="text-destructive text-sm">{errors.bkashNumber}</p>}
                                         </div>
@@ -505,7 +521,7 @@ export default function RegistrationPage() {
                                                     value={formData.transactionId}
                                                     onChange={handleChange}
                                                     placeholder="ABCDE12345"
-                                                    className={`pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-1 w-full text-white font-mono uppercase transition-all placeholder-gray-500 bg-[#0f1932]/80 ${errors.transactionId ? 'border-destructive ring-1 ring-destructive bg-destructive/20' : 'border-white/10 focus:border-primary focus:ring-primary'}`}
+                                                    className={`${getInputClasses('transactionId')} pl-10 font-mono uppercase`}
                                                 />
                                             </div>
                                             {errors.transactionId && <p className="text-destructive text-sm">{errors.transactionId}</p>}
