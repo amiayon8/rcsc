@@ -10,6 +10,21 @@ const supabase = createClient(
 const commonEmailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|outlook\.com|hotmail\.com)$/;
 const bdPhoneRegex = /^(?:\+8801|01)[3-9]\d{8}$/;
 
+const formatContactNumber = (num: string | undefined | null) => {
+    if (!num) return "";
+
+    let cleaned = num.replace(/[\s-]/g, '');
+
+    if (cleaned.startsWith('+8801')) {
+        return cleaned.replace('+88', '');
+    }
+    if (cleaned.startsWith('8801')) {
+        return cleaned.substring(2);
+    }
+
+    return cleaned;
+};
+
 const serverMemberSchema = z.object({
     fullName: z
         .string()
@@ -132,6 +147,10 @@ export async function POST(req: NextRequest) {
             ip = "Unknown";
         }
 
+        const cleanedPhone = formatContactNumber(data.phone);
+        const cleanedWhatsapp = formatContactNumber(data.whatsapp);
+        const cleanedBkash = formatContactNumber(data.bkashNumber);
+
         const { error } = await supabase.from("registrations").insert({
             full_name: data.fullName,
             class_grade: data.class,
@@ -139,11 +158,11 @@ export async function POST(req: NextRequest) {
             c_no: data.cNo,
             wing: data.wing,
             email: data.email,
-            phone: data.phone,
-            whatsapp: data.whatsapp,
+            phone: cleanedPhone,
+            whatsapp: cleanedWhatsapp,
             membership_type: data.membershipType,
             tshirt_size: data.tshirtSize || null,
-            bkash_number: data.bkashNumber,
+            bkash_number: cleanedBkash,
             transaction_id: data.transactionId,
             browser_time: data.browserTime,
             user_agent: userAgent,

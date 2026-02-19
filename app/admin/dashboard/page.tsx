@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { Progress } from "@/components/ui/progress";
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -64,10 +65,11 @@ interface Registration {
     bkash_number: string;
     transaction_id: string;
     is_validated: boolean;
-    tshirt_given?: boolean; // New field
-    id_card_given?: boolean; // New field
+    tshirt_given?: boolean;
+    id_card_given?: boolean;
     user_agent?: string;
     ip_address?: string;
+    browser_time?: string;
 }
 
 const parseUA = (ua: string) => {
@@ -89,6 +91,53 @@ const parseUA = (ua: string) => {
     return { os, browser, device: isMobile ? 'Mobile' : 'Desktop' };
 };
 
+const formatContactNumber = (num: string | undefined | null) => {
+    if (!num) return "";
+    let cleaned = num.replace(/[\s-]/g, '');
+
+    if (cleaned.startsWith('+8801')) {
+        return cleaned.replace('+88', '');
+    }
+    if (cleaned.startsWith('8801')) {
+        return cleaned.substring(2);
+    }
+
+    return cleaned;
+};
+
+const WING_COLORS: Record<string, string> = {
+    'BMDS': '#b45918',
+    'EMDS': '#c8cad6',
+    'EMMS': '#008f69',
+    'BMMS': '#0000df',
+};
+
+const CLASS_COLORS = [
+    '#3b82f6',
+    '#10b981',
+    '#f59e0b',
+    '#ef4444',
+    '#8b5cf6',
+    '#ec4899',
+    '#14b8a6',
+    '#f97316'
+];
+
+const ROMAN_WEIGHTS: Record<string, number> = {
+    'I': 1,
+    'II': 2,
+    'III': 3,
+    'IV': 4,
+    'V': 5,
+    'VI': 6,
+    'VII': 7,
+    'VIII': 8,
+    'IX': 9,
+    'X': 10,
+    'XI': 11,
+    'XII': 12
+};
+
 export default function AdminDashboard() {
     const [data, setData] = useState<Registration[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -100,7 +149,7 @@ export default function AdminDashboard() {
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
     const [deleteId, setDeleteId] = useState<number | null>(null);
     const [isSaving, setIsSaving] = useState(false);
-    const [actionLoading, setActionLoading] = useState<number | null>(null); // For row-specific loading
+    const [actionLoading, setActionLoading] = useState<number | null>(null);
 
     const router = useRouter();
 
@@ -170,7 +219,6 @@ export default function AdminDashboard() {
     const toggleValidation = async (id: number, currentStatus: boolean) => {
         setActionLoading(id);
 
-        // Optimistic update
         const updatedData = data.map(item =>
             item.id === id ? { ...item, is_validated: !currentStatus } : item
         );
@@ -182,7 +230,6 @@ export default function AdminDashboard() {
             .eq('id', id);
 
         if (error) {
-            // Revert on error
             toast.error("Update failed");
             setData(data);
         } else {
@@ -198,7 +245,6 @@ export default function AdminDashboard() {
         setFormData({ ...formData, [name]: value });
     };
 
-    // New handler for boolean toggles in dialog
     const handleCheckboxChange = (name: string, checked: boolean) => {
         if (!formData) return;
         setFormData({ ...formData, [name]: checked });
@@ -207,6 +253,12 @@ export default function AdminDashboard() {
     const handleSave = async () => {
         if (!formData) return;
         setIsSaving(true);
+
+        const cleanedPhone = formatContactNumber(formData.phone);
+        const cleanedWhatsapp = formatContactNumber(formData.whatsapp);
+        const cleanedBkash = formatContactNumber(formData.bkash_number);
+
+        setFormData({ ...formData, phone: cleanedPhone, whatsapp: cleanedWhatsapp, bkash_number: cleanedBkash });
 
         const { error } = await supabase
             .from('registrations')
@@ -223,15 +275,14 @@ export default function AdminDashboard() {
                 tshirt_size: formData.tshirt_size,
                 bkash_number: formData.bkash_number,
                 transaction_id: formData.transaction_id,
-                tshirt_given: formData.tshirt_given, // Save new field
-                id_card_given: formData.id_card_given // Save new field
+                tshirt_given: formData.tshirt_given,
+                id_card_given: formData.id_card_given
             })
             .eq('id', formData.id);
 
         setIsSaving(false);
 
         if (!error) {
-            // Manually update frontend state immediately
             setData((prev) => prev.map((item) =>
                 item.id === formData.id ? formData : item
             ));
@@ -246,9 +297,12 @@ export default function AdminDashboard() {
     const stats = useMemo(() => {
         const total = data.length;
         const verified = data.filter(d => d.is_validated).length;
-        // Updated logic for stats
+
         const idCardGiven = data.filter(d => d.id_card_given).length;
         const tShirtGiven = data.filter(d => d.membership_type === 'with-tshirt' && d.tshirt_given).length;
+
+        const withTshirt = data.filter(d => d.membership_type === 'with-tshirt').length;
+        const withoutTshirt = data.filter(d => d.membership_type === 'without-tshirt').length;
 
         const revenue = data.reduce((acc, curr) => acc + (curr.membership_type === 'with-tshirt' ? 250 : 150), 0);
 
@@ -258,9 +312,16 @@ export default function AdminDashboard() {
 
         const classes: Record<string, number> = {};
         data.forEach(d => { classes[d.class_grade] = (classes[d.class_grade] || 0) + 1 });
-        const classData = Object.entries(classes).map(([name, value]) => ({ name, value }));
 
-        return { total, verified, idCardGiven, tShirtGiven, revenue, wingData, classData };
+        const classData = Object.entries(classes)
+            .map(([name, value]) => ({ name, value }))
+            .sort((a, b) => {
+                const weightA = ROMAN_WEIGHTS[a.name.toUpperCase().trim()] || 999;
+                const weightB = ROMAN_WEIGHTS[b.name.toUpperCase().trim()] || 999;
+                return weightA - weightB;
+            });
+
+        return { total, verified, idCardGiven, tShirtGiven, revenue, wingData, classData, withTshirt, withoutTshirt };
     }, [data]);
 
     const filteredData = useMemo(() => {
@@ -272,12 +333,31 @@ export default function AdminDashboard() {
     }, [data, searchTerm]);
 
     const exportCSV = () => {
-        const headers = ["ID", "Name", "Class", "Wing", "Phone", "TrxID", "Type", "Status", "T-Shirt Given", "ID Given"];
+        const headers = [
+            "ID", "Created At", "Name", "Class", "Section", "C/No", "Wing",
+            "Email", "Phone", "Whatsapp No.", "Membership Type", "T-Shirt Size",
+            "Bkash No.", "TrxID", "Status", "T-Shirt Given", "ID Given", "IP Address"
+        ];
+
         const rows = data.map(d => [
-            d.id, d.full_name, d.class_grade, d.wing, d.phone, d.transaction_id, d.membership_type,
+            d.id,
+            d.created_at ? `"${new Date(d.created_at).toLocaleString()}"` : "N/A",
+            `"${d.full_name || ''}"`,
+            d.class_grade,
+            `"${d.section || ''}"`,
+            d.c_no,
+            d.wing,
+            `"${d.email || ''}"`,
+            d.phone,
+            d.whatsapp,
+            d.membership_type === "with-tshirt" ? "With T-Shirt" : "Without T-Shirt",
+            d.tshirt_size || "N/A",
+            d.bkash_number,
+            d.transaction_id,
             d.is_validated ? "Verified" : "Pending",
             d.tshirt_given ? "Yes" : "No",
-            d.id_card_given ? "Yes" : "No"
+            d.id_card_given ? "Yes" : "No",
+            d.ip_address || "N/A"
         ]);
         const csvContent = "data:text/csv;charset=utf-8,"
             + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
@@ -320,6 +400,23 @@ export default function AdminDashboard() {
                 {/* New Stats Cards */}
                 <StatsCard title="T-Shirts Given" value={stats.tShirtGiven} icon={<Shirt className="text-purple-500" />} />
                 <StatsCard title="ID Cards Given" value={stats.idCardGiven} icon={<IdCard className="text-cyan-500" />} />
+
+                <Card className='md:col-span-2'>
+                    <CardHeader className="flex flex-row justify-between items-center space-y-0 pb-2">
+                        <CardTitle className="font-medium text-gray-500 dark:text-gray-400 text-sm">
+                            Registration Types
+                        </CardTitle>
+                        <Shirt className="text-primary" />
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex flex-row items-center gap-2 mb-2 font-bold dark:text-white text-2xl">
+                            <span className="text-[18px] text-primary">{stats.withTshirt}</span>
+                            <Progress color='yellow' value={(stats.withTshirt / (stats.withTshirt + stats.withoutTshirt)) * 100}></Progress>
+                            <span className="text-[18px] text-primary">{stats.withoutTshirt}</span>
+                        </div>
+                        <p className="mt-1 text-gray-500 dark:text-gray-400 text-sm">With t-shirt vs without t-shirt</p>
+                    </CardContent>
+                </Card>
             </div>
 
             {/* Charts Section */}
@@ -334,10 +431,29 @@ export default function AdminDashboard() {
                                 <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
                                 <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}`} />
                                 <RechartsTooltip
-                                    contentStyle={{ backgroundColor: '#1f2937', borderColor: '#374151', color: '#fff' }}
                                     cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+                                    content={({ active, payload, label }) => {
+                                        if (active && payload && payload.length) {
+                                            return (
+                                                <div
+                                                    className="shadow-sm px-3 py-2 border rounded-md text-sm"
+                                                    style={{ backgroundColor: '#1f2937', borderColor: '#374151', color: '#fff' }}
+                                                >
+                                                    <span className="font-medium">{label}</span>: {payload[0].value}
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    }}
                                 />
-                                <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                                    {stats.classData.map((entry, index) => (
+                                        <Cell
+                                            key={`cell-${index}`}
+                                            fill={CLASS_COLORS[index % CLASS_COLORS.length]}
+                                        />
+                                    ))}
+                                </Bar>
                             </BarChart>
                         </ResponsiveContainer>
                     </CardContent>
@@ -353,16 +469,34 @@ export default function AdminDashboard() {
                                 <Pie
                                     data={stats.wingData}
                                     cx="50%" cy="50%"
-                                    innerRadius={60}
-                                    outerRadius={80}
-                                    paddingAngle={5}
+                                    outerRadius={100}
+                                    paddingAngle={0}
                                     dataKey="value"
+                                    stroke="none"
                                 >
-                                    {stats.wingData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={['#0ea5e9', '#22c55e', '#eab308', '#f43f5e'][index % 4]} />
-                                    ))}
+                                    {stats.wingData.map((entry, index) => {
+                                        const wingKey = entry.name.toUpperCase().trim();
+                                        const color = WING_COLORS[wingKey] || '#8884d8';
+
+                                        return <Cell key={`cell-${index}`} fill={color} />;
+                                    })}
                                 </Pie>
-                                <RechartsTooltip />
+                                <RechartsTooltip
+                                    cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+                                    content={({ active, payload, label }) => {
+                                        if (active && payload && payload.length) {
+                                            return (
+                                                <div
+                                                    className="shadow-sm px-3 py-2 border rounded-md text-sm"
+                                                    style={{ backgroundColor: '#1f2937', borderColor: '#374151', color: '#fff' }}
+                                                >
+                                                    <span className="font-medium">{payload[0].name}</span>: {payload[0].value}
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    }}
+                                />
                             </PieChart>
                         </ResponsiveContainer>
                     </CardContent>
@@ -410,8 +544,18 @@ export default function AdminDashboard() {
                             ) : (
                                 filteredData.map((reg) => {
                                     const ua = parseUA(reg.user_agent || '');
+
+                                    let isAbnormal = false;
+                                    if (reg.created_at && reg.browser_time) {
+                                        const serverTime = new Date(reg.created_at).getTime();
+                                        const clientTime = new Date(reg.browser_time).getTime();
+
+                                        if (!isNaN(serverTime) && !isNaN(clientTime)) {
+                                            isAbnormal = Math.abs(serverTime - clientTime) > 300000;
+                                        }
+                                    }
                                     return (
-                                        <TableRow key={reg.id}>
+                                        <TableRow key={reg.id} className={isAbnormal ? "bg-red-100 dark:bg-red-900/30 hover:bg-red-200 dark:hover:bg-red-900/50" : ""} >
                                             <TableCell className="font-mono text-gray-500 text-base">#{reg.id}</TableCell>
                                             <TableCell>
                                                 <div className="font-medium">{reg.full_name}</div>
@@ -419,11 +563,14 @@ export default function AdminDashboard() {
                                             </TableCell>
                                             <TableCell>
                                                 <Badge variant="outline" className="mr-1">{reg.class_grade}-{reg.section}-{reg.wing}</Badge>
+                                                <div className="mt-0.5 text-gray-500 text-base">
+                                                    {reg.membership_type === 'with-tshirt' ? `With T-Shirt (${reg.tshirt_size})` : 'Without T-Shirt'}
+                                                </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="text-sm">{reg.phone}</div>
                                                 <div className="flex items-center gap-1 text-gray-500 text-base">
-                                                    WB: {reg.whatsapp || '-'}
+                                                    Whatsapp {reg.whatsapp || '-'}
                                                 </div>
                                             </TableCell>
                                             <TableCell>
@@ -431,13 +578,19 @@ export default function AdminDashboard() {
                                                     {reg.transaction_id}
                                                 </div>
                                                 <div className="mt-0.5 text-gray-500 text-base">
-                                                    {reg.membership_type === 'with-tshirt' ? `With T-Shirt (${reg.tshirt_size})` : 'Without T-Shirt'}
+                                                    {reg.bkash_number}
                                                 </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-2 text-gray-500 text-base" title={reg.user_agent}>
                                                     {ua.device === 'Mobile' ? <Smartphone size={14} /> : <Monitor size={14} />}
                                                     {ua.os} / {ua.browser}
+                                                </div>
+                                                <div className="mt-0.5 text-gray-500 text-sm">
+                                                    Browser time: {reg.browser_time ? new Date(reg.browser_time).toLocaleString() : 'N/A'}
+                                                </div>
+                                                <div className="mt-0.5 text-gray-500 text-sm">
+                                                    Registered at: {reg.created_at ? new Date(reg.created_at).toLocaleString() : 'N/A'}
                                                 </div>
                                             </TableCell>
                                             <TableCell className="text-right">
