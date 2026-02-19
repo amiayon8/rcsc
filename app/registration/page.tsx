@@ -212,7 +212,7 @@ export default function RegistrationPage() {
         {
             id: "Final",
             title: "Wait for Confirmation",
-            description: "Please wait for verification. Once confirmed, you will be added to the official WhatsApp group.",
+            description: "Please wait for verification. Once confirmed, you will receive a confirmation message on your WhatsApp number.",
             icon: <CheckCircle className="w-5 h-5 text-white" />,
             color: "bg-green-500",
             status: "Complete"

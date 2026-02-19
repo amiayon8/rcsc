@@ -67,7 +67,7 @@ const achievementsData: YearGroup[] = [
                 title: "APICTA Awards 2nd Runner Up",
                 winner: "Winner: Ayon Sarker (XI-EMMS, Joint Secretary IT)",
                 description: "Achieved distinguished recognition at the Asia Pacific ICT Alliance Awards for innovative technological solutions.",
-                image: "/images/apicta.jpg"
+                image: "/Media/achievements/2025/apicta-25.webp"
             },
             {
                 title: "WRO Bronze Medal",
@@ -187,10 +187,10 @@ const AchievementCard = ({ data }: { data: Achievement }) => {
                 }
       `}
         >
-            <div className="relative bg-[#1a1a2e] border-white/10 border-b w-full h-50 overflow-hidden">
+            <div className="relative bg-[#1a1a2e] border-white/10 border-b w-full aspect-square overflow-hidden">
                 <div className="absolute inset-0 bg-gray-800">
                     <img
-                        src={data.image || "https://placehold.co/600x400/1a1a2e/00d2ff?text=Achievement"}
+                        src={data.image || "https://placehold.co/1080x1080/1a1a2e/00d2ff?text=Achievement"}
                         alt={data.title}
                         className={`h-full w-full object-cover transition-all duration-500 opacity-80 ${isExpanded ? 'opacity-100 scale-105' : 'group-hover:scale-105 group-hover:opacity-100'}`}
                     />
@@ -236,7 +236,7 @@ export default function HallOfFame() {
             <div className="right-[-10%] bottom-[-10%] z-0 fixed bg-blue-600/10 blur-[100px] rounded-full w-125 h-125" />
 
             <div className="z-10 relative w-full max-w-7xl">
-                <div className="mb-16 text-center animate-[slideUp_0.8s_ease_forwards]">
+                <div className="text-center animate-[slideUp_0.8s_ease_forwards]">
                     <h1 className="drop-shadow-[0_0_15px_rgba(0,210,255,0.6)] font-black text-[clamp(2rem,5vw,3.5rem)] text-white text-center uppercase tracking-tighter">
                         Hall of Fame
                     </h1>
