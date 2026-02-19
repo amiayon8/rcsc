@@ -682,7 +682,7 @@ export default function RegistrationPage() {
                                 ))}
                             </ul>
 
-                            <p className="mt-10 text-gray-400 text-sm">** If you face any issue, feel free to contact <a href="tel:+8801870828373" className="text-red-400 hover:text-red-500">+8801870828373</a></p>
+                            <p className="mt-10 text-gray-400 text-sm">** If you face any issue, feel free to contact <a href="https://api.whatsapp.com/send?8801870828373" className="text-red-400 hover:text-red-500 hover:underline">+8801870828373</a></p>
                         </div>
                     </div>
                 </div>
