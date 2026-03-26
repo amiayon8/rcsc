@@ -23,7 +23,7 @@ export default function Home() {
 
           <div className="flex flex-wrap justify-center gap-7.5 opacity-0 animate-[slideUp_0.8s_ease_0.8s_forwards]">
             <Button className="bg-primary hover:bg-transparent shadow-[0_0_20px_rgba(0,210,255,0.4)] hover:shadow-[0_0_30px_rgba(0,210,255,0.6)] px-11.25 py-7 border-[3px] border-primary rounded-[50px] min-w-45 font-black text-[#050510]text-[1.1rem] hover:text-primary uppercase tracking-[1px] transition-all hover:-translate-y-1.25 duration-300 cursor-pointer" asChild><Link href="/registration">Join Now</Link></Button>
-            <Button className="bg-transparent hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] px-11.25 py-7 border-[3px] border-white rounded-[50px] min-w-45 font-black text-[1.1rem] text-white hover:text-black uppercase tracking-[1px] transition-all hover:-translate-y-1.25 duration-300 cursor-pointer" asChild><Link href="/blogs">Read Blogs</Link></Button>
+            <Button className="bg-transparent hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] px-11.25 py-7 border-[3px] border-white rounded-[50px] min-w-45 font-black text-[1.1rem] text-white hover:text-black uppercase tracking-[1px] transition-all hover:-translate-y-1.25 duration-300 cursor-pointer" asChild><Link href="/resources">View Resources</Link></Button>
           </div>
         </div>
       </section>

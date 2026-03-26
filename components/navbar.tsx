@@ -21,6 +21,7 @@ const nav = [
     },
     { label: "EVENTS", url: "/events" },
     { label: "ABOUT", url: "/about" },
+    { label: "RESOURCES", url: "/resources" },
     { label: "JOIN NOW", url: "/registration", className: "nav-btn" },
 ];
 
@@ -46,7 +47,7 @@ export default function Navbar() {
                             </div>
                         </Link>
 
-                        <ul className="hidden md:flex items-center gap-6 font-black tracking-wider">
+                        <ul className="hidden lg:flex items-center gap-6 font-black tracking-wider">
                             {nav.map((item, i) => {
                                 const isActive = item.dropdown
                                     ? isDropdownActive(item.dropdown)
@@ -104,7 +105,7 @@ export default function Navbar() {
                             })}
                         </ul>
 
-                        <button onClick={() => setMenuOpen(true)} className="md:hidden flex flex-col gap-1">
+                        <button onClick={() => setMenuOpen(true)} className="lg:hidden flex flex-col gap-1">
                             <span className="bg-primary rounded w-7 h-0.75" />
                             <span className="bg-primary rounded w-7 h-0.75" />
                             <span className="bg-primary rounded w-7 h-0.75" />

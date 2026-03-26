@@ -24,7 +24,7 @@ const achievementsData: YearGroup[] = [
                 title: "WRO Best Design Innovation",
                 winner: "Winner: Syed Mohammad Mohiuddin Sami",
                 description: "Earned the Best Design Innovation Award in the Future Engineers category at the World Robot Olympiad 2025 held in Manila, Philippines.",
-                image: ""
+                image: "/Media/achievements/2025/test.jpg"
             },
             {
                 title: "IOAI Bronze Medals",

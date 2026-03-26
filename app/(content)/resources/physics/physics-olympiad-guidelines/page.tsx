@@ -1,7 +1,7 @@
 export default function PhysicsOlympiadGuidelines() {
     return (
-        <section className="relative flex flex-col items-center px-5 pt-[150px] pb-[60px] min-h-screen">
-            <div className="relative flex flex-col items-center mx-auto w-full max-w-[1200px]">
+        <section className="relative flex flex-col items-center px-5 pt-37.5 pb-15 min-h-screen">
+            <div className="relative flex flex-col items-center mx-auto w-full max-w-300">
 
                 <div className="opacity-0 mb-12 text-center animate-[slideUp_0.8s_ease_forwards_0.2s]">
                     <h1
@@ -16,7 +16,7 @@ export default function PhysicsOlympiadGuidelines() {
 
                 <div className="mb-12 w-full reveal">
                     <div
-                        className="bg-glass shadow-glow-card backdrop-blur-[15px] mb-8 px-6 md:px-8 py-5 md:py-6 border border-glass-border rounded-[20px]">
+                        className="bg-glass shadow-glow-card backdrop-blur-[15px] mb-8 px-6 md:px-8 py-5 md:py-6 border border-glass-border rounded-4xl">
                         <div className="gap-6 md:gap-8 grid grid-cols-1 md:grid-cols-2">
                             <div>
                                 <h3 className="mb-3 font-black text-primary text-lg uppercase tracking-wider"><i
@@ -38,7 +38,7 @@ export default function PhysicsOlympiadGuidelines() {
                     </div>
 
                     <div
-                        className="bg-[rgba(15,25,50,0.6)] shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-primary/30 rounded-[20px] text-center">
+                        className="bg-[rgba(15,25,50,0.6)] shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-primary/30 rounded-4xl text-center">
                         <p className="text-text-muted text-base md:text-lg leading-relaxed">
                             This guideline is designed for students of different reading levels eager to participate in the Bangladesh
                             Physics Olympiad (BdPhO), from beginners to advanced. The books are roughly arranged from easier to more
@@ -56,7 +56,7 @@ export default function PhysicsOlympiadGuidelines() {
 
                     <div className="gap-8 grid grid-cols-1 md:grid-cols-2 mb-8">
                         <div
-                            className="bg-glass backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-[20px] transition duration-300">
+                            className="bg-glass backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-4xl transition duration-300">
                             <h3 className="mb-4 font-bold text-primary text-lg uppercase tracking-wider">Books</h3>
                             <ol className="space-y-3 text-text-muted text-sm md:text-base leading-relaxed list-decimal list-inside">
                                 <li>Fundamentals of Physics - Halliday, Resnick, and Walker</li>
@@ -68,7 +68,7 @@ export default function PhysicsOlympiadGuidelines() {
                         </div>
 
                         <div
-                            className="bg-glass backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-[20px] transition duration-300">
+                            className="bg-glass backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-4xl transition duration-300">
                             <h3 className="mb-4 font-bold text-primary text-lg uppercase tracking-wider">YouTube Channels</h3>
                             <ol className="space-y-3 text-text-muted text-sm md:text-base list-decimal list-inside">
                                 <li><a href="#" className="hover:text-white hover:underline transition">BdPhO Official Channel</a></li>
@@ -82,7 +82,7 @@ export default function PhysicsOlympiadGuidelines() {
                     </div>
 
                     <div
-                        className="bg-[rgba(15,25,50,0.5)] backdrop-blur-[15px] p-6 md:p-8 border border-primary/30 hover:border-primary rounded-[20px] transition duration-300">
+                        className="bg-[rgba(15,25,50,0.5)] backdrop-blur-[15px] p-6 md:p-8 border border-primary/30 hover:border-primary rounded-4xl transition duration-300">
                         <h3 className="mb-4 font-bold text-primary text-lg uppercase tracking-wider">Overall Guidelines</h3>
                         <ul className="space-y-3 text-text-muted text-sm md:text-base leading-relaxed list-disc list-inside">
                             <li>Make sure to have a thorough understanding of basic vector algebra and calculus. Mathematics is the
@@ -103,7 +103,7 @@ export default function PhysicsOlympiadGuidelines() {
                     <div className="gap-8 grid grid-cols-1 md:grid-cols-2">
 
                         <div
-                            className="bg-[rgba(10,20,40,0.6)] hover:shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-[20px] transition duration-300">
+                            className="bg-[rgba(10,20,40,0.6)] hover:shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-4xl transition duration-300">
                             <h3 className="flex items-center gap-2 mb-5 font-black text-white text-xl uppercase">
                                 <i className="text-primary fas fa-cogs"></i> Mechanics
                             </h3>
@@ -125,7 +125,7 @@ export default function PhysicsOlympiadGuidelines() {
                         </div>
 
                         <div
-                            className="bg-[rgba(10,20,40,0.6)] hover:shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-[20px] transition duration-300">
+                            className="bg-[rgba(10,20,40,0.6)] hover:shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-4xl transition duration-300">
                             <h3 className="flex items-center gap-2 mb-5 font-black text-white text-xl uppercase">
                                 <i className="text-primary fas fa-bolt"></i> Electromagnetism
                             </h3>
@@ -148,7 +148,7 @@ export default function PhysicsOlympiadGuidelines() {
                         </div>
 
                         <div
-                            className="bg-[rgba(10,20,40,0.6)] hover:shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-[20px] transition duration-300">
+                            className="bg-[rgba(10,20,40,0.6)] hover:shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-4xl transition duration-300">
                             <h3 className="flex items-center gap-2 mb-5 font-black text-white text-xl uppercase">
                                 <i className="text-primary fas fa-temperature-full"></i> Thermodynamics
                             </h3>
@@ -170,7 +170,7 @@ export default function PhysicsOlympiadGuidelines() {
                         </div>
 
                         <div
-                            className="bg-[rgba(10,20,40,0.6)] hover:shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-[20px] transition duration-300">
+                            className="bg-[rgba(10,20,40,0.6)] hover:shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-4xl transition duration-300">
                             <h3 className="flex items-center gap-2 mb-5 font-black text-white text-xl uppercase">
                                 <i className="text-primary fas fa-water"></i> Oscillations & Optics
                             </h3>
@@ -192,7 +192,7 @@ export default function PhysicsOlympiadGuidelines() {
                         </div>
 
                         <div
-                            className="md:col-span-2 bg-[rgba(10,20,40,0.6)] hover:shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-[20px] transition duration-300">
+                            className="md:col-span-2 bg-[rgba(10,20,40,0.6)] hover:shadow-glow-card backdrop-blur-[15px] p-6 md:p-8 border border-glass-border hover:border-primary rounded-4xl transition duration-300">
                             <h3 className="flex items-center gap-2 mb-4 font-black text-white text-xl uppercase">
                                 <i className="text-primary fas fa-flask"></i> Experimental Physics
                             </h3>
@@ -209,7 +209,7 @@ export default function PhysicsOlympiadGuidelines() {
                         Problem Solving</h2>
 
                     <div className="gap-8 grid grid-cols-1 md:grid-cols-2 mb-12">
-                        <div className="bg-glass backdrop-blur-[15px] p-6 md:p-8 border border-glass-border rounded-[20px]">
+                        <div className="bg-glass backdrop-blur-[15px] p-6 md:p-8 border border-glass-border rounded-4xl">
                             <h3 className="mb-4 font-bold text-primary text-lg uppercase tracking-wider">Past Papers</h3>
                             <ul className="space-y-3 text-text-muted text-base list-disc list-inside">
                                 <li><span className="font-semibold text-white">BdPhO past problems</span> (Past Papers)</li>
@@ -220,7 +220,7 @@ export default function PhysicsOlympiadGuidelines() {
                             </ul>
                         </div>
 
-                        <div className="bg-glass backdrop-blur-[15px] p-6 md:p-8 border border-glass-border rounded-[20px]">
+                        <div className="bg-glass backdrop-blur-[15px] p-6 md:p-8 border border-glass-border rounded-4xl">
                             <h3 className="mb-4 font-bold text-primary text-lg uppercase tracking-wider">Problem Solving Resources</h3>
                             <ul className="space-y-2 text-text-muted text-sm md:text-base list-decimal list-inside">
                                 <li>F=ma Contest</li>
@@ -239,7 +239,7 @@ export default function PhysicsOlympiadGuidelines() {
                     </div>
 
                     <div
-                        className="bg-[rgba(15,25,50,0.8)] shadow-glow-card backdrop-blur-[15px] mb-12 p-6 md:p-10 border border-primary/50 rounded-[20px] text-text-muted">
+                        className="bg-[rgba(15,25,50,0.8)] shadow-glow-card backdrop-blur-[15px] mb-12 p-6 md:p-10 border border-primary/50 rounded-4xl text-text-muted">
                         <h3 className="mb-6 pb-3 border-glass-border border-b font-bold text-white text-xl uppercase tracking-widest">The
                             Problem Solving Process</h3>
                         <ol className="space-y-3 ml-2 text-slate-300 text-sm md:text-base list-decimal list-inside">
@@ -257,7 +257,7 @@ export default function PhysicsOlympiadGuidelines() {
                         Example Problem</h2>
 
                     <div
-                        className="bg-[rgba(15,25,50,0.8)] shadow-glow-card backdrop-blur-[15px] p-6 md:p-10 border border-primary/50 rounded-[20px] text-text-muted leading-relaxed">
+                        className="bg-[rgba(15,25,50,0.8)] shadow-glow-card backdrop-blur-[15px] p-6 md:p-10 border border-primary/50 rounded-4xl text-text-muted leading-relaxed">
                         <h3 className="mb-4 pb-3 border-glass-border border-b font-bold text-white text-xl uppercase tracking-widest">
                             Rolling Cylinder Dynamics</h3>
 
@@ -270,7 +270,7 @@ export default function PhysicsOlympiadGuidelines() {
                         <div className="mb-6">
                             <h4 className="mb-2 font-bold text-primary text-sm uppercase tracking-wider">Given Variables:</h4>
                             <ul
-                                className="inline-block space-y-1 bg-bg-dark/50 p-4 border border-glass-border rounded-lg min-w-full md:min-w-[300px] font-mono text-sm md:text-base list-none">
+                                className="inline-block space-y-1 bg-bg-dark/50 p-4 border border-glass-border rounded-lg min-w-full md:min-w-75 font-mono text-sm md:text-base list-none">
                                 <li>Mass of the cylinder = <span className="text-white">M</span></li>
                                 <li>Radius of the cylinder = <span className="text-white">R</span></li>
                                 <li>Linear acceleration parallel to the plane = <span className="text-white">a</span></li>
@@ -322,7 +322,7 @@ export default function PhysicsOlympiadGuidelines() {
                     </div>
                 </div>
 
-                <div className="mb-8 w-full max-w-[1000px] text-center reveal">
+                <div className="mb-8 w-full max-w-250 text-center reveal">
                     <h2 className="drop-shadow-glow-title mb-6 font-black text-white text-3xl uppercase">Final Words</h2>
                     <div className="gap-6 grid grid-cols-1 md:grid-cols-3 mb-8 text-left">
                         <div
@@ -349,7 +349,7 @@ export default function PhysicsOlympiadGuidelines() {
                     </div>
 
                     <div
-                        className="bg-gradient-to-r from-[rgba(0,210,255,0.05)] via-[rgba(0,85,255,0.1)] to-[rgba(0,210,255,0.05)] shadow-glow-card p-8 md:p-10 border-primary/40 border-y rounded-2xl">
+                        className="bg-linear-to-r from-[rgba(0,210,255,0.05)] via-[rgba(0,85,255,0.1)] to-[rgba(0,210,255,0.05)] shadow-glow-card p-8 md:p-10 border-primary/40 border-y rounded-2xl">
                         <p className="font-black text-primary text-xl md:text-3xl uppercase tracking-widest">
                             Remember: Practice makes progress!
                         </p>
