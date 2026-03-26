@@ -1,63 +1,56 @@
-import { link } from 'fs';
 import {
-    Lightbulb, Rocket,
-    Beaker, FlaskConical,
-    Dna, Microscope,
     Sigma, Calculator,
-    Baby,
-    Brain, Bot,
+    Atom, Lightbulb,
+    Dna, Microscope,
+    Baby, Beaker,
+    Orbit, Rocket,
+    Code, Terminal,
     ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
 
 const resourcesData = [
     {
-        bgIcon: Lightbulb,
-        fgIcon: Rocket,
-        title: "Physics",
-        description: "Explore the fundamental laws of nature, from the tiniest particles to the vastness of space.",
-        actionText: "Explore",
-        link: "/resources/physics"
+        bgIcon: Sigma,
+        fgIcon: Calculator,
+        title: "Math",
+        description: "Master the language of numbers, building skills from foundational algebra to advanced problem-solving.",
+        link: "/resources/math"
     },
     {
-        bgIcon: Beaker,
-        fgIcon: FlaskConical,
-        title: "Chemistry",
-        description: "Dive into the building blocks of matter, chemical reactions, and the elements that shape our world.",
-        actionText: "View Resources",
-        //link: "/resources/chemistry"
+        bgIcon: Atom,
+        fgIcon: Lightbulb,
+        title: "Physics",
+        description: "Explore the fundamental laws of nature, from the tiniest subatomic particles to the physical forces shaping our reality.",
+        link: "/resources/physics"
     },
     {
         bgIcon: Dna,
         fgIcon: Microscope,
         title: "Biology",
         description: "Discover the wonders of life, exploring everything from cellular structures to complex ecosystems.",
-        actionText: "Explore",
         //link: "/resources/biology"
     },
     {
-        bgIcon: Sigma,
-        fgIcon: Calculator,
-        title: "Math",
-        description: "Master the language of numbers, building skills from foundational algebra to advanced problem-solving.",
-        actionText: "View Resources",
-        link: "/resources/math"
-    },
-    {
         bgIcon: Baby,
-        fgIcon: Lightbulb,
+        fgIcon: Beaker,
         title: "Junior Science",
         description: "Fun, hands-on experiments and easy-to-understand lessons designed specifically for curious young minds.",
-        actionText: "Explore",
         //link: "/resources/junior-science"
     },
     {
-        bgIcon: Brain,
-        fgIcon: Bot,
-        title: "AI",
-        description: "Learn how machines think, uncovering the basics of algorithms, neural networks, and artificial intelligence.",
-        actionText: "View Resources",
-        //link: "/resources/ai"
+        bgIcon: Orbit,
+        fgIcon: Rocket,
+        title: "Space",
+        description: "Journey through the cosmos, studying planets, stars, orbital mechanics, and the mysteries of the universe.",
+        //link: "/resources/space"
+    },
+    {
+        bgIcon: Code,
+        fgIcon: Terminal,
+        title: "Informatics",
+        description: "Delve into computer science, programming algorithms, data structures, and the logic behind software development.",
+        //link: "/resources/informatics"
     }
 ];
 
@@ -114,7 +107,7 @@ export default function Resources() {
                                     </span>
                                 </div>
                                 <button className="flex items-center gap-2 group-hover:gap-4 font-label font-bold text-primary text-xs uppercase tracking-widest transition-all">
-                                    {resource.actionText} <ArrowRight size={16} />
+                                    View Resources <ArrowRight size={16} />
                                 </button>
                             </div>
                         </Link>
