@@ -68,9 +68,6 @@ export default function Resources() {
             <div className="top-0 left-1/2 -z-10 absolute bg-[radial-gradient(circle_at_center,rgba(0,210,255,0.15)_0%,transparent_70%)] w-full h-full -translate-x-1/2 pointer-events-none"></div>
 
             <section className="text-center">
-                <div className="inline-block bg-primary/5 mb-6 px-4 py-1 border border-primary/20 rounded-full">
-                    <span className="font-label text-[10px] text-primary uppercase tracking-[0.3em]">Orbital Telemetry Active</span>
-                </div>
                 {/* Translated .text-glow to Tailwind arbitrary values */}
                 <div className="mb-4 text-center animate-[slideUp_0.8s_ease_forwards]">
                     <h1 className="drop-shadow-[0_0_15px_rgba(0,210,255,0.6)] font-black text-[clamp(2rem,5vw,3.5rem)] text-white uppercase tracking-tighter">
