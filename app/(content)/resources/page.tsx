@@ -13,42 +13,42 @@ const resourcesData = [
     {
         bgIcon: Sigma,
         fgIcon: Calculator,
-        title: "Math",
+        title: "Math Olympiad",
         description: "Master the language of numbers, building skills from foundational algebra to advanced problem-solving.",
         link: "/resources/math"
     },
     {
         bgIcon: Atom,
         fgIcon: Lightbulb,
-        title: "Physics",
+        title: "Physics Olympiad",
         description: "Explore the fundamental laws of nature, from the tiniest subatomic particles to the physical forces shaping our reality.",
         link: "/resources/physics"
     },
     {
         bgIcon: Dna,
         fgIcon: Microscope,
-        title: "Biology",
+        title: "Biology Olympiad",
         description: "Discover the wonders of life, exploring everything from cellular structures to complex ecosystems.",
         //link: "/resources/biology"
     },
     {
         bgIcon: Baby,
         fgIcon: Beaker,
-        title: "Junior Science",
+        title: "Junior Science Olympiad",
         description: "Fun, hands-on experiments and easy-to-understand lessons designed specifically for curious young minds.",
         //link: "/resources/junior-science"
     },
     {
         bgIcon: Orbit,
         fgIcon: Rocket,
-        title: "Space",
+        title: "Space Olympiad",
         description: "Journey through the cosmos, studying planets, stars, orbital mechanics, and the mysteries of the universe.",
         //link: "/resources/space"
     },
     {
         bgIcon: Code,
         fgIcon: Terminal,
-        title: "Informatics",
+        title: "Informatics Olympiad",
         description: "Delve into computer science, programming algorithms, data structures, and the logic behind software development.",
         //link: "/resources/informatics"
     }
