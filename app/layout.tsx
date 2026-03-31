@@ -9,6 +9,67 @@ import { Toaster } from 'sonner';
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Preloader from "@/components/Preloader";
+import localFont from "next/font/local"
+
+// Shurjo ANSI (for legacy encoding)
+export const shurjoANSI = localFont({
+  src: [
+    {
+      path: "./fonts/Shurjo-ANSI-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Shurjo-ANSI-Italic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "./fonts/Shurjo-ANSI-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Shurjo-ANSI-Bold-Italic.ttf",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-shurjo-ansi",
+  display: "swap",
+})
+
+// Shurjo Unicode (modern Bangla)
+export const shurjoUnicode = localFont({
+  src: [
+    {
+      path: "./fonts/Shurjo-UNICODE-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Shurjo-UNICODE-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-shurjo-unicode",
+  display: "swap",
+})
+
+// Siyam Rupali (fallback / alternative)
+export const siyamrupali = localFont({
+  src: [
+    {
+      path: "./fonts/Siyamrupali.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-siyam",
+  display: "swap",
+})
+
 
 const OutfitFont = Outfit({
   variable: "--font-outfit",
@@ -93,7 +154,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${OutfitFont.variable} antialiased dark`}
+        className={`${shurjoANSI.variable} ${shurjoUnicode.variable} ${siyamrupali.variable} ${OutfitFont.variable} antialiased dark`}
       >
         <ProgressLoader color="#ffffff" showSpinner={false} />
         <ClientWorks />

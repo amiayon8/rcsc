@@ -15,14 +15,14 @@ const resourcesData = [
         fgIcon: Calculator,
         title: "Math Olympiad",
         description: "Master the language of numbers, building skills from foundational algebra to advanced problem-solving.",
-        link: "/resources/math"
+        link: "/resources/math/math-olympiad-guidelines"
     },
     {
         bgIcon: Atom,
         fgIcon: Lightbulb,
         title: "Physics Olympiad",
         description: "Explore the fundamental laws of nature, from the tiniest subatomic particles to the physical forces shaping our reality.",
-        link: "/resources/physics"
+        link: "/resources/physics/physics-olympiad-guidelines"
     },
     {
         bgIcon: Dna,
@@ -36,7 +36,7 @@ const resourcesData = [
         fgIcon: Beaker,
         title: "Junior Science Olympiad",
         description: "Fun, hands-on experiments and easy-to-understand lessons designed specifically for curious young minds.",
-        //link: "/resources/junior-science"
+        link: "/resources/bdjso/bdjso-guidelines"
     },
     {
         bgIcon: Orbit,

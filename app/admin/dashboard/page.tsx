@@ -332,6 +332,30 @@ export default function AdminDashboard() {
         );
     }, [data, searchTerm]);
 
+    const toggleTshirtGiven = async (id: number, currentStatus: boolean) => {
+        setActionLoading(id);
+
+        // Optimistic UI update
+        const updatedData = data.map(item =>
+            item.id === id ? { ...item, tshirt_given: !currentStatus } : item
+        );
+        setData(updatedData);
+
+        const { error } = await supabase
+            .from('registrations')
+            .update({ tshirt_given: !currentStatus })
+            .eq('id', id);
+
+        if (error) {
+            toast.error("T-Shirt update failed");
+            setData(data); // rollback
+        } else {
+            toast.success(!currentStatus ? "T-Shirt marked as given" : "T-Shirt removed");
+        }
+
+        setActionLoading(null);
+    };
+
     const exportCSV = () => {
         const headers = [
             "ID", "Created At", "Name", "Class", "Section", "C/No", "Wing",
@@ -528,6 +552,7 @@ export default function AdminDashboard() {
                                 <TableHead>Student</TableHead>
                                 <TableHead>Class/Wing</TableHead>
                                 <TableHead>Contact</TableHead>
+                                <TableHead className='text-center'>Tshirt</TableHead>
                                 <TableHead>Payment</TableHead>
                                 <TableHead>Device</TableHead>
                                 <TableHead className="text-right">Status</TableHead>
@@ -572,6 +597,11 @@ export default function AdminDashboard() {
                                                 <div className="flex items-center gap-1 text-gray-500 text-base">
                                                     Whatsapp {reg.whatsapp || '-'}
                                                 </div>
+                                            </TableCell>
+                                            <TableCell className='text-center'>
+                                                <Button onClick={toggleTshirtGiven.bind(null, reg.id, reg.tshirt_given || false)} variant={reg.tshirt_given ? "outline" : "default"} size="sm" disabled={reg.membership_type !== 'with-tshirt'}>
+                                                    {reg.membership_type === 'with-tshirt' ? reg.tshirt_given ? 'Yes' : 'No' : 'N/A'}
+                                                </Button>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="bg-gray-100 dark:bg-zinc-800 px-1 py-0.5 rounded w-fit font-mono text-base">
