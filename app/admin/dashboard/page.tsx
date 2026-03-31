@@ -599,7 +599,7 @@ export default function AdminDashboard() {
                                                 </div>
                                             </TableCell>
                                             <TableCell className='text-center'>
-                                                <Button onClick={toggleTshirtGiven.bind(null, reg.id, reg.tshirt_given || false)} variant={reg.tshirt_given ? "outline" : "default"} size="sm" disabled={reg.membership_type !== 'with-tshirt'}>
+                                                <Button onClick={toggleTshirtGiven.bind(null, reg.id, reg.tshirt_given || false)} variant={reg.membership_type !== 'with-tshirt' ? "ghost" : reg.tshirt_given ? "outline" : "default"} size="sm" disabled={reg.membership_type !== 'with-tshirt'}>
                                                     {reg.membership_type === 'with-tshirt' ? reg.tshirt_given ? 'Yes' : 'No' : 'N/A'}
                                                 </Button>
                                             </TableCell>
