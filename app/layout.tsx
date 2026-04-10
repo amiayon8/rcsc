@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import { Outfit, Geist, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
-import StarfieldCanvas from "@/components/starFieldCanvas";
+import Navbar from "./nav";
 import Footer from "@/components/footer";
 import ProgressLoader, { ClientWorks } from "./fucking-client"
 import { Toaster } from 'sonner';
@@ -75,6 +74,17 @@ const OutfitFont = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
 });
+
+const GeistFont = Geist({
+  variable: "--font-geist",
+  subsets: ["latin"],
+});
+
+const SpaceGroteskFont = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+});
+
 
 const siteName = "Rajuk College Science Club (RCSC)";
 const siteUrl = "https://www.rcscbd.org";
@@ -154,14 +164,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${shurjoANSI.variable} ${shurjoUnicode.variable} ${siyamrupali.variable} ${OutfitFont.variable} antialiased dark`}
+        className={`${shurjoANSI.variable} ${shurjoUnicode.variable} ${siyamrupali.variable} ${OutfitFont.variable} ${GeistFont.variable} ${SpaceGroteskFont.variable} antialiased dark`}
       >
         <ProgressLoader color="#ffffff" showSpinner={false} />
         <ClientWorks />
         <Preloader />
         <Toaster richColors position="top-center" />
+
         <Navbar />
-        <StarfieldCanvas />
         {children}
         <Footer />
         <Analytics />

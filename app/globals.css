@@ -44,6 +44,13 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  --font-geist: var(--font-geist);
+  --font-space-grotesk: var(--font-space-grotesk);
+  --font-outfit: var(--font-outfit);
+  --font-shurjo-ansi: var(--font-shurjo-ansi);
+  --font-shurjo-unicode: var(--font-shurjo-unicode);
+  --font-shurjo-gothic: var(--font-shurjo-gothic);
+
 
   @keyframes popIn {
     to {
