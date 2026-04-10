@@ -29,7 +29,7 @@ const resourcesData = [
         fgIcon: Microscope,
         title: "Biology Olympiad",
         description: "Discover the wonders of life, exploring everything from cellular structures to complex ecosystems.",
-        //link: "/resources/biology"
+        link: "/resources/biology/biology-olympiad-guidelines"
     },
     {
         bgIcon: Baby,
