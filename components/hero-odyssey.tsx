@@ -320,8 +320,8 @@ export const HeroSection: React.FC = () => {
           </Link>
 
           <motion.h1 className="flex flex-col justify-center items-center gap-4 text-shadow-gray-200/50 text-shadow-lg mb-4 font-geist font-black text-white text-center uppercase">
-            <span className="lg:text-[5.25rem] text-3xl md:text-5xl">Rajuk College</span>
-            <span className="text-4xl sm:text-6xl md:text-8xl">Science Club</span>
+            <span className="lg:text-[5.25rem] text-4xl md:text-5xl">Rajuk College</span>
+            <span className="text-[45px] sm:text-6xl md:text-8xl">Science Club</span>
           </motion.h1>
 
           {/* Description */}
