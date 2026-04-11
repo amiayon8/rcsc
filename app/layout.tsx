@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Preloader from "@/components/Preloader";
 import localFont from "next/font/local"
+import { SmoothScroll } from "@/components/smooth-scroll";
 
 // Shurjo ANSI (for legacy encoding)
 export const shurjoANSI = localFont({
@@ -169,11 +170,13 @@ export default function RootLayout({
         <ProgressLoader color="#ffffff" showSpinner={false} />
         <ClientWorks />
         <Preloader />
-        <Toaster richColors position="top-center" />
+        <SmoothScroll>
+          <Toaster richColors position="top-center" />
 
-        <Navbar />
-        {children}
-        <Footer />
+          <Navbar />
+          {children}
+          <Footer />
+        </SmoothScroll>
         <Analytics />
         <SpeedInsights />
       </body>
