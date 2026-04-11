@@ -1,4 +1,5 @@
 import StarfieldCanvas from "@/components/starFieldCanvas";
+import { Component } from "@/components/grid-background";
 
 export default function RootLayout({
     children,
@@ -6,9 +7,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <>
-            <StarfieldCanvas />
+        <div className="relative w-full h-full" >
+
+            <Component />
             {children}
-        </>
+        </div>
     );
 }

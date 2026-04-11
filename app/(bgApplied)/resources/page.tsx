@@ -58,7 +58,7 @@ export default function Resources() {
     return (
         <main className="relative mx-auto px-6 pt-10 pb-24 max-w-7xl">
             {/* Translated .hero-glow to Tailwind arbitrary values */}
-            <div className="top-0 left-1/2 -z-10 absolute bg-[radial-gradient(circle_at_center,rgba(0,210,255,0.15)_0%,transparent_70%)] w-full h-full -translate-x-1/2 pointer-events-none"></div>
+
 
             <section className="text-center">
                 {/* Translated .text-glow to Tailwind arbitrary values */}

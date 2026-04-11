@@ -230,9 +230,8 @@ const AchievementCard = ({ data }: { data: Achievement }) => {
 
 export default function HallOfFame() {
     return (
-        <div className="flex justify-center items-center bg-[#0b1121] p-4 pt-30 pb-10 w-full min-h-screen text-slate-200">
+        <div className="flex justify-center items-center p-4 pt-30 pb-10 w-full min-h-screen text-slate-200">
 
-            <div className="top-0 left-1/2 -z-10 absolute bg-[radial-gradient(circle_at_center,rgba(0,210,255,0.15)_0%,transparent_70%)] w-full h-full -translate-x-1/2 pointer-events-none"></div>
 
             <div className="z-10 relative w-full max-w-7xl">
                 <div className="text-center animate-[slideUp_0.8s_ease_forwards]">

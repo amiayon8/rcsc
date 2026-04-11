@@ -284,10 +284,8 @@ export default function RegistrationPage() {
     };
 
     return (
-        <div className="flex justify-center items-center bg-[#0b1121] p-4 pt-30 pb-10 w-full min-h-screen text-slate-200">
+        <div className="flex justify-center items-center p-4 pt-30 pb-10 w-full min-h-screen text-slate-200">
 
-            <div className="top-[-10%] left-[-10%] z-0 fixed bg-cyan-500/10 blur-[100px] rounded-full w-125 h-125" />
-            <div className="right-[-10%] bottom-[-10%] z-0 fixed bg-blue-600/10 blur-[100px] rounded-full w-125 h-125" />
 
             <div className="z-10 relative w-full max-w-7xl">
 
